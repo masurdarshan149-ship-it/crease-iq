@@ -81,19 +81,30 @@ def parse_squad(wikitext: str) -> list[dict[str, Any]]:
     """Rows of the squad table -> [{"name", "withdrawn"}] in table order, read from the table's Name column (its
     place comes from the header row "! S/N || Name || Nationality ..."). Withdrawn players are marked with a dagger."""
     lines = wikitext.splitlines()
-    header = next((l for l in lines if l.lstrip().startswith("!") and re.search(r"\bName\b", l)), None)
-    if not header:
-        return []
-    heads = [re.sub(r"\{\{[^}]*\}\}|'''?", "", h).strip() for h in re.split(r"!!|\|\|", header.lstrip()[1:])]
-    col = next((i for i, h in enumerate(heads) if re.fullmatch(r"(?:Player\s+)?Name", h.split("|")[-1].strip(), re.I)), None)
+    # the header: one line for all columns ("! S/N || Name || ...", IPL pages) or one line per column
+    # ('! style="..." |Name', Big Bash pages); it ends at the first row break after it
+    heads: list[str] = []
+    started = False
+    for l in lines:
+        s = l.strip()
+        if s.startswith("!"):
+            started = True
+            for h in re.split(r"!!|\|\|", s[1:]):
+                heads.append(re.sub(r"\{\{[^}]*\}\}|'''?", "", h).split("|")[-1].strip())
+        elif started and s.startswith("|-"):
+            break
+    col = next((i for i, h in enumerate(heads) if re.fullmatch(r"(?:Player\s+)?Name", h, re.I)), None)
     if col is None:
         return []
     players: list[dict[str, Any]] = []
     seen: set[str] = set()
     # the caption ("|+ ... squad for the ...") and the header lines are not players
-    body = "\n".join(l for l in lines if not l.lstrip().startswith(("|+", "!", "{|", "|}")))
+    body = "\n".join(l for l in lines if not l.lstrip().startswith(("|+", "{|", "|}")))
     for row in re.split(r"\n\|-", body):
-        text = row.strip()
+        # a row starts with its own settings ('style="text-align:center"'); the cells follow on lines starting "|"
+        # (several on one line split by "||", or one per line); group headings ("! Batters") are not rows
+        rows = row.split("\n")
+        text = "\n".join(rows[1:] if rows and not rows[0].lstrip().startswith("|") else rows).strip()
         if not text.startswith("|"):
             continue
         cells = [c.strip() for c in re.split(r"\|\||\n\|", text.lstrip("|"))]
