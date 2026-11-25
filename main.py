@@ -28,6 +28,8 @@ HISTORY_PATH = Path(os.environ.get("CRICKET_HISTORY_PATH") or "prediction_histor
 # their own browser and travel with the few requests that need them (see _read_history / _write_history and the
 # "client_history" field); admin actions (retrain, data updates, settings, drop logging) are switched off.
 PUBLIC = os.environ.get("CREASE_PUBLIC") == "1"
+# the online copy also shows your photos and team logos (web/img) when this is set: the Render build sets it
+PUBLIC_IMAGES = PUBLIC and os.environ.get("CREASE_PUBLIC_IMAGES") == "1"
 _REQ = threading.local()  # the current request's copy of the visitor's history (public mode only)
 PUBLIC_BLOCKED = {"/api/settings", "/api/retrain", "/api/update-all", "/api/auto-update", "/api/update-data", "/api/history/restore-backup"}
 _RATE: dict = {}
@@ -6030,14 +6032,14 @@ class PredictorHandler(BaseHTTPRequestHandler):
             if parsed.path.startswith("/api/") and not _rate_ok(self._client_ip()):
                 self._send_json({"error": "Too many requests: wait a minute and try again."}, 429)
                 return
-            if parsed.path.startswith("/static/img/"):  # your own photos and team logos stay on your PC
+            if parsed.path.startswith("/static/img/") and not PUBLIC_IMAGES:  # photos / team logos stay on your PC
                 self.send_error(404)
                 return
             allowed = parsed.path == "/" or parsed.path.startswith(("/api/", "/static/")) or parsed.path in ("/sw.js", "/manifest.webmanifest")
             if not allowed or (parsed.path == "/" and "mode" in params):  # no old server-rendered pages online
                 self._send_redirect("/")
                 return
-            if parsed.path == "/api/photos":
+            if parsed.path == "/api/photos" and not PUBLIC_IMAGES:
                 self._send_json({})
                 return
         # ---- new single-page app ----

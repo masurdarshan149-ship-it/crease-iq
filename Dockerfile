@@ -7,6 +7,6 @@ COPY --chown=user requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY --chown=user . .
 USER user
-ENV CREASE_PUBLIC=1 CREASE_HOST=0.0.0.0 PYTHONUNBUFFERED=1
+ENV CREASE_PUBLIC=1 CREASE_HOST=0.0.0.0 CREASE_PUBLIC_IMAGES=1 PYTHONUNBUFFERED=1
 EXPOSE 10000
 CMD ["python", "main.py", "serve"]
