@@ -3070,3 +3070,8 @@ html.m-phone #history-body .score-head p { display: none; }  /* the explanation:
 .hist-tools label.ghost-btn { display: inline-flex; align-items: center; }
 html.m-phone .hist-tools { justify-content: flex-start; margin-top: 10px; }
 html.m-phone .hist-tools .ghost-btn { padding: 8px 14px; font-size: 0.85rem; }
+
+/* Accuracy model cards: a gap below the box above them, and the number, bar and stage rows lined up across the cards
+   (a card with a badge - Baseline / Used in app - no longer pushes its numbers lower than the others) */
+#acc-body .cards-4 { margin-top: 18px; }
+.model-card .big-num { margin-top: auto; }
