@@ -243,6 +243,7 @@ def chase(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
         frac = done / mb
         phase = "start" if done <= 0 else "early" if frac <= 0.3 else "middle" if frac <= 0.75 else "late"
         trust = trust_level("chase", phase, mode, max(pct, 100 - pct))
+        verdict = verdict_for_trust(verdict, trust)
     return {**out, "batting_team": bat, "chasing_team": chase_team, "batting_code": form["batting_first_team_code"],
             "chasing_code": form["chasing_team_code"], "verdict": verdict, "winner": winner, "format": fmt, "trust": trust}
 
@@ -434,6 +435,26 @@ def sure_odi_note(fmt: str, stage: str, fav_pct: float) -> dict[str, Any] | None
     return {"text": text, "right": now["right"], "matches": now["n"]}
 
 
+_VERDICT_RANK = {"Too close to call": 0, "Slight edge": 1, "Clear favourite": 2, "Strong favourite": 3}
+
+
+def verdict_for_trust(verdict: str, trust: dict[str, Any] | None) -> str:
+    """The heading never sounds surer than the trust badge under it: with a Lean badge (e.g. an IPL call before the
+    match, capped at Lean) "Clear / Strong favourite" becomes "Lean pick"; with a Toss-up badge anything above "Slight
+    edge" becomes "Toss-up". Any " · 73% chance" ending is kept."""
+    if not trust:
+        return verdict
+    head, sep, tail = verdict.partition(" · ")
+    rank = _VERDICT_RANK.get(head)
+    if rank is None:
+        return verdict
+    if trust.get("level") == "lean" and rank >= 2:
+        head = "Lean pick"
+    elif trust.get("level") == "toss-up" and rank >= 2:
+        head = "Toss-up"
+    return head + sep + tail
+
+
 def trust_level(model: str, stage: str, mode: str, fav_pct: float) -> dict[str, Any] | None:
     """Strong / Lean / Toss-up for a prediction, with how often that level was right in unseen matches like it
     (scripts/trust_levels.py, rebuilt with every retrain). The competition's own figure is used; with few matches it
@@ -597,6 +618,8 @@ def predict(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
     bat_pct = result.batting_first_win_probability
     margin = abs(bat_pct - 50)
     verdict = "Too close to call" if margin < 5 else "Slight edge" if margin < 12 else "Clear favourite" if margin < 25 else "Strong favourite"
+    trust = trust_level("win", stage, mode, max(bat_pct, 100 - bat_pct)) if "ML" in str(result.model_used) else None
+    verdict = verdict_for_trust(verdict, trust)
     return {
         "batting_team": result.batting_first_team,
         "chasing_team": result.chasing_team,
@@ -606,8 +629,7 @@ def predict(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
         "chasing_pct": result.chasing_win_probability,
         "winner": result.predicted_winner,
         "verdict": verdict,
-        "trust": trust_level("win", stage, mode, max(bat_pct, 100 - bat_pct))
-        if "ML" in str(result.model_used) else None,
+        "trust": trust,
         "sure_note": sure_odi_note(fmt, stage, max(bat_pct, 100 - bat_pct)) if "ML" in str(result.model_used) else None,
         "model_used": result.model_used,
         "explanation": result.explanation,
