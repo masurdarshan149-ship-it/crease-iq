@@ -2898,7 +2898,7 @@ html[data-theme="dark"] svg.cq { --ball: #e2604e; --pitch: #9fb56f; --gold: #e6b
    Desktop never gets the m-phone class, and every .m-fold is display: contents there, so it looks exactly as before.
    ================================================================================================================= */
 .m-fold { display: contents; }
-.m-fold-btn, .m-phead, .m-crests, .m-next, .m-sum { display: none; }
+.m-fold-btn, .m-phead, .m-crests, .m-next, .m-sum, .m-modes { display: none; }
 html.m-phone .m-fold { display: block; margin: 12px 0; }
 html.m-phone .m-fold-btn { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; text-align: left;
   padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
@@ -3031,3 +3031,17 @@ html.m-phone .page-head { padding: 18px 16px; border-radius: 22px; }
 html.m-phone .page-head h1 { font-size: clamp(1.8rem, 9vw, 2.4rem); line-height: 1; overflow-wrap: anywhere; }
 html.m-phone .page-head .lede { font-size: 0.86rem; }
 html.m-phone main#app { overflow-x: hidden; }
+
+/* ---- phone: the first choice decides the form (Before the match / Innings break / Live chase) */
+html.m-phone .stage-toggle { display: none; }
+html.m-phone .m-modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0 0 12px; }
+html.m-phone .m-modes button { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 10px 9px; border-radius: 16px; text-align: left;
+  border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; min-width: 0; }
+html.m-phone .m-modes b { font-family: var(--display); font-size: 1rem; font-weight: 800; text-transform: uppercase; line-height: 1.05; }
+html.m-phone .m-modes small { font-size: 0.66rem; color: var(--muted); }
+html.m-phone .m-modes button.active { background: var(--gold); border-color: transparent; color: #1d1d1a; }
+html.m-phone .m-modes button.active small { color: rgba(29, 29, 26, .75); }
+html.m-phone #predict-form .step.m-off { display: none !important; }
+/* ---- phone: the answer card. Simple view = winner, chance, trust and one way into the details */
+html.m-phone .simple #r-situation, html.m-phone .simple .rchips, html.m-phone .simple .rview { display: none !important; }
+html.m-phone .simple .rmore { margin-top: 12px; }

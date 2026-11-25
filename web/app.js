@@ -5238,7 +5238,7 @@
       const head = document.createElement("div"); head.className = "m-phead";
       head.innerHTML = `<small class="m-step-no"></small><h2 class="m-step-title"></h2><div class="m-progress">${STEP_TITLE.map(() => "<i></i>").join("")}</div>`;
       form.querySelector(".stage-toggle")?.after(head);
-      const visible = () => steps.filter((s) => !s.hidden);
+      const visible = () => steps.filter((s) => !s.hidden && !s.classList.contains("m-off"));
       const summary = (s) => {
         const i = visible().indexOf(s);
         if (i === 0) return `${team(state.batting)?.name || state.batting} v ${team(state.chasing)?.name || state.chasing}`;
@@ -5270,11 +5270,44 @@
       // extras inside the steps fold away: pitch and conditions, the batters at the crease, the XI helpers
       fold([$("#conditions")], "Pitch and conditions", "From the pitch report · read a report or a picture");
       fold([$(".step-hint", steps[steps.length - 1])], "How to pick the XIs");
+      // ---- the first choice decides the form: Before the match (teams only, score left out), Innings break (teams +
+      // score) or Live chase (teams + the ball pad). Ground and XIs stay as optional, closed steps.
+      const MODES = [["pre", "Before the match", "Pick two teams"], ["inns", "Innings break", "Teams + score"], ["chase", "Live chase", "Ball by ball"]];
+      const modes = document.createElement("div"); modes.className = "m-modes"; modes.setAttribute("role", "group"); modes.setAttribute("aria-label", "What to predict");
+      modes.innerHTML = MODES.map(([k, l, s]) => `<button type="button" data-m-mode="${k}"><b>${l}</b><small>${s}</small></button>`).join("");
+      head.before(modes);
+      let mMode = store.get("m.mode", state.stage === "chase" ? "chase" : "inns");
+      const firstStep = $("#first-step"), chaseStep = $("#chase-step");
+      const paintMode = () => {
+        $$("[data-m-mode]", modes).forEach((b) => b.classList.toggle("active", b.dataset.mMode === mMode));
+        firstStep?.classList.toggle("m-off", mMode === "pre");
+        form.classList.toggle("m-pre", mMode === "pre");
+      };
+      const setMode = (m, user) => {
+        mMode = m; store.set("m.mode", m); paintMode();
+        if (!user) return;
+        if (m === "chase") { if (state.stage !== "chase") $('.stage-toggle [data-stage="chase"]')?.click(); openStep(chaseStep, true); return; }
+        if (state.stage === "chase") $('.stage-toggle [data-stage="first"]')?.click();
+        if (m === "pre") { $("#pre-match-btn")?.click(); openStep(steps[0], true); }
+        else { if (state.balls === 0) $("#innings-over-btn")?.click(); openStep(firstStep, true); }
+      };
+      modes.addEventListener("click", (e) => { const b = e.target.closest("[data-m-mode]"); if (b && mq.matches) setMode(b.dataset.mMode, true); });
+      // Before the match always predicts from 0/0 (even if a saved innings came back after the page opened)
+      $("#predict-btn")?.addEventListener("click", () => {
+        if (mq.matches && mMode === "pre" && state.stage !== "chase" && (state.balls || state.runs || state.wickets)) {
+          state.balls = 0; state.runs = 0; state.wickets = 0; syncScore();
+        }
+      }, true);
+      paintMode();
       openStep(steps[0], false);
       form.addEventListener("change", refreshSums); form.addEventListener("input", refreshSums); form.addEventListener("click", () => setTimeout(refreshSums, 30));
-      // the chase / first-innings switch swaps step 3: keep the open step sensible
-      new MutationObserver(() => { const open = visible().find((s) => !s.classList.contains("m-closed")); openStep(open || visible()[0], false); })
-        .observe(form, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
+      // the chase / first-innings switch (also from the Live chase tab) swaps step 3: keep the mode and open step sensible
+      new MutationObserver(() => {
+        const inChase = state.stage === "chase";
+        if (inChase && mMode !== "chase") setMode("chase", false);
+        else if (!inChase && mMode === "chase") setMode("inns", false);
+        const open = visible().find((s) => !s.classList.contains("m-closed")); openStep(open || visible()[0], false);
+      }).observe(form, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
     }
     // ---- team crests: tap the team batting first, then the chasing team (the drop-downs stay for every team)
     const teamsBox = form?.querySelector(".teams");
