@@ -1,0 +1,382 @@
+{
+ "made_at": "2026-11-17 22:22",
+ "test_from": "2025-01-01",
+ "lean_from": 60.0,
+ "strong_from": 70.0,
+ "min_matches": 25,
+ "win": {
+  "pre_match": {
+   "all": {
+    "toss-up": {
+     "right_pct": 54.2,
+     "matches": 459,
+     "share_pct": 35.4
+    },
+    "lean": {
+     "right_pct": 68.0,
+     "matches": 372,
+     "share_pct": 28.7
+    },
+    "strong": {
+     "right_pct": 85.8,
+     "matches": 466,
+     "share_pct": 35.9
+    }
+   },
+   "ipl": {
+    "toss-up": {
+     "right_pct": 57.7,
+     "matches": 78,
+     "share_pct": 55.7
+    },
+    "lean": {
+     "right_pct": 46.3,
+     "matches": 41,
+     "share_pct": 29.3
+    },
+    "strong": {
+     "right_pct": 71.4,
+     "matches": 21,
+     "share_pct": 15.0
+    }
+   },
+   "international": {
+    "toss-up": {
+     "right_pct": 53.5,
+     "matches": 381,
+     "share_pct": 32.9
+    },
+    "lean": {
+     "right_pct": 70.7,
+     "matches": 331,
+     "share_pct": 28.6
+    },
+    "strong": {
+     "right_pct": 86.5,
+     "matches": 445,
+     "share_pct": 38.5
+    }
+   }
+  },
+  "mid_innings": {
+   "all": {
+    "toss-up": {
+     "right_pct": 53.1,
+     "matches": 296,
+     "share_pct": 22.8
+    },
+    "lean": {
+     "right_pct": 64.8,
+     "matches": 279,
+     "share_pct": 21.5
+    },
+    "strong": {
+     "right_pct": 86.8,
+     "matches": 722,
+     "share_pct": 55.7
+    }
+   },
+   "ipl": {
+    "toss-up": {
+     "right_pct": 48.2,
+     "matches": 50,
+     "share_pct": 35.9
+    },
+    "lean": {
+     "right_pct": 65.1,
+     "matches": 42,
+     "share_pct": 30.3
+    },
+    "strong": {
+     "right_pct": 74.3,
+     "matches": 47,
+     "share_pct": 33.9
+    }
+   },
+   "international": {
+    "toss-up": {
+     "right_pct": 54.1,
+     "matches": 245,
+     "share_pct": 21.2
+    },
+    "lean": {
+     "right_pct": 64.8,
+     "matches": 236,
+     "share_pct": 20.4
+    },
+    "strong": {
+     "right_pct": 87.7,
+     "matches": 674,
+     "share_pct": 58.3
+    }
+   }
+  },
+  "innings_break": {
+   "all": {
+    "toss-up": {
+     "right_pct": 49.5,
+     "matches": 182,
+     "share_pct": 14.1
+    },
+    "lean": {
+     "right_pct": 59.3,
+     "matches": 214,
+     "share_pct": 16.5
+    },
+    "strong": {
+     "right_pct": 88.7,
+     "matches": 899,
+     "share_pct": 69.4
+    }
+   },
+   "ipl": {
+    "toss-up": {
+     "right_pct": 41.2,
+     "matches": 34,
+     "share_pct": 24.3
+    },
+    "lean": {
+     "right_pct": 71.0,
+     "matches": 31,
+     "share_pct": 22.1
+    },
+    "strong": {
+     "right_pct": 82.7,
+     "matches": 75,
+     "share_pct": 53.6
+    }
+   },
+   "international": {
+    "toss-up": {
+     "right_pct": 51.4,
+     "matches": 148,
+     "share_pct": 12.8
+    },
+    "lean": {
+     "right_pct": 57.4,
+     "matches": 183,
+     "share_pct": 15.8
+    },
+    "strong": {
+     "right_pct": 89.2,
+     "matches": 824,
+     "share_pct": 71.3
+    }
+   }
+  }
+ },
+ "chase": {
+  "start": {
+   "all": {
+    "toss-up": {
+     "right_pct": 56.5,
+     "matches": 209,
+     "share_pct": 16.1
+    },
+    "lean": {
+     "right_pct": 65.1,
+     "matches": 229,
+     "share_pct": 17.7
+    },
+    "strong": {
+     "right_pct": 88.8,
+     "matches": 859,
+     "share_pct": 66.2
+    }
+   },
+   "ipl": {
+    "toss-up": {
+     "right_pct": 55.9,
+     "matches": 34,
+     "share_pct": 24.3
+    },
+    "lean": {
+     "right_pct": 68.6,
+     "matches": 35,
+     "share_pct": 25.0
+    },
+    "strong": {
+     "right_pct": 84.5,
+     "matches": 71,
+     "share_pct": 50.7
+    }
+   },
+   "international": {
+    "toss-up": {
+     "right_pct": 56.6,
+     "matches": 175,
+     "share_pct": 15.1
+    },
+    "lean": {
+     "right_pct": 64.4,
+     "matches": 194,
+     "share_pct": 16.8
+    },
+    "strong": {
+     "right_pct": 89.2,
+     "matches": 788,
+     "share_pct": 68.1
+    }
+   }
+  },
+  "early": {
+   "all": {
+    "toss-up": {
+     "right_pct": 57.3,
+     "matches": 187,
+     "share_pct": 14.4
+    },
+    "lean": {
+     "right_pct": 67.2,
+     "matches": 181,
+     "share_pct": 14.0
+    },
+    "strong": {
+     "right_pct": 90.7,
+     "matches": 928,
+     "share_pct": 71.6
+    }
+   },
+   "ipl": {
+    "toss-up": {
+     "right_pct": 63.8,
+     "matches": 31,
+     "share_pct": 22.0
+    },
+    "lean": {
+     "right_pct": 74.0,
+     "matches": 29,
+     "share_pct": 20.6
+    },
+    "strong": {
+     "right_pct": 88.2,
+     "matches": 80,
+     "share_pct": 57.4
+    }
+   },
+   "international": {
+    "toss-up": {
+     "right_pct": 56.0,
+     "matches": 156,
+     "share_pct": 13.5
+    },
+    "lean": {
+     "right_pct": 66.0,
+     "matches": 152,
+     "share_pct": 13.2
+    },
+    "strong": {
+     "right_pct": 90.9,
+     "matches": 847,
+     "share_pct": 73.3
+    }
+   }
+  },
+  "middle": {
+   "all": {
+    "toss-up": {
+     "right_pct": 53.6,
+     "matches": 103,
+     "share_pct": 8.2
+    },
+    "lean": {
+     "right_pct": 65.0,
+     "matches": 110,
+     "share_pct": 8.8
+    },
+    "strong": {
+     "right_pct": 93.5,
+     "matches": 1040,
+     "share_pct": 83.0
+    }
+   },
+   "ipl": {
+    "toss-up": {
+     "right_pct": 56.4,
+     "matches": 13,
+     "share_pct": 9.4
+    },
+    "lean": {
+     "right_pct": 64.0,
+     "matches": 19,
+     "share_pct": 13.7
+    },
+    "strong": {
+     "right_pct": 91.2,
+     "matches": 107,
+     "share_pct": 76.9
+    }
+   },
+   "international": {
+    "toss-up": {
+     "right_pct": 53.1,
+     "matches": 90,
+     "share_pct": 8.1
+    },
+    "lean": {
+     "right_pct": 65.3,
+     "matches": 91,
+     "share_pct": 8.2
+    },
+    "strong": {
+     "right_pct": 93.8,
+     "matches": 933,
+     "share_pct": 83.8
+    }
+   }
+  },
+  "late": {
+   "all": {
+    "toss-up": {
+     "right_pct": 55.9,
+     "matches": 46,
+     "share_pct": 4.9
+    },
+    "lean": {
+     "right_pct": 63.5,
+     "matches": 48,
+     "share_pct": 5.2
+    },
+    "strong": {
+     "right_pct": 96.2,
+     "matches": 843,
+     "share_pct": 89.9
+    }
+   },
+   "ipl": {
+    "toss-up": {
+     "right_pct": 64.5,
+     "matches": 8,
+     "share_pct": 6.4
+    },
+    "lean": {
+     "right_pct": 80.0,
+     "matches": 6,
+     "share_pct": 5.1
+    },
+    "strong": {
+     "right_pct": 95.2,
+     "matches": 108,
+     "share_pct": 88.5
+    }
+   },
+   "international": {
+    "toss-up": {
+     "right_pct": 54.1,
+     "matches": 38,
+     "share_pct": 4.7
+    },
+    "lean": {
+     "right_pct": 61.0,
+     "matches": 42,
+     "share_pct": 5.2
+    },
+    "strong": {
+     "right_pct": 96.4,
+     "matches": 735,
+     "share_pct": 90.1
+    }
+   }
+  }
+ }
+}

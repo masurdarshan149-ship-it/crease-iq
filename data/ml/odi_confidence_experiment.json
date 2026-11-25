@@ -1,0 +1,121 @@
+{
+ "made": "2026-11-23 18:46",
+ "seasons": {
+  "2022": {
+   "matches": 129,
+   "pull": 0.95,
+   "cap": 1.0,
+   "accuracy": 71.3,
+   "log_loss": {
+    "model": 0.5598,
+    "pull": 0.5568,
+    "cap": 0.5598
+   },
+   "sure_90": {
+    "model": {
+     "n": 28,
+     "said": 94.1,
+     "right": 96.4
+    },
+    "pull": {
+     "n": 25,
+     "said": 93.8,
+     "right": 96.0
+    },
+    "cap": {
+     "n": 28,
+     "said": 94.1,
+     "right": 96.4
+    }
+   }
+  },
+  "2023": {
+   "matches": 173,
+   "pull": 0.75,
+   "cap": 0.95,
+   "accuracy": 75.7,
+   "log_loss": {
+    "model": 0.4799,
+    "pull": 0.484,
+    "cap": 0.4801
+   },
+   "sure_90": {
+    "model": {
+     "n": 47,
+     "said": 93.9,
+     "right": 95.7
+    },
+    "pull": {
+     "n": 18,
+     "said": 92.2,
+     "right": 88.9
+    },
+    "cap": {
+     "n": 47,
+     "said": 93.4,
+     "right": 95.7
+    }
+   }
+  },
+  "2024": {
+   "matches": 69,
+   "pull": 0.9,
+   "cap": 0.92,
+   "accuracy": 78.3,
+   "log_loss": {
+    "model": 0.4977,
+    "pull": 0.4978,
+    "cap": 0.5045
+   },
+   "sure_90": {
+    "model": {
+     "n": 16,
+     "said": 94.6,
+     "right": 93.8
+    },
+    "pull": {
+     "n": 14,
+     "said": 93.6,
+     "right": 100.0
+    },
+    "cap": {
+     "n": 16,
+     "said": 91.9,
+     "right": 93.8
+    }
+   }
+  },
+  "2025-26": {
+   "matches": 188,
+   "pull": 0.95,
+   "cap": 1.0,
+   "accuracy": 73.4,
+   "log_loss": {
+    "model": 0.5485,
+    "pull": 0.546,
+    "cap": 0.5485
+   },
+   "sure_90": {
+    "model": {
+     "n": 37,
+     "said": 93.1,
+     "right": 81.1
+    },
+    "pull": {
+     "n": 30,
+     "said": 92.9,
+     "right": 83.3
+    },
+    "cap": {
+     "n": 37,
+     "said": 93.1,
+     "right": 81.1
+    }
+   }
+  }
+ },
+ "wins": {
+  "pull": 2,
+  "cap": 0
+ }
+}

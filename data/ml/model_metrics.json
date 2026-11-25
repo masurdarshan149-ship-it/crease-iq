@@ -1,0 +1,208 @@
+{
+  "trained_at": "2026-11-17 20:55",
+  "chosen": "ensemble_lr_lgbm",
+  "best_iteration": 883,
+  "split": {
+    "train": "< 2024-01-01",
+    "validation": "2024-01-01 .. 2025-01-01",
+    "test": ">= 2025-01-01"
+  },
+  "matches": {
+    "train": 8531,
+    "val": 709,
+    "test": 1297
+  },
+  "test": {
+    "all_states": {
+      "original_formula": {
+        "accuracy": 0.5914,
+        "log_loss": 0.9494,
+        "brier": 0.3055,
+        "matches": 1297
+      },
+      "logistic_regression": {
+        "accuracy": 0.7401,
+        "log_loss": 0.5042,
+        "brier": 0.1684,
+        "matches": 1297
+      },
+      "lightgbm": {
+        "accuracy": 0.7434,
+        "log_loss": 0.4968,
+        "brier": 0.1663,
+        "matches": 1297
+      },
+      "lightgbm_calibrated": {
+        "accuracy": 0.7438,
+        "log_loss": 0.4979,
+        "brier": 0.1665,
+        "matches": 1297
+      },
+      "ensemble_lr_lgbm": {
+        "accuracy": 0.7435,
+        "log_loss": 0.4959,
+        "brier": 0.1656,
+        "matches": 1297
+      }
+    },
+    "pre_match": {
+      "original_formula": {
+        "accuracy": 0.5189,
+        "log_loss": 1.4679,
+        "brier": 0.4355,
+        "matches": 1297
+      },
+      "logistic_regression": {
+        "accuracy": 0.6885,
+        "log_loss": 0.5778,
+        "brier": 0.1975,
+        "matches": 1297
+      },
+      "lightgbm": {
+        "accuracy": 0.697,
+        "log_loss": 0.5676,
+        "brier": 0.1942,
+        "matches": 1297
+      },
+      "lightgbm_calibrated": {
+        "accuracy": 0.6939,
+        "log_loss": 0.5676,
+        "brier": 0.194,
+        "matches": 1297
+      },
+      "ensemble_lr_lgbm": {
+        "accuracy": 0.6955,
+        "log_loss": 0.5682,
+        "brier": 0.1937,
+        "matches": 1297
+      }
+    },
+    "mid_innings": {
+      "original_formula": {
+        "accuracy": 0.5712,
+        "log_loss": 0.9859,
+        "brier": 0.3189,
+        "matches": 29497
+      },
+      "logistic_regression": {
+        "accuracy": 0.7191,
+        "log_loss": 0.5307,
+        "brier": 0.1788,
+        "matches": 29497
+      },
+      "lightgbm": {
+        "accuracy": 0.724,
+        "log_loss": 0.5222,
+        "brier": 0.1764,
+        "matches": 29497
+      },
+      "lightgbm_calibrated": {
+        "accuracy": 0.7243,
+        "log_loss": 0.524,
+        "brier": 0.1767,
+        "matches": 29497
+      },
+      "ensemble_lr_lgbm": {
+        "accuracy": 0.7221,
+        "log_loss": 0.5213,
+        "brier": 0.1757,
+        "matches": 29497
+      }
+    },
+    "innings_break": {
+      "original_formula": {
+        "accuracy": 0.766,
+        "log_loss": 0.4949,
+        "brier": 0.1626,
+        "matches": 1295
+      },
+      "logistic_regression": {
+        "accuracy": 0.783,
+        "log_loss": 0.4465,
+        "brier": 0.1448,
+        "matches": 1295
+      },
+      "lightgbm": {
+        "accuracy": 0.7776,
+        "log_loss": 0.4354,
+        "brier": 0.1429,
+        "matches": 1295
+      },
+      "lightgbm_calibrated": {
+        "accuracy": 0.7784,
+        "log_loss": 0.435,
+        "brier": 0.143,
+        "matches": 1295
+      },
+      "ensemble_lr_lgbm": {
+        "accuracy": 0.783,
+        "log_loss": 0.4322,
+        "brier": 0.1413,
+        "matches": 1295
+      }
+    },
+    "ipl_innings_break": {
+      "original_formula": {
+        "accuracy": 0.7,
+        "log_loss": 0.5942,
+        "brier": 0.2025,
+        "matches": 140
+      },
+      "logistic_regression": {
+        "accuracy": 0.6929,
+        "log_loss": 0.5562,
+        "brier": 0.1878,
+        "matches": 140
+      },
+      "lightgbm": {
+        "accuracy": 0.7,
+        "log_loss": 0.584,
+        "brier": 0.199,
+        "matches": 140
+      },
+      "lightgbm_calibrated": {
+        "accuracy": 0.7,
+        "log_loss": 0.5943,
+        "brier": 0.201,
+        "matches": 140
+      },
+      "ensemble_lr_lgbm": {
+        "accuracy": 0.7,
+        "log_loss": 0.5621,
+        "brier": 0.1902,
+        "matches": 140
+      }
+    }
+  },
+  "feature_importance_pct": {
+    "runs_vs_par": 28.7,
+    "kal_diff": 10.9,
+    "bat_xi_exp": 6.2,
+    "chase_xi_bat": 5.5,
+    "chase_xi_exp": 5.4,
+    "run_rate": 5.2,
+    "runs": 4.1,
+    "wickets": 3.9,
+    "venue_bf_rate": 3.6,
+    "kal_unc": 3.5,
+    "bat_next3": 3.2,
+    "prc_sr": 3.2,
+    "bat_xi_bat": 2.3,
+    "bat_crease": 1.8,
+    "home_diff": 1.8,
+    "prb_ec": 1.6,
+    "prb_sr": 1.5,
+    "bat_xi_bowl_econ": 1.4,
+    "chase_xi_bowl_econ": 1.2,
+    "prb_wk": 1.1,
+    "prc_bpd": 1.0,
+    "prc_ec": 0.9,
+    "venue_avg": 0.8,
+    "prb_bpd": 0.5,
+    "prc_wk": 0.5,
+    "is_ipl": 0.2,
+    "is_club": 0.1,
+    "is_odi": 0.0,
+    "balls_left_frac": 0.0
+  }
+}

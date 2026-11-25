@@ -1,0 +1,861 @@
+{
+ "toss": {
+  "All matches \u00b7 all years": {
+   "matches": 6735,
+   "toss_winner_won": 50.5,
+   "chose_to_bowl": 54.2,
+   "won_when_chose_bat": 48.4,
+   "won_when_chose_bowl": 52.2
+  },
+  "All matches \u00b7 since 2023": {
+   "matches": 2575,
+   "toss_winner_won": 50.8,
+   "chose_to_bowl": 58.2,
+   "won_when_chose_bat": 48.8,
+   "won_when_chose_bowl": 52.2
+  },
+  "IPL \u00b7 all years": {
+   "matches": 1201,
+   "toss_winner_won": 51.3,
+   "chose_to_bowl": 66.2,
+   "won_when_chose_bat": 45.6,
+   "won_when_chose_bowl": 54.2
+  },
+  "IPL \u00b7 since 2023": {
+   "matches": 281,
+   "toss_winner_won": 50.5,
+   "chose_to_bowl": 77.2,
+   "won_when_chose_bat": 45.3,
+   "won_when_chose_bowl": 52.1
+  },
+  "T20 internationals \u00b7 all years": {
+   "matches": 3329,
+   "toss_winner_won": 50.2,
+   "chose_to_bowl": 53.0,
+   "won_when_chose_bat": 49.2,
+   "won_when_chose_bowl": 51.0
+  },
+  "T20 internationals \u00b7 since 2023": {
+   "matches": 1863,
+   "toss_winner_won": 50.9,
+   "chose_to_bowl": 53.8,
+   "won_when_chose_bat": 49.2,
+   "won_when_chose_bowl": 52.3
+  },
+  "ODIs \u00b7 all years": {
+   "matches": 2205,
+   "toss_winner_won": 50.4,
+   "chose_to_bowl": 49.5,
+   "won_when_chose_bat": 48.3,
+   "won_when_chose_bowl": 52.6
+  },
+  "ODIs \u00b7 since 2023": {
+   "matches": 431,
+   "toss_winner_won": 50.6,
+   "chose_to_bowl": 64.5,
+   "won_when_chose_bat": 48.4,
+   "won_when_chose_bowl": 51.8
+  }
+ },
+ "trained_at": "2026-11-17 20:55",
+ "chosen": "ensemble_lr_lgbm",
+ "model_names": {
+  "original_formula": "Old formula",
+  "logistic_regression": "Logistic regression",
+  "lightgbm": "LightGBM",
+  "lightgbm_calibrated": "LightGBM (calibrated)",
+  "ensemble_lr_lgbm": "Ensemble (LR + LightGBM)"
+ },
+ "model_blurbs": {
+  "original_formula": "The original hand-tuned scoring formula. No learning from data.",
+  "logistic_regression": "A simple, smooth statistical model. Good at extrapolating to unusual scores.",
+  "lightgbm": "Gradient-boosted decision trees. Learns complex patterns, can flatten on rare inputs.",
+  "ensemble_lr_lgbm": "The average of logistic regression and LightGBM. Combines both strengths."
+ },
+ "shown_models": [
+  "original_formula",
+  "logistic_regression",
+  "lightgbm",
+  "ensemble_lr_lgbm"
+ ],
+ "data_through": "2026-11-03",
+ "test_period": "2025-01-01 to 2026-11-02",
+ "split": {
+  "train": {
+   "label": "before 2024-01-01",
+   "matches": 8531
+  },
+  "validation": {
+   "label": "2024",
+   "matches": 709
+  },
+  "test": {
+   "label": "2025-01-01 onward",
+   "matches": 1297
+  }
+ },
+ "test_match_counts": {
+  "All matches": 1297,
+  "IPL": 140,
+  "T20I \u00b7 full members": 164,
+  "T20I \u00b7 with associates": 805,
+  "ODI \u00b7 full members": 107,
+  "ODI \u00b7 with associates": 81
+ },
+ "overall": {
+  "original_formula": {
+   "accuracy": 0.5914,
+   "log_loss": 0.9494,
+   "brier": 0.3055,
+   "matches": 1297
+  },
+  "logistic_regression": {
+   "accuracy": 0.7401,
+   "log_loss": 0.5042,
+   "brier": 0.1684,
+   "matches": 1297
+  },
+  "lightgbm": {
+   "accuracy": 0.7434,
+   "log_loss": 0.4968,
+   "brier": 0.1663,
+   "matches": 1297
+  },
+  "ensemble_lr_lgbm": {
+   "accuracy": 0.7435,
+   "log_loss": 0.4959,
+   "brier": 0.1656,
+   "matches": 1297
+  }
+ },
+ "stages": {
+  "pre_match": "Before the match",
+  "mid_innings": "During 1st innings",
+  "innings_break": "Innings break"
+ },
+ "by_competition": {
+  "All matches": {
+   "pre_match": {
+    "original_formula": {
+     "accuracy": 0.5189,
+     "log_loss": 1.4679,
+     "brier": 0.4355,
+     "matches": 1297
+    },
+    "logistic_regression": {
+     "accuracy": 0.6885,
+     "log_loss": 0.5778,
+     "brier": 0.1975,
+     "matches": 1297
+    },
+    "lightgbm": {
+     "accuracy": 0.697,
+     "log_loss": 0.5676,
+     "brier": 0.1942,
+     "matches": 1297
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.6955,
+     "log_loss": 0.5682,
+     "brier": 0.1937,
+     "matches": 1297
+    }
+   },
+   "mid_innings": {
+    "original_formula": {
+     "accuracy": 0.5712,
+     "log_loss": 0.9859,
+     "brier": 0.3189,
+     "matches": 29497
+    },
+    "logistic_regression": {
+     "accuracy": 0.7191,
+     "log_loss": 0.5307,
+     "brier": 0.1788,
+     "matches": 29497
+    },
+    "lightgbm": {
+     "accuracy": 0.724,
+     "log_loss": 0.5222,
+     "brier": 0.1764,
+     "matches": 29497
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7221,
+     "log_loss": 0.5213,
+     "brier": 0.1757,
+     "matches": 29497
+    }
+   },
+   "innings_break": {
+    "original_formula": {
+     "accuracy": 0.766,
+     "log_loss": 0.4949,
+     "brier": 0.1626,
+     "matches": 1295
+    },
+    "logistic_regression": {
+     "accuracy": 0.783,
+     "log_loss": 0.4465,
+     "brier": 0.1448,
+     "matches": 1295
+    },
+    "lightgbm": {
+     "accuracy": 0.7776,
+     "log_loss": 0.4354,
+     "brier": 0.1429,
+     "matches": 1295
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.783,
+     "log_loss": 0.4322,
+     "brier": 0.1413,
+     "matches": 1295
+    }
+   }
+  },
+  "IPL": {
+   "pre_match": {
+    "original_formula": {
+     "accuracy": 0.5714,
+     "log_loss": 1.3132,
+     "brier": 0.3882,
+     "matches": 140
+    },
+    "logistic_regression": {
+     "accuracy": 0.5571,
+     "log_loss": 0.6977,
+     "brier": 0.2512,
+     "matches": 140
+    },
+    "lightgbm": {
+     "accuracy": 0.5643,
+     "log_loss": 0.6956,
+     "brier": 0.2508,
+     "matches": 140
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.5643,
+     "log_loss": 0.6918,
+     "brier": 0.2489,
+     "matches": 140
+    }
+   },
+   "mid_innings": {
+    "original_formula": {
+     "accuracy": 0.5969,
+     "log_loss": 0.9786,
+     "brier": 0.3104,
+     "matches": 2642
+    },
+    "logistic_regression": {
+     "accuracy": 0.6291,
+     "log_loss": 0.6415,
+     "brier": 0.2248,
+     "matches": 2642
+    },
+    "lightgbm": {
+     "accuracy": 0.609,
+     "log_loss": 0.6543,
+     "brier": 0.2302,
+     "matches": 2642
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.6204,
+     "log_loss": 0.6438,
+     "brier": 0.2258,
+     "matches": 2642
+    }
+   },
+   "innings_break": {
+    "original_formula": {
+     "accuracy": 0.7,
+     "log_loss": 0.5942,
+     "brier": 0.2025,
+     "matches": 140
+    },
+    "logistic_regression": {
+     "accuracy": 0.6929,
+     "log_loss": 0.5562,
+     "brier": 0.1878,
+     "matches": 140
+    },
+    "lightgbm": {
+     "accuracy": 0.7,
+     "log_loss": 0.584,
+     "brier": 0.199,
+     "matches": 140
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7,
+     "log_loss": 0.5621,
+     "brier": 0.1902,
+     "matches": 140
+    }
+   }
+  },
+  "T20I \u00b7 full members": {
+   "pre_match": {
+    "original_formula": {
+     "accuracy": 0.5,
+     "log_loss": 1.5235,
+     "brier": 0.4525,
+     "matches": 164
+    },
+    "logistic_regression": {
+     "accuracy": 0.7134,
+     "log_loss": 0.6172,
+     "brier": 0.2122,
+     "matches": 164
+    },
+    "lightgbm": {
+     "accuracy": 0.7134,
+     "log_loss": 0.6142,
+     "brier": 0.2117,
+     "matches": 164
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7073,
+     "log_loss": 0.6092,
+     "brier": 0.2091,
+     "matches": 164
+    }
+   },
+   "mid_innings": {
+    "original_formula": {
+     "accuracy": 0.5594,
+     "log_loss": 1.0296,
+     "brier": 0.3323,
+     "matches": 3096
+    },
+    "logistic_regression": {
+     "accuracy": 0.7141,
+     "log_loss": 0.5548,
+     "brier": 0.1884,
+     "matches": 3096
+    },
+    "lightgbm": {
+     "accuracy": 0.7213,
+     "log_loss": 0.5549,
+     "brier": 0.1868,
+     "matches": 3096
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7222,
+     "log_loss": 0.55,
+     "brier": 0.1855,
+     "matches": 3096
+    }
+   },
+   "innings_break": {
+    "original_formula": {
+     "accuracy": 0.7378,
+     "log_loss": 0.5455,
+     "brier": 0.1805,
+     "matches": 164
+    },
+    "logistic_regression": {
+     "accuracy": 0.7622,
+     "log_loss": 0.4859,
+     "brier": 0.1621,
+     "matches": 164
+    },
+    "lightgbm": {
+     "accuracy": 0.7439,
+     "log_loss": 0.4791,
+     "brier": 0.1578,
+     "matches": 164
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7622,
+     "log_loss": 0.474,
+     "brier": 0.1569,
+     "matches": 164
+    }
+   }
+  },
+  "T20I \u00b7 with associates": {
+   "pre_match": {
+    "original_formula": {
+     "accuracy": 0.518,
+     "log_loss": 1.4705,
+     "brier": 0.4363,
+     "matches": 805
+    },
+    "logistic_regression": {
+     "accuracy": 0.7342,
+     "log_loss": 0.5301,
+     "brier": 0.1766,
+     "matches": 805
+    },
+    "lightgbm": {
+     "accuracy": 0.7391,
+     "log_loss": 0.5142,
+     "brier": 0.1715,
+     "matches": 805
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7366,
+     "log_loss": 0.5183,
+     "brier": 0.1721,
+     "matches": 805
+    }
+   },
+   "mid_innings": {
+    "original_formula": {
+     "accuracy": 0.5911,
+     "log_loss": 0.9086,
+     "brier": 0.2964,
+     "matches": 14924
+    },
+    "logistic_regression": {
+     "accuracy": 0.7842,
+     "log_loss": 0.4454,
+     "brier": 0.1451,
+     "matches": 14924
+    },
+    "lightgbm": {
+     "accuracy": 0.7906,
+     "log_loss": 0.4343,
+     "brier": 0.1417,
+     "matches": 14924
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7901,
+     "log_loss": 0.4362,
+     "brier": 0.1417,
+     "matches": 14924
+    }
+   },
+   "innings_break": {
+    "original_formula": {
+     "accuracy": 0.792,
+     "log_loss": 0.4456,
+     "brier": 0.1446,
+     "matches": 803
+    },
+    "logistic_regression": {
+     "accuracy": 0.8144,
+     "log_loss": 0.3814,
+     "brier": 0.124,
+     "matches": 803
+    },
+    "lightgbm": {
+     "accuracy": 0.8095,
+     "log_loss": 0.3749,
+     "brier": 0.1208,
+     "matches": 803
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8144,
+     "log_loss": 0.3738,
+     "brier": 0.1204,
+     "matches": 803
+    }
+   }
+  },
+  "ODI \u00b7 full members": {
+   "pre_match": {
+    "original_formula": {
+     "accuracy": 0.5327,
+     "log_loss": 1.4272,
+     "brier": 0.4231,
+     "matches": 107
+    },
+    "logistic_regression": {
+     "accuracy": 0.5514,
+     "log_loss": 0.6519,
+     "brier": 0.2312,
+     "matches": 107
+    },
+    "lightgbm": {
+     "accuracy": 0.5888,
+     "log_loss": 0.6582,
+     "brier": 0.2332,
+     "matches": 107
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.6075,
+     "log_loss": 0.6518,
+     "brier": 0.2308,
+     "matches": 107
+    }
+   },
+   "mid_innings": {
+    "original_formula": {
+     "accuracy": 0.5512,
+     "log_loss": 1.0894,
+     "brier": 0.3468,
+     "matches": 5002
+    },
+    "logistic_regression": {
+     "accuracy": 0.6259,
+     "log_loss": 0.6566,
+     "brier": 0.2271,
+     "matches": 5002
+    },
+    "lightgbm": {
+     "accuracy": 0.6208,
+     "log_loss": 0.6405,
+     "brier": 0.2241,
+     "matches": 5002
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.6126,
+     "log_loss": 0.6408,
+     "brier": 0.2238,
+     "matches": 5002
+    }
+   },
+   "innings_break": {
+    "original_formula": {
+     "accuracy": 0.6916,
+     "log_loss": 0.599,
+     "brier": 0.1979,
+     "matches": 107
+    },
+    "logistic_regression": {
+     "accuracy": 0.7383,
+     "log_loss": 0.6229,
+     "brier": 0.1873,
+     "matches": 107
+    },
+    "lightgbm": {
+     "accuracy": 0.757,
+     "log_loss": 0.5409,
+     "brier": 0.1777,
+     "matches": 107
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7383,
+     "log_loss": 0.5512,
+     "brier": 0.1789,
+     "matches": 107
+    }
+   }
+  },
+  "ODI \u00b7 with associates": {
+   "pre_match": {
+    "original_formula": {
+     "accuracy": 0.4568,
+     "log_loss": 1.6507,
+     "brier": 0.4914,
+     "matches": 81
+    },
+    "logistic_regression": {
+     "accuracy": 0.5926,
+     "log_loss": 0.6673,
+     "brier": 0.2374,
+     "matches": 81
+    },
+    "lightgbm": {
+     "accuracy": 0.6173,
+     "log_loss": 0.6628,
+     "brier": 0.2349,
+     "matches": 81
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.6049,
+     "log_loss": 0.6566,
+     "brier": 0.2327,
+     "matches": 81
+    }
+   },
+   "mid_innings": {
+    "original_formula": {
+     "accuracy": 0.5119,
+     "log_loss": 1.1213,
+     "brier": 0.3653,
+     "matches": 3833
+    },
+    "logistic_regression": {
+     "accuracy": 0.6535,
+     "log_loss": 0.6023,
+     "brier": 0.2073,
+     "matches": 3833
+    },
+    "lightgbm": {
+     "accuracy": 0.6807,
+     "log_loss": 0.5925,
+     "brier": 0.2043,
+     "matches": 3833
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.6702,
+     "log_loss": 0.5892,
+     "brier": 0.203,
+     "matches": 3833
+    }
+   },
+   "innings_break": {
+    "original_formula": {
+     "accuracy": 0.7778,
+     "log_loss": 0.572,
+     "brier": 0.1894,
+     "matches": 81
+    },
+    "logistic_regression": {
+     "accuracy": 0.7284,
+     "log_loss": 0.5889,
+     "brier": 0.1861,
+     "matches": 81
+    },
+    "lightgbm": {
+     "accuracy": 0.6914,
+     "log_loss": 0.5508,
+     "brier": 0.1884,
+     "matches": 81
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.716,
+     "log_loss": 0.545,
+     "brier": 0.1822,
+     "matches": 81
+    }
+   }
+  }
+ },
+ "t20_progress": {
+  "Before the match": {
+   "original_formula": {
+    "accuracy": 0.5221,
+    "log_loss": 1.4585,
+    "brier": 0.4326,
+    "matches": 1109
+   },
+   "logistic_regression": {
+    "accuracy": 0.7087,
+    "log_loss": 0.5641,
+    "brier": 0.1913,
+    "matches": 1109
+   },
+   "lightgbm": {
+    "accuracy": 0.7133,
+    "log_loss": 0.5519,
+    "brier": 0.1874,
+    "matches": 1109
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.7106,
+    "log_loss": 0.5536,
+    "brier": 0.1873,
+    "matches": 1109
+   }
+  },
+  "Overs 1\u20136": {
+   "original_formula": {
+    "accuracy": 0.5226,
+    "log_loss": 1.3755,
+    "brier": 0.4183,
+    "matches": 6648
+   },
+   "logistic_regression": {
+    "accuracy": 0.7295,
+    "log_loss": 0.5283,
+    "brier": 0.1772,
+    "matches": 6648
+   },
+   "lightgbm": {
+    "accuracy": 0.7381,
+    "log_loss": 0.5206,
+    "brier": 0.1748,
+    "matches": 6648
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.7357,
+    "log_loss": 0.5208,
+    "brier": 0.1743,
+    "matches": 6648
+   }
+  },
+  "Overs 7\u201315": {
+   "original_formula": {
+    "accuracy": 0.5722,
+    "log_loss": 0.8106,
+    "brier": 0.2793,
+    "matches": 9858
+   },
+   "logistic_regression": {
+    "accuracy": 0.7619,
+    "log_loss": 0.4753,
+    "brier": 0.1572,
+    "matches": 9858
+   },
+   "lightgbm": {
+    "accuracy": 0.765,
+    "log_loss": 0.4683,
+    "brier": 0.155,
+    "matches": 9858
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.767,
+    "log_loss": 0.4678,
+    "brier": 0.1544,
+    "matches": 9858
+   }
+  },
+  "Overs 16\u201319": {
+   "original_formula": {
+    "accuracy": 0.7257,
+    "log_loss": 0.529,
+    "brier": 0.1778,
+    "matches": 4156
+   },
+   "logistic_regression": {
+    "accuracy": 0.7736,
+    "log_loss": 0.4481,
+    "brier": 0.1479,
+    "matches": 4156
+   },
+   "lightgbm": {
+    "accuracy": 0.7683,
+    "log_loss": 0.4453,
+    "brier": 0.1469,
+    "matches": 4156
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.7733,
+    "log_loss": 0.4426,
+    "brier": 0.1457,
+    "matches": 4156
+   }
+  },
+  "Innings break": {
+   "original_formula": {
+    "accuracy": 0.7724,
+    "log_loss": 0.4792,
+    "brier": 0.1572,
+    "matches": 1107
+   },
+   "logistic_regression": {
+    "accuracy": 0.7913,
+    "log_loss": 0.419,
+    "brier": 0.1377,
+    "matches": 1107
+   },
+   "lightgbm": {
+    "accuracy": 0.7859,
+    "log_loss": 0.4168,
+    "brier": 0.1362,
+    "matches": 1107
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.7922,
+    "log_loss": 0.4125,
+    "brier": 0.1347,
+    "matches": 1107
+   }
+  }
+ },
+ "calibration": [
+  {
+   "bucket": "0\u201310%",
+   "matches": 217,
+   "predicted": 4.6,
+   "actual": 3.2
+  },
+  {
+   "bucket": "10\u201320%",
+   "matches": 145,
+   "predicted": 14.4,
+   "actual": 9.0
+  },
+  {
+   "bucket": "20\u201330%",
+   "matches": 104,
+   "predicted": 25.2,
+   "actual": 26.9
+  },
+  {
+   "bucket": "30\u201340%",
+   "matches": 94,
+   "predicted": 35.0,
+   "actual": 39.4
+  },
+  {
+   "bucket": "40\u201350%",
+   "matches": 87,
+   "predicted": 44.9,
+   "actual": 49.4
+  },
+  {
+   "bucket": "50\u201360%",
+   "matches": 95,
+   "predicted": 54.9,
+   "actual": 48.4
+  },
+  {
+   "bucket": "60\u201370%",
+   "matches": 120,
+   "predicted": 65.1,
+   "actual": 58.3
+  },
+  {
+   "bucket": "70\u201380%",
+   "matches": 126,
+   "predicted": 75.2,
+   "actual": 78.6
+  },
+  {
+   "bucket": "80\u201390%",
+   "matches": 146,
+   "predicted": 85.5,
+   "actual": 87.0
+  },
+  {
+   "bucket": "90\u2013100%",
+   "matches": 161,
+   "predicted": 94.7,
+   "actual": 95.0
+  }
+ ],
+ "fit_check": {
+  "Training years (before 2024)": {
+   "logistic_regression": 0.6873,
+   "lightgbm": 0.7344,
+   "ensemble_lr_lgbm": 0.7139
+  },
+  "Tuning year (2024)": {
+   "logistic_regression": 0.7366,
+   "lightgbm": 0.7468,
+   "ensemble_lr_lgbm": 0.7458
+  },
+  "Unseen test (2025 onward)": {
+   "logistic_regression": 0.7401,
+   "lightgbm": 0.7434,
+   "ensemble_lr_lgbm": 0.7435
+  }
+ },
+ "feature_importance": {
+  "runs_vs_par": 28.7,
+  "kal_diff": 10.9,
+  "bat_xi_exp": 6.2,
+  "chase_xi_bat": 5.5,
+  "chase_xi_exp": 5.4,
+  "run_rate": 5.2,
+  "runs": 4.1,
+  "wickets": 3.9,
+  "venue_bf_rate": 3.6,
+  "kal_unc": 3.5,
+  "bat_next3": 3.2,
+  "prc_sr": 3.2,
+  "bat_xi_bat": 2.3,
+  "bat_crease": 1.8,
+  "home_diff": 1.8,
+  "prb_ec": 1.6,
+  "prb_sr": 1.5,
+  "bat_xi_bowl_econ": 1.4,
+  "chase_xi_bowl_econ": 1.2,
+  "prb_wk": 1.1,
+  "prc_bpd": 1.0,
+  "prc_ec": 0.9,
+  "venue_avg": 0.8,
+  "prb_bpd": 0.5,
+  "prc_wk": 0.5,
+  "is_ipl": 0.2,
+  "is_club": 0.1,
+  "is_odi": 0.0,
+  "balls_left_frac": 0.0
+ },
+ "best_iteration": 883
+}

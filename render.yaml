@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: crease-iq
+    runtime: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: CREASE_PUBLIC
+        value: "1"

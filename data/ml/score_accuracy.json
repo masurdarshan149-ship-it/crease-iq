@@ -1,0 +1,281 @@
+{
+ "trained_at": "2026-11-15 11:27",
+ "data_through": "2026-11-02",
+ "test_period": "2025-01-01 to 2026-11-02",
+ "test_innings": 1297,
+ "slices": {
+  "All T20 states": {
+   "model": {
+    "mae": 18.0,
+    "within_10": 41.6,
+    "within_20": 66.6,
+    "states": 21771,
+    "coverage_80": 80.7,
+    "avg_width": 60.2
+   },
+   "current_rate": {
+    "mae": 24.3,
+    "within_10": 35.9,
+    "within_20": 58.0,
+    "states": 21771
+   },
+   "venue_par": {
+    "mae": 22.8,
+    "within_10": 32.5,
+    "within_20": 56.4,
+    "states": 21771
+   }
+  },
+  "All ODI states": {
+   "model": {
+    "mae": 31.8,
+    "within_10": 25.3,
+    "within_20": 44.6,
+    "states": 9023,
+    "coverage_80": 80.0,
+    "avg_width": 113.5
+   },
+   "current_rate": {
+    "mae": 49.8,
+    "within_10": 14.0,
+    "within_20": 27.5,
+    "states": 9023
+   },
+   "venue_par": {
+    "mae": 42.2,
+    "within_10": 15.1,
+    "within_20": 30.9,
+    "states": 9023
+   }
+  },
+  "T20 \u00b7 before the match": {
+   "model": {
+    "mae": 31.7,
+    "within_10": 20.3,
+    "within_20": 38.3,
+    "states": 1109,
+    "coverage_80": 77.4,
+    "avg_width": 101.1
+   },
+   "current_rate": {
+    "mae": 35.8,
+    "within_10": 17.0,
+    "within_20": 34.4,
+    "states": 1109
+   },
+   "venue_par": {
+    "mae": 35.8,
+    "within_10": 17.0,
+    "within_20": 34.4,
+    "states": 1109
+   }
+  },
+  "T20 \u00b7 overs 1\u20136": {
+   "model": {
+    "mae": 25.8,
+    "within_10": 25.6,
+    "within_20": 47.6,
+    "states": 6648,
+    "coverage_80": 79.3,
+    "avg_width": 84.7
+   },
+   "current_rate": {
+    "mae": 41.0,
+    "within_10": 17.8,
+    "within_20": 32.9,
+    "states": 6648
+   },
+   "venue_par": {
+    "mae": 31.5,
+    "within_10": 19.6,
+    "within_20": 39.0,
+    "states": 6648
+   }
+  },
+  "T20 \u00b7 overs 7\u201315": {
+   "model": {
+    "mae": 15.7,
+    "within_10": 40.8,
+    "within_20": 70.5,
+    "states": 9858,
+    "coverage_80": 80.9,
+    "avg_width": 53.7
+   },
+   "current_rate": {
+    "mae": 18.7,
+    "within_10": 35.4,
+    "within_20": 62.6,
+    "states": 9858
+   },
+   "venue_par": {
+    "mae": 21.3,
+    "within_10": 29.4,
+    "within_20": 56.4,
+    "states": 9858
+   }
+  },
+  "T20 \u00b7 overs 16\u201319": {
+   "model": {
+    "mae": 7.3,
+    "within_10": 74.7,
+    "within_20": 95.6,
+    "states": 4156,
+    "coverage_80": 83.4,
+    "avg_width": 25.5
+   },
+   "current_rate": {
+    "mae": 7.9,
+    "within_10": 70.8,
+    "within_20": 93.3,
+    "states": 4156
+   },
+   "venue_par": {
+    "mae": 9.0,
+    "within_10": 65.0,
+    "within_20": 90.3,
+    "states": 4156
+   }
+  },
+  "ODI \u00b7 overs 1\u201310": {
+   "model": {
+    "mae": 48.5,
+    "within_10": 12.6,
+    "within_20": 25.1,
+    "states": 1880,
+    "coverage_80": 83.4,
+    "avg_width": 182.0
+   },
+   "current_rate": {
+    "mae": 86.8,
+    "within_10": 8.1,
+    "within_20": 14.7,
+    "states": 1880
+   },
+   "venue_par": {
+    "mae": 52.1,
+    "within_10": 11.0,
+    "within_20": 25.2,
+    "states": 1880
+   }
+  },
+  "ODI \u00b7 overs 11\u201340": {
+   "model": {
+    "mae": 30.7,
+    "within_10": 22.3,
+    "within_20": 41.9,
+    "states": 5541,
+    "coverage_80": 78.8,
+    "avg_width": 106.7
+   },
+   "current_rate": {
+    "mae": 45.1,
+    "within_10": 10.9,
+    "within_20": 23.2,
+    "states": 5541
+   },
+   "venue_par": {
+    "mae": 44.0,
+    "within_10": 12.6,
+    "within_20": 26.5,
+    "states": 5541
+   }
+  },
+  "ODI \u00b7 overs 41\u201349": {
+   "model": {
+    "mae": 11.2,
+    "within_10": 56.0,
+    "within_20": 84.0,
+    "states": 1414,
+    "coverage_80": 80.3,
+    "avg_width": 37.4
+   },
+   "current_rate": {
+    "mae": 18.5,
+    "within_10": 34.4,
+    "within_20": 61.9,
+    "states": 1414
+   },
+   "venue_par": {
+    "mae": 20.5,
+    "within_10": 30.8,
+    "within_20": 57.1,
+    "states": 1414
+   }
+  }
+ },
+ "feature_importance": {
+  "balls_left_frac": 56.4,
+  "wickets": 14.4,
+  "venue_avg": 6.1,
+  "chase_xi_bowl_econ": 3.7,
+  "is_odi": 3.3,
+  "runs": 2.7,
+  "bat_next3": 2.7,
+  "elo_diff": 2.2,
+  "bat_xi_bat": 2.1,
+  "bat_xi_exp": 1.9,
+  "chase_xi_exp": 1.3,
+  "runs_vs_par": 1.2,
+  "run_rate": 1.0,
+  "bat_crease": 1.0,
+  "is_club": 0.1,
+  "is_ipl": 0.0
+ },
+ "widen": 1.16,
+ "versions": [
+  {
+   "trained_at": "2026-11-07 18:00",
+   "label": "First projected-score model (band calibrated on 2024)",
+   "data_through": "2026-11-02",
+   "test_innings": 1297,
+   "t20_mae": 18.2,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 80.4
+  },
+  {
+   "trained_at": "2026-11-07 18:29",
+   "label": "Leagues tested: no gain on 2024 tuning season (kept without)",
+   "data_through": "2026-11-02",
+   "test_innings": 1297,
+   "t20_mae": 18.1,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 79.9
+  },
+  {
+   "trained_at": "2026-11-07 19:00",
+   "label": "Recent form tested: tie on 2024 tuning season (kept without)",
+   "data_through": "2026-11-02",
+   "test_innings": 1297,
+   "t20_mae": 18.1,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 79.9
+  },
+  {
+   "trained_at": "2026-11-08 00:08",
+   "label": "Who's in + next 3 batters, impact player as 12th man",
+   "data_through": "2026-11-02",
+   "test_innings": 1297,
+   "t20_mae": 18.0,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 80.7
+  },
+  {
+   "trained_at": "2026-11-08 00:49",
+   "label": "Automatic update",
+   "data_through": "2026-11-02",
+   "test_innings": 1297,
+   "t20_mae": 18.0,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 80.7
+  },
+  {
+   "trained_at": "2026-11-15 11:27",
+   "label": "Rebuilt after an interrupted update",
+   "data_through": "2026-11-02",
+   "test_innings": 1297,
+   "t20_mae": 18.0,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 80.7
+  }
+ ]
+}

@@ -1,0 +1,1113 @@
+{
+ "trained_at": "2026-11-17 21:01",
+ "chosen": "ensemble_lr_lgbm",
+ "model_names": {
+  "simple_chase": "Simple (runs, balls, wickets only)",
+  "logistic_regression": "Logistic regression",
+  "lightgbm": "LightGBM",
+  "ensemble_lr_lgbm": "Ensemble (LR + LightGBM)"
+ },
+ "model_blurbs": {
+  "simple_chase": "Knows only the equation: runs needed, balls left, wickets in hand. Like a TV win predictor.",
+  "logistic_regression": "Adds team ratings, both XIs and the venue to the equation.",
+  "lightgbm": "Gradient-boosted trees using every chase feature.",
+  "ensemble_lr_lgbm": "Average of logistic regression and LightGBM. Used in the app."
+ },
+ "shown_models": [
+  "simple_chase",
+  "logistic_regression",
+  "lightgbm",
+  "ensemble_lr_lgbm"
+ ],
+ "data_through": "2026-11-02",
+ "test_period": "2025-01-01 to 2026-11-02",
+ "split": {
+  "train": 4729,
+  "validation": 709,
+  "test": 1297
+ },
+ "overall": {
+  "simple_chase": {
+   "accuracy": 0.8398,
+   "log_loss": 0.3509,
+   "brier": 0.1126,
+   "matches": 1297
+  },
+  "logistic_regression": {
+   "accuracy": 0.8691,
+   "log_loss": 0.288,
+   "brier": 0.091,
+   "matches": 1297
+  },
+  "lightgbm": {
+   "accuracy": 0.8649,
+   "log_loss": 0.297,
+   "brier": 0.0941,
+   "matches": 1297
+  },
+  "ensemble_lr_lgbm": {
+   "accuracy": 0.8692,
+   "log_loss": 0.2892,
+   "brier": 0.0914,
+   "matches": 1297
+  }
+ },
+ "phases": {
+  "start": "Start of chase",
+  "early": "Early (first 30%)",
+  "middle": "Middle (30\u201375%)",
+  "late": "Late (last 25%)"
+ },
+ "by_competition": {
+  "All chases": {
+   "start": {
+    "simple_chase": {
+     "accuracy": 0.7301,
+     "log_loss": 0.5658,
+     "brier": 0.1869,
+     "matches": 1297
+    },
+    "logistic_regression": {
+     "accuracy": 0.7957,
+     "log_loss": 0.4413,
+     "brier": 0.1427,
+     "matches": 1297
+    },
+    "lightgbm": {
+     "accuracy": 0.7857,
+     "log_loss": 0.4457,
+     "brier": 0.145,
+     "matches": 1297
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7941,
+     "log_loss": 0.4388,
+     "brier": 0.1421,
+     "matches": 1297
+    }
+   },
+   "early": {
+    "simple_chase": {
+     "accuracy": 0.7585,
+     "log_loss": 0.5075,
+     "brier": 0.165,
+     "matches": 9397
+    },
+    "logistic_regression": {
+     "accuracy": 0.81,
+     "log_loss": 0.408,
+     "brier": 0.1313,
+     "matches": 9397
+    },
+    "lightgbm": {
+     "accuracy": 0.8025,
+     "log_loss": 0.4174,
+     "brier": 0.1363,
+     "matches": 9397
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8092,
+     "log_loss": 0.4078,
+     "brier": 0.1322,
+     "matches": 9397
+    }
+   },
+   "middle": {
+    "simple_chase": {
+     "accuracy": 0.8411,
+     "log_loss": 0.3534,
+     "brier": 0.1131,
+     "matches": 12640
+    },
+    "logistic_regression": {
+     "accuracy": 0.856,
+     "log_loss": 0.3068,
+     "brier": 0.098,
+     "matches": 12640
+    },
+    "lightgbm": {
+     "accuracy": 0.8562,
+     "log_loss": 0.3184,
+     "brier": 0.1012,
+     "matches": 12640
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8573,
+     "log_loss": 0.3089,
+     "brier": 0.0984,
+     "matches": 12640
+    }
+   },
+   "late": {
+    "simple_chase": {
+     "accuracy": 0.897,
+     "log_loss": 0.2395,
+     "brier": 0.074,
+     "matches": 3846
+    },
+    "logistic_regression": {
+     "accuracy": 0.9085,
+     "log_loss": 0.2073,
+     "brier": 0.0639,
+     "matches": 3846
+    },
+    "lightgbm": {
+     "accuracy": 0.9041,
+     "log_loss": 0.2135,
+     "brier": 0.0656,
+     "matches": 3846
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.9095,
+     "log_loss": 0.2077,
+     "brier": 0.0637,
+     "matches": 3846
+    }
+   }
+  },
+  "IPL": {
+   "start": {
+    "simple_chase": {
+     "accuracy": 0.6214,
+     "log_loss": 0.8294,
+     "brier": 0.2788,
+     "matches": 140
+    },
+    "logistic_regression": {
+     "accuracy": 0.7143,
+     "log_loss": 0.5643,
+     "brier": 0.1892,
+     "matches": 140
+    },
+    "lightgbm": {
+     "accuracy": 0.7143,
+     "log_loss": 0.5677,
+     "brier": 0.1914,
+     "matches": 140
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7357,
+     "log_loss": 0.5609,
+     "brier": 0.1883,
+     "matches": 140
+    }
+   },
+   "early": {
+    "simple_chase": {
+     "accuracy": 0.6488,
+     "log_loss": 0.6529,
+     "brier": 0.2249,
+     "matches": 840
+    },
+    "logistic_regression": {
+     "accuracy": 0.7976,
+     "log_loss": 0.4649,
+     "brier": 0.1493,
+     "matches": 840
+    },
+    "lightgbm": {
+     "accuracy": 0.7821,
+     "log_loss": 0.4861,
+     "brier": 0.1579,
+     "matches": 840
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7988,
+     "log_loss": 0.4721,
+     "brier": 0.152,
+     "matches": 840
+    }
+   },
+   "middle": {
+    "simple_chase": {
+     "accuracy": 0.8114,
+     "log_loss": 0.4149,
+     "brier": 0.1332,
+     "matches": 1230
+    },
+    "logistic_regression": {
+     "accuracy": 0.8309,
+     "log_loss": 0.3536,
+     "brier": 0.1127,
+     "matches": 1230
+    },
+    "lightgbm": {
+     "accuracy": 0.8374,
+     "log_loss": 0.3659,
+     "brier": 0.1147,
+     "matches": 1230
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.839,
+     "log_loss": 0.3566,
+     "brier": 0.1126,
+     "matches": 1230
+    }
+   },
+   "late": {
+    "simple_chase": {
+     "accuracy": 0.8632,
+     "log_loss": 0.2944,
+     "brier": 0.094,
+     "matches": 402
+    },
+    "logistic_regression": {
+     "accuracy": 0.908,
+     "log_loss": 0.2297,
+     "brier": 0.0707,
+     "matches": 402
+    },
+    "lightgbm": {
+     "accuracy": 0.898,
+     "log_loss": 0.2384,
+     "brier": 0.0732,
+     "matches": 402
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.9104,
+     "log_loss": 0.2306,
+     "brier": 0.0709,
+     "matches": 402
+    }
+   }
+  },
+  "T20I \u00b7 full members": {
+   "start": {
+    "simple_chase": {
+     "accuracy": 0.7195,
+     "log_loss": 0.5668,
+     "brier": 0.1902,
+     "matches": 164
+    },
+    "logistic_regression": {
+     "accuracy": 0.7622,
+     "log_loss": 0.481,
+     "brier": 0.1583,
+     "matches": 164
+    },
+    "lightgbm": {
+     "accuracy": 0.7439,
+     "log_loss": 0.4952,
+     "brier": 0.164,
+     "matches": 164
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7622,
+     "log_loss": 0.4824,
+     "brier": 0.1592,
+     "matches": 164
+    }
+   },
+   "early": {
+    "simple_chase": {
+     "accuracy": 0.7581,
+     "log_loss": 0.4768,
+     "brier": 0.1571,
+     "matches": 984
+    },
+    "logistic_regression": {
+     "accuracy": 0.7957,
+     "log_loss": 0.4055,
+     "brier": 0.1319,
+     "matches": 984
+    },
+    "lightgbm": {
+     "accuracy": 0.7967,
+     "log_loss": 0.4211,
+     "brier": 0.1374,
+     "matches": 984
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8008,
+     "log_loss": 0.4083,
+     "brier": 0.1332,
+     "matches": 984
+    }
+   },
+   "middle": {
+    "simple_chase": {
+     "accuracy": 0.8388,
+     "log_loss": 0.3136,
+     "brier": 0.1023,
+     "matches": 1402
+    },
+    "logistic_regression": {
+     "accuracy": 0.8795,
+     "log_loss": 0.2538,
+     "brier": 0.0817,
+     "matches": 1402
+    },
+    "lightgbm": {
+     "accuracy": 0.8752,
+     "log_loss": 0.2702,
+     "brier": 0.0857,
+     "matches": 1402
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8766,
+     "log_loss": 0.2598,
+     "brier": 0.0829,
+     "matches": 1402
+    }
+   },
+   "late": {
+    "simple_chase": {
+     "accuracy": 0.907,
+     "log_loss": 0.2165,
+     "brier": 0.0685,
+     "matches": 398
+    },
+    "logistic_regression": {
+     "accuracy": 0.9246,
+     "log_loss": 0.1499,
+     "brier": 0.0471,
+     "matches": 398
+    },
+    "lightgbm": {
+     "accuracy": 0.9246,
+     "log_loss": 0.166,
+     "brier": 0.0489,
+     "matches": 398
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.9221,
+     "log_loss": 0.1572,
+     "brier": 0.0474,
+     "matches": 398
+    }
+   }
+  },
+  "T20I \u00b7 with associates": {
+   "start": {
+    "simple_chase": {
+     "accuracy": 0.7578,
+     "log_loss": 0.482,
+     "brier": 0.1621,
+     "matches": 805
+    },
+    "logistic_regression": {
+     "accuracy": 0.8286,
+     "log_loss": 0.3802,
+     "brier": 0.1214,
+     "matches": 805
+    },
+    "lightgbm": {
+     "accuracy": 0.8199,
+     "log_loss": 0.3845,
+     "brier": 0.1223,
+     "matches": 805
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8248,
+     "log_loss": 0.3792,
+     "brier": 0.1203,
+     "matches": 805
+    }
+   },
+   "early": {
+    "simple_chase": {
+     "accuracy": 0.8109,
+     "log_loss": 0.4098,
+     "brier": 0.134,
+     "matches": 4753
+    },
+    "logistic_regression": {
+     "accuracy": 0.855,
+     "log_loss": 0.3213,
+     "brier": 0.1018,
+     "matches": 4753
+    },
+    "lightgbm": {
+     "accuracy": 0.8452,
+     "log_loss": 0.3304,
+     "brier": 0.1056,
+     "matches": 4753
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8536,
+     "log_loss": 0.3224,
+     "brier": 0.1022,
+     "matches": 4753
+    }
+   },
+   "middle": {
+    "simple_chase": {
+     "accuracy": 0.8741,
+     "log_loss": 0.2995,
+     "brier": 0.0942,
+     "matches": 6226
+    },
+    "logistic_regression": {
+     "accuracy": 0.8871,
+     "log_loss": 0.2533,
+     "brier": 0.0791,
+     "matches": 6226
+    },
+    "lightgbm": {
+     "accuracy": 0.8845,
+     "log_loss": 0.2615,
+     "brier": 0.0814,
+     "matches": 6226
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8866,
+     "log_loss": 0.2541,
+     "brier": 0.0792,
+     "matches": 6226
+    }
+   },
+   "late": {
+    "simple_chase": {
+     "accuracy": 0.9104,
+     "log_loss": 0.2125,
+     "brier": 0.0659,
+     "matches": 1841
+    },
+    "logistic_regression": {
+     "accuracy": 0.9131,
+     "log_loss": 0.1945,
+     "brier": 0.0602,
+     "matches": 1841
+    },
+    "lightgbm": {
+     "accuracy": 0.9082,
+     "log_loss": 0.199,
+     "brier": 0.0616,
+     "matches": 1841
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.912,
+     "log_loss": 0.1937,
+     "brier": 0.0599,
+     "matches": 1841
+    }
+   }
+  },
+  "ODI \u00b7 full members": {
+   "start": {
+    "simple_chase": {
+     "accuracy": 0.6729,
+     "log_loss": 0.766,
+     "brier": 0.2297,
+     "matches": 107
+    },
+    "logistic_regression": {
+     "accuracy": 0.757,
+     "log_loss": 0.5824,
+     "brier": 0.1844,
+     "matches": 107
+    },
+    "lightgbm": {
+     "accuracy": 0.7383,
+     "log_loss": 0.5729,
+     "brier": 0.1905,
+     "matches": 107
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7383,
+     "log_loss": 0.5665,
+     "brier": 0.1855,
+     "matches": 107
+    }
+   },
+   "early": {
+    "simple_chase": {
+     "accuracy": 0.7165,
+     "log_loss": 0.6556,
+     "brier": 0.2009,
+     "matches": 1605
+    },
+    "logistic_regression": {
+     "accuracy": 0.7589,
+     "log_loss": 0.5312,
+     "brier": 0.1679,
+     "matches": 1605
+    },
+    "lightgbm": {
+     "accuracy": 0.7607,
+     "log_loss": 0.521,
+     "brier": 0.1707,
+     "matches": 1605
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.762,
+     "log_loss": 0.5185,
+     "brier": 0.1677,
+     "matches": 1605
+    }
+   },
+   "middle": {
+    "simple_chase": {
+     "accuracy": 0.8173,
+     "log_loss": 0.4274,
+     "brier": 0.1336,
+     "matches": 2140
+    },
+    "logistic_regression": {
+     "accuracy": 0.8103,
+     "log_loss": 0.3956,
+     "brier": 0.1266,
+     "matches": 2140
+    },
+    "lightgbm": {
+     "accuracy": 0.8266,
+     "log_loss": 0.3992,
+     "brier": 0.1272,
+     "matches": 2140
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.821,
+     "log_loss": 0.3924,
+     "brier": 0.1256,
+     "matches": 2140
+    }
+   },
+   "late": {
+    "simple_chase": {
+     "accuracy": 0.863,
+     "log_loss": 0.2817,
+     "brier": 0.087,
+     "matches": 679
+    },
+    "logistic_regression": {
+     "accuracy": 0.8704,
+     "log_loss": 0.2607,
+     "brier": 0.083,
+     "matches": 679
+    },
+    "lightgbm": {
+     "accuracy": 0.8675,
+     "log_loss": 0.2703,
+     "brier": 0.0861,
+     "matches": 679
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.8807,
+     "log_loss": 0.2637,
+     "brier": 0.0836,
+     "matches": 679
+    }
+   }
+  },
+  "ODI \u00b7 with associates": {
+   "start": {
+    "simple_chase": {
+     "accuracy": 0.7407,
+     "log_loss": 0.6755,
+     "brier": 0.2108,
+     "matches": 81
+    },
+    "logistic_regression": {
+     "accuracy": 0.7284,
+     "log_loss": 0.5701,
+     "brier": 0.1867,
+     "matches": 81
+    },
+    "lightgbm": {
+     "accuracy": 0.716,
+     "log_loss": 0.5748,
+     "brier": 0.1919,
+     "matches": 81
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7284,
+     "log_loss": 0.5629,
+     "brier": 0.1869,
+     "matches": 81
+    }
+   },
+   "early": {
+    "simple_chase": {
+     "accuracy": 0.6856,
+     "log_loss": 0.6188,
+     "brier": 0.2037,
+     "matches": 1215
+    },
+    "logistic_regression": {
+     "accuracy": 0.7218,
+     "log_loss": 0.5473,
+     "brier": 0.1855,
+     "matches": 1215
+    },
+    "lightgbm": {
+     "accuracy": 0.7095,
+     "log_loss": 0.5707,
+     "brier": 0.1949,
+     "matches": 1215
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7119,
+     "log_loss": 0.5512,
+     "brier": 0.1884,
+     "matches": 1215
+    }
+   },
+   "middle": {
+    "simple_chase": {
+     "accuracy": 0.7716,
+     "log_loss": 0.4491,
+     "brier": 0.1517,
+     "matches": 1642
+    },
+    "logistic_regression": {
+     "accuracy": 0.7966,
+     "log_loss": 0.4045,
+     "brier": 0.1352,
+     "matches": 1642
+    },
+    "lightgbm": {
+     "accuracy": 0.785,
+     "log_loss": 0.4344,
+     "brier": 0.1453,
+     "matches": 1642
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.7905,
+     "log_loss": 0.4143,
+     "brier": 0.1388,
+     "matches": 1642
+    }
+   },
+   "late": {
+    "simple_chase": {
+     "accuracy": 0.9125,
+     "log_loss": 0.255,
+     "brier": 0.0741,
+     "matches": 526
+    },
+    "logistic_regression": {
+     "accuracy": 0.9297,
+     "log_loss": 0.2093,
+     "brier": 0.0598,
+     "matches": 526
+    },
+    "lightgbm": {
+     "accuracy": 0.9259,
+     "log_loss": 0.2072,
+     "brier": 0.0597,
+     "matches": 526
+    },
+    "ensemble_lr_lgbm": {
+     "accuracy": 0.9278,
+     "log_loss": 0.2054,
+     "brier": 0.0583,
+     "matches": 526
+    }
+   }
+  }
+ },
+ "t20_overs": {
+  "Overs 0\u20135": {
+   "simple_chase": {
+    "accuracy": 0.769,
+    "log_loss": 0.4762,
+    "brier": 0.1584,
+    "matches": 6609
+   },
+   "logistic_regression": {
+    "accuracy": 0.8298,
+    "log_loss": 0.3708,
+    "brier": 0.119,
+    "matches": 6609
+   },
+   "lightgbm": {
+    "accuracy": 0.819,
+    "log_loss": 0.3811,
+    "brier": 0.123,
+    "matches": 6609
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.8292,
+    "log_loss": 0.3723,
+    "brier": 0.1195,
+    "matches": 6609
+   }
+  },
+  "Overs 6\u201314": {
+   "simple_chase": {
+    "accuracy": 0.851,
+    "log_loss": 0.3314,
+    "brier": 0.1057,
+    "matches": 9071
+   },
+   "logistic_regression": {
+    "accuracy": 0.8738,
+    "log_loss": 0.2756,
+    "brier": 0.0867,
+    "matches": 9071
+   },
+   "lightgbm": {
+    "accuracy": 0.8731,
+    "log_loss": 0.2863,
+    "brier": 0.0897,
+    "matches": 9071
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.8747,
+    "log_loss": 0.2778,
+    "brier": 0.0871,
+    "matches": 9071
+   }
+  },
+  "Overs 15\u201319": {
+   "simple_chase": {
+    "accuracy": 0.9013,
+    "log_loss": 0.2337,
+    "brier": 0.073,
+    "matches": 3505
+   },
+   "logistic_regression": {
+    "accuracy": 0.9104,
+    "log_loss": 0.2018,
+    "brier": 0.0628,
+    "matches": 3505
+   },
+   "lightgbm": {
+    "accuracy": 0.905,
+    "log_loss": 0.209,
+    "brier": 0.0645,
+    "matches": 3505
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.9093,
+    "log_loss": 0.2026,
+    "brier": 0.0627,
+    "matches": 3505
+   }
+  }
+ },
+ "odi_overs": {
+  "Overs 0\u20139": {
+   "simple_chase": {
+    "accuracy": 0.6957,
+    "log_loss": 0.6696,
+    "brier": 0.2086,
+    "matches": 1880
+   },
+   "logistic_regression": {
+    "accuracy": 0.7404,
+    "log_loss": 0.5481,
+    "brier": 0.1778,
+    "matches": 1880
+   },
+   "lightgbm": {
+    "accuracy": 0.7356,
+    "log_loss": 0.5496,
+    "brier": 0.1838,
+    "matches": 1880
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.734,
+    "log_loss": 0.5401,
+    "brier": 0.1789,
+    "matches": 1880
+   }
+  },
+  "Overs 10\u201339": {
+   "simple_chase": {
+    "accuracy": 0.7834,
+    "log_loss": 0.4666,
+    "brier": 0.1507,
+    "matches": 5180
+   },
+   "logistic_regression": {
+    "accuracy": 0.7958,
+    "log_loss": 0.421,
+    "brier": 0.1374,
+    "matches": 5180
+   },
+   "lightgbm": {
+    "accuracy": 0.7973,
+    "log_loss": 0.4344,
+    "brier": 0.1422,
+    "matches": 5180
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.7996,
+    "log_loss": 0.4224,
+    "brier": 0.1384,
+    "matches": 5180
+   }
+  },
+  "Overs 40\u201349": {
+   "simple_chase": {
+    "accuracy": 0.8888,
+    "log_loss": 0.2591,
+    "brier": 0.077,
+    "matches": 935
+   },
+   "logistic_regression": {
+    "accuracy": 0.9016,
+    "log_loss": 0.2278,
+    "brier": 0.0692,
+    "matches": 935
+   },
+   "lightgbm": {
+    "accuracy": 0.8995,
+    "log_loss": 0.229,
+    "brier": 0.0697,
+    "matches": 935
+   },
+   "ensemble_lr_lgbm": {
+    "accuracy": 0.9037,
+    "log_loss": 0.2263,
+    "brier": 0.0683,
+    "matches": 935
+   }
+  }
+ },
+ "calibration": [
+  {
+   "bucket": "0\u201310%",
+   "states": 7147,
+   "predicted": 3.1,
+   "actual": 2.5
+  },
+  {
+   "bucket": "10\u201320%",
+   "states": 2352,
+   "predicted": 14.7,
+   "actual": 15.0
+  },
+  {
+   "bucket": "20\u201330%",
+   "states": 1785,
+   "predicted": 24.8,
+   "actual": 25.8
+  },
+  {
+   "bucket": "30\u201340%",
+   "states": 1630,
+   "predicted": 35.0,
+   "actual": 34.5
+  },
+  {
+   "bucket": "40\u201350%",
+   "states": 1490,
+   "predicted": 45.1,
+   "actual": 45.6
+  },
+  {
+   "bucket": "50\u201360%",
+   "states": 1493,
+   "predicted": 54.8,
+   "actual": 56.1
+  },
+  {
+   "bucket": "60\u201370%",
+   "states": 1386,
+   "predicted": 65.0,
+   "actual": 65.3
+  },
+  {
+   "bucket": "70\u201380%",
+   "states": 1480,
+   "predicted": 75.2,
+   "actual": 76.1
+  },
+  {
+   "bucket": "80\u201390%",
+   "states": 2211,
+   "predicted": 85.5,
+   "actual": 86.0
+  },
+  {
+   "bucket": "90\u2013100%",
+   "states": 6206,
+   "predicted": 96.7,
+   "actual": 97.1
+  }
+ ],
+ "feature_importance": {
+  "chase_vs_path": 36.4,
+  "target_vs_par": 14.4,
+  "wkts_vs_phase_par": 10.5,
+  "rate_gap": 9.6,
+  "required_rate": 8.5,
+  "runs_needed": 3.9,
+  "kal_diff_chase": 2.2,
+  "chase_next3": 1.5,
+  "target": 1.5,
+  "chase_xi_exp": 1.2,
+  "chase_xi_form_bat": 1.0,
+  "bat_xi_bat": 0.9,
+  "kal_unc": 0.8,
+  "chase_xi_bat": 0.8,
+  "bat_xi_form_bat": 0.7,
+  "venue_bf_rate": 0.7,
+  "bat_xi_exp": 0.6,
+  "prb_sr": 0.6,
+  "prb_ec": 0.5,
+  "bat_xi_form_econ": 0.5,
+  "chase_crease": 0.5,
+  "home_diff": 0.4,
+  "prc_bpd": 0.4,
+  "prc_sr": 0.4,
+  "chase_xi_bowl_econ": 0.4,
+  "wickets_in_hand": 0.2,
+  "chase_xi_form_econ": 0.2,
+  "bat_xi_bowl_econ": 0.2,
+  "prb_wk": 0.2,
+  "prb_bpd": 0.2,
+  "prc_ec": 0.1,
+  "is_club": 0.0,
+  "current_rate": 0.0,
+  "prc_wk": 0.0,
+  "is_ipl": 0.0,
+  "is_odi": 0.0,
+  "balls_left": 0.0,
+  "balls_left_frac": 0.0
+ },
+ "versions": [
+  {
+   "trained_at": "2026-11-07 15:01",
+   "label": "First live-chase model",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8682,
+   "log_loss": 0.2932,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-07 15:25",
+   "label": "Added the toss",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8686,
+   "log_loss": 0.2924,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-07 15:26",
+   "label": "Toss tested and removed (no gain on 2024 tuning year)",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8682,
+   "log_loss": 0.2932,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-07 18:25",
+   "label": "Added 5,436 T20 league matches to training",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8663,
+   "log_loss": 0.2923,
+   "simple_accuracy": 0.8397
+  },
+  {
+   "trained_at": "2026-11-07 18:25",
+   "label": "Leagues tested: chase kept without them (2024 tuning check got worse)",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8681,
+   "log_loss": 0.2932,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-07 18:52",
+   "label": "Added players' recent form (last 10 innings and spells)",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8696,
+   "log_loss": 0.2922,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-08 00:06",
+   "label": "Who's in + next 3 batters, IPL ratings reset each season, impact player as 12th man",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8701,
+   "log_loss": 0.2911,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-08 00:48",
+   "label": "Automatic update",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8699,
+   "log_loss": 0.2911,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-08 21:25",
+   "label": "Home advantage + venue bias (who wins batting first at the ground)",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8695,
+   "log_loss": 0.2912,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-08 21:39",
+   "label": "How set the two batters are (balls faced)",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.869,
+   "log_loss": 0.2903,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-08 22:43",
+   "label": "Fairer 3-season testing: home advantage internationals only, no 'how set' input",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8694,
+   "log_loss": 0.2906,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-09 14:33",
+   "label": "Phase-shaped par (runs and wickets vs the on-track path)",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8683,
+   "log_loss": 0.2902,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-10 12:29",
+   "label": "Ensemble (LR + LightGBM) retrained",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8688,
+   "log_loss": 0.2898,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-15 11:26",
+   "label": "Rebuilt after an interrupted update",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8688,
+   "log_loss": 0.2898,
+   "simple_accuracy": 0.8398
+  },
+  {
+   "trained_at": "2026-11-17 21:01",
+   "label": "Ensemble (LR + LightGBM) retrained",
+   "model": "Ensemble (LR + LightGBM)",
+   "data_through": "2026-11-02",
+   "test_chases": 1297,
+   "accuracy": 0.8692,
+   "log_loss": 0.2892,
+   "simple_accuracy": 0.8398
+  }
+ ]
+}

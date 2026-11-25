@@ -1,0 +1,338 @@
+{
+ "made": "2026-11-17 21:07",
+ "test_from": "2025-01-01",
+ "data_through": "2026-11-02",
+ "trained_before": "2024-01-01",
+ "groups": {
+  "IPL": {
+   "matches": 140,
+   "innings_break": {
+    "right": 98,
+    "n": 140,
+    "pct": 70.0
+   },
+   "pre_match": {
+    "right": 79,
+    "n": 140,
+    "pct": 56.4
+   },
+   "mid_innings": {
+    "pct": 62.1
+   },
+   "seasons": {
+    "2025": {
+     "matches": 69,
+     "innings_break": {
+      "right": 53,
+      "n": 69,
+      "pct": 76.8
+     },
+     "pre_match": {
+      "right": 39,
+      "n": 69,
+      "pct": 56.5
+     },
+     "mid_innings": {
+      "pct": 66.2
+     },
+     "chase_10": {
+      "right": 54,
+      "n": 68,
+      "pct": 79.4
+     }
+    },
+    "2026": {
+     "matches": 71,
+     "innings_break": {
+      "right": 45,
+      "n": 71,
+      "pct": 63.4
+     },
+     "pre_match": {
+      "right": 40,
+      "n": 71,
+      "pct": 56.3
+     },
+     "mid_innings": {
+      "pct": 58.2
+     },
+     "chase_10": {
+      "right": 63,
+      "n": 70,
+      "pct": 90.0
+     }
+    }
+   },
+   "chase_late": 91.0,
+   "chase_10": {
+    "right": 117,
+    "n": 138,
+    "pct": 84.8
+   }
+  },
+  "T20I \u00b7 full members": {
+   "matches": 164,
+   "innings_break": {
+    "right": 125,
+    "n": 164,
+    "pct": 76.2
+   },
+   "pre_match": {
+    "right": 116,
+    "n": 164,
+    "pct": 70.7
+   },
+   "mid_innings": {
+    "pct": 72.4
+   },
+   "seasons": {
+    "2025": {
+     "matches": 85,
+     "innings_break": {
+      "right": 67,
+      "n": 85,
+      "pct": 78.8
+     },
+     "pre_match": {
+      "right": 62,
+      "n": 85,
+      "pct": 72.9
+     },
+     "mid_innings": {
+      "pct": 76.3
+     },
+     "chase_10": {
+      "right": 74,
+      "n": 84,
+      "pct": 88.1
+     }
+    },
+    "2026": {
+     "matches": 79,
+     "innings_break": {
+      "right": 58,
+      "n": 79,
+      "pct": 73.4
+     },
+     "pre_match": {
+      "right": 54,
+      "n": 79,
+      "pct": 68.4
+     },
+     "mid_innings": {
+      "pct": 68.1
+     },
+     "chase_10": {
+      "right": 65,
+      "n": 76,
+      "pct": 85.5
+     }
+    }
+   },
+   "chase_late": 92.2,
+   "chase_10": {
+    "right": 139,
+    "n": 160,
+    "pct": 86.9
+   }
+  },
+  "T20I \u00b7 with associates": {
+   "matches": 805,
+   "innings_break": {
+    "right": 656,
+    "n": 805,
+    "pct": 81.5
+   },
+   "pre_match": {
+    "right": 593,
+    "n": 805,
+    "pct": 73.7
+   },
+   "mid_innings": {
+    "pct": 79.4
+   },
+   "seasons": {
+    "2025": {
+     "matches": 389,
+     "innings_break": {
+      "right": 306,
+      "n": 389,
+      "pct": 78.7
+     },
+     "pre_match": {
+      "right": 291,
+      "n": 389,
+      "pct": 74.8
+     },
+     "mid_innings": {
+      "pct": 78.4
+     },
+     "chase_10": {
+      "right": 324,
+      "n": 360,
+      "pct": 90.0
+     }
+    },
+    "2026": {
+     "matches": 416,
+     "innings_break": {
+      "right": 350,
+      "n": 416,
+      "pct": 84.1
+     },
+     "pre_match": {
+      "right": 302,
+      "n": 416,
+      "pct": 72.6
+     },
+     "mid_innings": {
+      "pct": 80.2
+     },
+     "chase_10": {
+      "right": 313,
+      "n": 358,
+      "pct": 87.4
+     }
+    }
+   },
+   "chase_late": 91.2,
+   "chase_10": {
+    "right": 637,
+    "n": 718,
+    "pct": 88.7
+   }
+  },
+  "ODI \u00b7 full members": {
+   "matches": 107,
+   "innings_break": {
+    "right": 79,
+    "n": 107,
+    "pct": 73.8
+   },
+   "pre_match": {
+    "right": 65,
+    "n": 107,
+    "pct": 60.7
+   },
+   "mid_innings": {
+    "pct": 61.8
+   },
+   "seasons": {
+    "2025": {
+     "matches": 61,
+     "innings_break": {
+      "right": 46,
+      "n": 61,
+      "pct": 75.4
+     },
+     "pre_match": {
+      "right": 38,
+      "n": 61,
+      "pct": 62.3
+     },
+     "mid_innings": {
+      "pct": 64.2
+     },
+     "chase_10": {
+      "right": 49,
+      "n": 57,
+      "pct": 86.0
+     }
+    },
+    "2026": {
+     "matches": 46,
+     "innings_break": {
+      "right": 33,
+      "n": 46,
+      "pct": 71.7
+     },
+     "pre_match": {
+      "right": 27,
+      "n": 46,
+      "pct": 58.7
+     },
+     "mid_innings": {
+      "pct": 58.7
+     },
+     "chase_10": {
+      "right": 31,
+      "n": 44,
+      "pct": 70.5
+     }
+    }
+   },
+   "chase_late": 88.1,
+   "chase_10": {
+    "right": 80,
+    "n": 101,
+    "pct": 79.2
+   }
+  },
+  "ODI \u00b7 with associates": {
+   "matches": 81,
+   "innings_break": {
+    "right": 58,
+    "n": 81,
+    "pct": 71.6
+   },
+   "pre_match": {
+    "right": 49,
+    "n": 81,
+    "pct": 60.5
+   },
+   "mid_innings": {
+    "pct": 67.0
+   },
+   "seasons": {
+    "2025": {
+     "matches": 33,
+     "innings_break": {
+      "right": 24,
+      "n": 33,
+      "pct": 72.7
+     },
+     "pre_match": {
+      "right": 19,
+      "n": 33,
+      "pct": 57.6
+     },
+     "mid_innings": {
+      "pct": 64.6
+     },
+     "chase_10": {
+      "right": 23,
+      "n": 30,
+      "pct": 76.7
+     }
+    },
+    "2026": {
+     "matches": 48,
+     "innings_break": {
+      "right": 34,
+      "n": 48,
+      "pct": 70.8
+     },
+     "pre_match": {
+      "right": 30,
+      "n": 48,
+      "pct": 62.5
+     },
+     "mid_innings": {
+      "pct": 68.7
+     },
+     "chase_10": {
+      "right": 36,
+      "n": 46,
+      "pct": 78.3
+     }
+    }
+   },
+   "chase_late": 92.8,
+   "chase_10": {
+    "right": 59,
+    "n": 76,
+    "pct": 77.6
+   }
+  }
+ }
+}
