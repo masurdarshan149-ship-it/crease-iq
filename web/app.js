@@ -5131,6 +5131,56 @@
           <button type="button" class="chip-btn" data-sq-usexi="${s}" title="Set the ticked players as the XI, in this order (batting order)">Use ticked as the XI</button></div>`;
       out.dataset.result = JSON.stringify(r);
     };
+    // ---- the official squad: for IPL, one tap loads it from Wikipedia (kept up to date from the announcements) and
+    // offers the players the app is missing; for every team, a link to the official site (copy or screenshot it,
+    // then use Team sheet)
+    const IPL_SLUG = { MI: "mumbai-indians", CSK: "chennai-super-kings", RCB: "royal-challengers-bengaluru", KKR: "kolkata-knight-riders",
+      DC: "delhi-capitals", PBKS: "punjab-kings", RR: "rajasthan-royals", SRH: "sunrisers-hyderabad", GT: "gujarat-titans", LSG: "lucknow-super-giants" };
+    const BOARD = { IND: "https://www.bcci.tv/", AUS: "https://www.cricket.com.au/", ENG: "https://www.ecb.co.uk/", NZ: "https://www.nzc.nz/",
+      SA: "https://cricket.co.za/", PAK: "https://www.pcb.com.pk/", SL: "https://www.srilankacricket.lk/", BAN: "https://www.tigercricket.com.bd/",
+      WI: "https://www.windiescricket.com/", AFG: "https://www.cricket.af/" };
+    const officialSite = (code) => state.mode === "ipl" && IPL_SLUG[code] ? `https://www.iplt20.com/teams/${IPL_SLUG[code]}`
+      : BOARD[code] || "https://www.icc-cricket.com/";
+    for (const s of ["bat", "chase"]) {
+      const first = $(`#xi-sq-${s} .pr-row`); if (!first) continue;
+      const row = document.createElement("div"); row.className = "pr-row sq-official";
+      row.innerHTML = `<button type="button" class="chip-btn" data-sq-official="${s}">Official squad</button>
+        <a class="chip-btn" data-sq-site="${s}" target="_blank" rel="noopener noreferrer">Official site ↗</a>
+        <span class="muted small" data-sq-ostatus="${s}" aria-live="polite"></span>`;
+      first.before(row);
+    }
+    const paintSites = () => ["bat", "chase"].forEach((s) => { const a = $(`[data-sq-site="${s}"]`); if (a) a.href = officialSite(teamOf(s)); });
+    const showOfficial = (s, r) => {
+      const out = $(`[data-sq-out="${s}"]`);
+      if (!r.found) { out.innerHTML = `<p class="small muted">${esc(r.note || "No official squad found.")}</p>`; return; }
+      const missing = r.players.filter((p) => !p.in_squad);
+      const have = r.players.length - missing.length;
+      out.innerHTML = `<p class="small"><b>${esc(r.team)}</b> · official ${r.season} squad, ${r.players.length} players
+          <a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">(Wikipedia)</a> · ${have} already in the app</p>
+        ${missing.length ? `<ul class="sq-list">${missing.map((p) => `<li><label><input type="checkbox" data-sq-opick="${s}" value="${esc(p.name)}" checked>
+            <span>${esc(p.name)}</span> <span class="xr-tag ${p.status === "data" ? "info" : "new"}">${p.status === "data" ? "has a record" : "new: no record yet"}</span></label></li>`).join("")}</ul>
+          <div class="pr-row"><button type="button" class="chip-btn" data-sq-oadd="${s}">Add ${missing.length} to the squad</button></div>`
+          : `<p class="small">Everyone in the official squad is already in the app ✓</p>`}
+        ${r.withdrawn.length ? `<p class="muted small">Withdrawn (not added): ${r.withdrawn.map(esc).join(", ")}</p>` : ""}`;
+    };
+    const loadOfficial = async (s) => {
+      const st = $(`[data-sq-ostatus="${s}"]`); st.textContent = "Loading the official squad…";
+      try { const r = await api("/api/official-squad", { mode: state.mode, team: teamOf(s) }); st.textContent = ""; showOfficial(s, r); }
+      catch (err) { st.textContent = err.message; }
+    };
+    document.addEventListener("click", async (e) => {
+      let b;
+      if ((b = e.target.closest?.("[data-sq-official]"))) { loadOfficial(b.dataset.sqOfficial); return; }
+      if ((b = e.target.closest?.("[data-sq-oadd]"))) {
+        const s = b.dataset.sqOadd;
+        const names = [...document.querySelectorAll(`[data-sq-opick="${s}"]:checked`)].map((i) => i.value);
+        if (!names.length) { $(`[data-sq-ostatus="${s}"]`).textContent = "Tick the players to add first."; return; }
+        if (await add(s, names)) loadOfficial(s);
+      }
+      if (e.target.closest?.("[data-sq-open]")) paintSites();
+    });
+    $("#batting-select")?.addEventListener("change", paintSites); $("#chasing-select")?.addEventListener("change", paintSites);
+    paintSites();
     const latest = async (s, extra) => {
       status(s, "Looking…");
       try { const r = await api("/api/latest-players", { mode: state.mode, team: teamOf(s), ...extra }); status(s, ""); showLatest(s, r); }

@@ -6220,6 +6220,11 @@ class PredictorHandler(BaseHTTPRequestHandler):
                         self._send_json(pitch_report.read_image(str(payload.get("image") or "")))
                     except ValueError as exc:
                         self._send_json({"error": str(exc)}, status=400)
+                elif parsed.path == "/api/official-squad" and not PUBLIC:  # Update squad: the official IPL squad (Wikipedia)
+                    try:
+                        self._send_json(webapp.official_squad(app, payload))
+                    except ValueError as exc:
+                        self._send_json({"error": str(exc)}, status=400)
                 elif parsed.path in ("/api/squad-update", "/api/latest-players") and not PUBLIC:  # Update squad (XI box)
                     try:
                         self._send_json(webapp.squad_update(app, payload) if parsed.path.endswith("update")

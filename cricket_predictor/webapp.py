@@ -2410,6 +2410,41 @@ def latest_players(app: ModuleType, payload: dict[str, Any], fetch: bool = False
     return {"found": True, "match": {"name": card.get("name") or latest.get("name"), "date": card.get("date") or latest["date"],
                                      "result": card.get("status") or latest.get("status")},
             "players": players, "calls_left": max(0, live_results.status()["budget"] - live_results.status()["hits_today"])}
+def official_squad(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
+    """The team's official IPL squad from Wikipedia (official_squads.py), each player matched to the app: in the
+    squad already, in the match data (his record is used once added), or new (no record yet). Withdrawn players are
+    listed apart and never offered. Nothing is saved here: the page adds the ones you tick (squad_update)."""
+    from . import official_squads, xi_reader
+    mode = app._mode_key(payload.get("mode"))
+    code = str(payload.get("team") or "")
+    team = app._team_bank(mode).get(code)
+    if not team:
+        raise ValueError("Pick the team first.")
+    if mode != "ipl":
+        return {"found": False, "note": "Official squads load automatically for IPL teams. For internationals, open the "
+                                        "official squad page, copy or screenshot it, and use Team sheet."}
+    got = official_squads.ipl_squad(team["name"])
+    if not got.get("found"):
+        return got
+    squad = [p["name"] for p in team["squad"]]
+    store = (ml_model.load_store() or {}).get("store") or {}
+    players, withdrawn = [], []
+    for p in got["players"]:
+        if p["withdrawn"]:
+            withdrawn.append(p["name"])
+            continue
+        best, strength, _ = xi_reader._best(p["name"], squad)
+        mine = best if best and strength >= xi_reader.SURE else _match_player(p["name"], squad)
+        if mine:
+            players.append({"name": p["name"], "in_squad": mine, "status": "squad"})
+            continue
+        pid = ml_model.resolve_id(p["name"], "t20", team["name"])
+        known = (store.get("player_names") or {}).get(pid) if pid else None
+        players.append({"name": known or p["name"], "in_squad": None, "status": "data" if known else "new"})
+    return {"found": True, "team": team["name"], "season": got["season"], "source": got["title"], "url": got["url"],
+            "players": players, "withdrawn": withdrawn}
+
+
 MODES = ("international", "ipl")
 WOMEN_OK = False
 
