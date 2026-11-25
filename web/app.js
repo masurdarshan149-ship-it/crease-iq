@@ -5351,6 +5351,53 @@
     const cWorm = $("#c-worm")?.previousElementSibling;
     fold(run(cWorm, $("#c-model")), "Charts and why", "Win chance through the chase, what moved it");
     fold([$("#insights")], "Matchups and form", "Batter v bowler, last 10 innings, venues");
+
+    // ---- Accuracy: three headline numbers on a scoreboard; each model's full report and the honesty table fold.
+    // The report is redrawn now and then (IPL / International), so the folds are put back each time.
+    const accBody = $("#acc-body");
+    if (accBody) {
+      const card = document.createElement("div"); card.className = "m-acc-card";
+      $("#view-accuracy > .hero")?.after(card);
+      const num = (sel) => ($(sel)?.textContent || "").trim() || "–";
+      const paintCard = () => {
+        card.innerHTML = `<div><b>${esc(num("#hero-first"))}</b><small>right at the innings break</small></div>
+          <div><b>${esc(num("#hero-chase"))}</b><small>right in live chases</small></div>
+          <div><b>${esc(num("#club-mae"))}</b><small>runs off on projected T20 totals</small></div>`;
+      };
+      const foldAcc = () => {
+        if (accBody.querySelector(":scope > .m-fold") || !accBody.children.length || accBody.querySelector(":scope > .loading")) return;
+        const kids = [...accBody.children]; const heads = kids.filter((k) => k.classList.contains("hero"));
+        if (heads.length >= 2) {
+          const i1 = kids.indexOf(heads[0]), i2 = kids.indexOf(heads[1]);
+          fold(kids.slice(0, i1), "Innings-break model", "Every model compared, stage by stage, by competition, the toss");
+          fold(kids.slice(i1, i2), "Live chase model", "Over by over, by competition, model versions");
+          fold(kids.slice(i2), "Projected score", "Typical miss, versions, what the model looks at, glossary");
+        } else fold(kids, "The full report", "Every model, every stage");
+        paintCard();
+      };
+      new MutationObserver(foldAcc).observe(accBody, { childList: true }); foldAcc();
+      for (const sel of ["#hero-first", "#hero-chase", "#club-mae"]) { const el = $(sel); if (el) new MutationObserver(paintCard).observe(el, { childList: true, characterData: true, subtree: true }); }
+      paintCard();
+      fold([$("#acc-honesty")], "How honest are the percentages?", "When it said 70%, did that side win 70% of the time?");
+    }
+    // ---- History: your record on top; the breakdown and the charts fold; each saved prediction is a short card
+    // (teams, right / wrong / waiting, the chance) that opens on a tap to show the details and its buttons.
+    const histBody = $("#history-body");
+    if (histBody) {
+      const foldHist = () => {
+        if (histBody.querySelector(".m-fold")) return;
+        const grid = histBody.querySelector(".score-card .score-grid");
+        const pies = histBody.querySelector(":scope > .fmt-pies"), tracker = histBody.querySelector(":scope > .tracker");
+        if (grid) fold([grid], "The breakdown", "First innings, live chase, by format");
+        const charts = [pies, tracker].filter(Boolean);
+        if (charts.length) fold(charts.length === 2 ? run(pies, tracker) : charts, "Charts and trends", "By kind of match, over time, by level");
+      };
+      new MutationObserver(foldHist).observe(histBody, { childList: true }); foldHist();
+      histBody.addEventListener("click", (e) => {
+        if (!mq.matches || e.target.closest("button, a, input, select, label, summary")) return;
+        const item = e.target.closest(".hist-item"); if (item) item.classList.toggle("m-open");
+      });
+    }
   })();
 
   state.stage = store.get("stage", "first") === "chase" ? "chase" : "first";

@@ -2898,7 +2898,7 @@ html[data-theme="dark"] svg.cq { --ball: #e2604e; --pitch: #9fb56f; --gold: #e6b
    Desktop never gets the m-phone class, and every .m-fold is display: contents there, so it looks exactly as before.
    ================================================================================================================= */
 .m-fold { display: contents; }
-.m-fold-btn, .m-phead, .m-crests, .m-next, .m-sum, .m-modes { display: none; }
+.m-fold-btn, .m-phead, .m-crests, .m-next, .m-sum, .m-modes, .m-acc-card { display: none; }
 html.m-phone .m-fold { display: block; margin: 12px 0; }
 html.m-phone .m-fold-btn { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; text-align: left;
   padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
@@ -3045,3 +3045,22 @@ html.m-phone #predict-form .step.m-off { display: none !important; }
 /* ---- phone: the answer card. Simple view = winner, chance, trust and one way into the details */
 html.m-phone .simple #r-situation, html.m-phone .simple .rchips, html.m-phone .simple .rview { display: none !important; }
 html.m-phone .simple .rmore { margin-top: 12px; }
+
+/* ---- phone: Accuracy answer first (three numbers on a scoreboard, the reports folded) */
+html.m-phone #view-accuracy > .hero h1 { font-size: clamp(1.7rem, 8.5vw, 2.3rem); line-height: 1; }
+html.m-phone .m-acc-card { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); margin: 12px 0; padding: 12px 0;
+  background: var(--score-bg); border: 1px solid #2c2c22; border-radius: 20px; text-align: center; }
+html.m-phone .m-acc-card div { padding: 0 6px; display: flex; flex-direction: column; gap: 3px; }
+html.m-phone .m-acc-card div + div { border-left: 1px dashed #3a3a2e; }
+html.m-phone .m-acc-card b { font-family: var(--display); font-size: 1.9rem; font-weight: 900; color: var(--gold); line-height: 1; }
+html.m-phone .m-acc-card small { color: #a8a796; font-size: 0.62rem; text-transform: uppercase; letter-spacing: .06em; line-height: 1.25; }
+html.m-phone #acc-body > .m-fold { margin: 10px 0; }
+/* ---- phone: History as short cards; tap one to see its details and buttons */
+html.m-phone .hist-item { padding: 12px 14px; cursor: pointer; }
+html.m-phone .hist-item .hist-main strong { font-size: 0.98rem; line-height: 1.2; }
+html.m-phone .hist-item:not(.m-open) .hist-main > span:not(.outcome),
+html.m-phone .hist-item:not(.m-open) .hist-actions { display: none; }
+html.m-phone .hist-item:not(.m-open) .outcome { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.8rem; margin-top: 3px; }
+html.m-phone .hist-item .hist-pct { font-family: var(--display); }
+html.m-phone .hist-item:not(.m-open)::after { content: "Tap for details"; display: block; grid-column: 1 / -1; color: var(--faint); font-size: 0.66rem; margin-top: 4px; }
+html.m-phone #history-body .score-head p { display: none; }  /* the explanation: the pie and the counts say it
