@@ -4966,11 +4966,42 @@
             <div class="pr-row">${r.can_save_squad ? `<button type="button" class="chip-btn" data-xr-squad="${s}">Save as the ${esc(r.teams[s])} squad</button>` : ""}
               <button type="button" class="chip-btn" data-xr-first11="${s}">Use the first 11 as the XI</button></div>
             ${r.can_save_squad ? `<small class="muted">Saving replaces the club's squad list in the app with these ${got.sheet.length} players (you can go back to the official list any time).</small>` : ""}</div>` : "";
+        // players on the sheet who aren't in the app's squad (new, or only in the match data): one tap adds them all,
+        // so the announced XI / squad is recognised next time (PC only: online copies don't keep squads)
+        const outsiders = sheetOutsiders(s);
+        const addBox = PUBLIC || r.can_save_squad || !outsiders.length ? ""
+          : last.added?.[s] ? `<div class="pr-row xr-addsq"><span class="xr-chip ok">Added to the ${esc(r.teams[s])} squad ✓</span></div>`
+          : `<div class="pr-row xr-addsq"><button type="button" class="chip-btn" data-xr-addsquad="${s}" title="${esc(outsiders.join(", "))}">Add ${outsiders.length} new player${outsiders.length === 1 ? "" : "s"} to the ${esc(r.teams[s])} squad</button>
+              <small class="muted">${esc(outsiders.join(", "))}</small></div>`;
         return `<div class="xr-side"><p class="xr-title"><b>${esc(r.teams[s])}</b> <small class="muted">· ${SIDE[s]}</small></p>${squadBox}
-          <div class="xr-sum">${sum}</div><ol class="xr-list">${rows}</ol>${subs}</div>`;
+          <div class="xr-sum">${sum}</div><ol class="xr-list">${rows}</ol>${subs}${addBox}</div>`;
       }).join("") + `<div class="pr-row">${last.before ? `<button type="button" class="chip-btn" data-xr-undo>Undo</button>` : ""}
         <span class="muted small">${r.both ? "The sheet had both teams, so both XIs were filled. " : ""}${r.ignored.length ? `Ignored: ${r.ignored.map(esc).join(", ")}. ` : ""}Drag in the batting order list to change it.</span></div>`;
     };
+    // the names on the sheet (XI and substitutes / the rest of a squad) that the team's squad in the app doesn't have
+    function sheetOutsiders(s) {
+      const g = last.result.sides[s]; const picks = last.picks[s] || [];
+      const squad = new Set((team(s === "bat" ? state.batting : state.chasing)?.squad || []).map((p) => p.name));
+      const names = [];
+      g.players.forEach((p, i) => {
+        if (p.status === "new" || p.status === "data") names.push(p.name);
+        else if (p.status === "check" && picks[i] === p.as_read) names.push(p.as_read);  // you chose "Keep as new player"
+      });
+      g.subs.forEach((p) => { if (p.status === "new" || p.status === "data") names.push(p.name); });
+      return [...new Set(names)].filter((n) => n && !squad.has(n));
+    }
+    document.addEventListener("click", async (e) => {
+      const b = e.target.closest?.("[data-xr-addsquad]"); if (!b || !last) return;
+      const s = b.dataset.xrAddsquad; const names = sheetOutsiders(s);
+      if (!names.length) return;
+      b.disabled = true;
+      try {
+        const r = await api("/api/squad-update", { mode: state.mode, team: s === "bat" ? state.batting : state.chasing, add: names });
+        state.config = await api(`/api/config?mode=${state.mode}`);
+        (last.added ||= {})[s] = true;
+        renderXI(); render(); toast(r.note);
+      } catch (err) { b.disabled = false; status(last.from, err.message); }
+    });
     const read = async (s, body, what) => {
       status(s, what);
       try {
