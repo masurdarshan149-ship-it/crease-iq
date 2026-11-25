@@ -102,6 +102,10 @@ def _heading_side(piece: str, teams: dict[str, dict[str, Any]]) -> str | None:
         names = {_fold(t.get("name", "")), _fold(t.get("code", ""))}
         if f and any(n and (f == n or (len(n) > 3 and n in f)) for n in names):
             return side
+        # the start of the full name, at least two words: "ROYAL CHALLENGERS", "SUNRISERS HYDERABAD" (on a cramped graphic)
+        full = _fold(t.get("name", ""))
+        if len(f.split()) >= 2 and full.startswith(f + " "):
+            return side
     # a short heading with the team's nickname: "SIXERS SQUAD", "Thunder XI" (only when the nickname is the other
     # team's too would it be unclear, e.g. two "Kings", so then it isn't used)
     words = f.split()
@@ -165,10 +169,35 @@ def _pieces(text: str, teams: dict[str, dict[str, Any]]) -> list[str]:
     return out
 
 
+def _columns(text: str, teams: dict[str, dict[str, Any]]) -> tuple[str, bool]:
+    """Two teams side by side under their names ("MUMBAI INDIANS | ROYAL CHALLENGERS", then "Rohit Sharma | Virat
+    Kohli" ...): rewritten as one team's list after the other, so each column stays with the team named above it.
+    Returns (text, True when it was rewritten)."""
+    lines = str(text or "").splitlines()
+    for i, line in enumerate(lines):
+        parts = [p.strip() for p in line.split(" | ")]
+        if len(parts) != 2:
+            continue
+        sides = [_heading_side(p, teams) for p in parts]
+        if not all(sides) or sides[0] == sides[1]:
+            continue
+        cols: list[list[str]] = [[parts[0]], [parts[1]]]
+        for row in lines[i + 1:]:
+            cells = [c.strip() for c in row.split(" | ")]
+            if len(cells) == 2:
+                cols[0].append(cells[0])
+                cols[1].append(cells[1])
+            elif row.strip():  # a line across both columns (a footer, "Impact subs"): keep it after both lists
+                cols[1].append(row.strip())
+        return "\n".join([*lines[:i], *cols[0], *cols[1]]), True
+    return text, False
+
+
 def read(text: str, teams: dict[str, dict[str, Any]], want: str, lookup=None) -> dict[str, Any]:
     """teams: {"bat": {"name", "code", "squad": [names]}, "chase": {...}}; want: the side whose box was used.
     lookup(name, side) -> a name from the match data, or None. Returns what was found for each side."""
     other = "chase" if want == "bat" else "bat"
+    text, by_column = _columns(text, teams)
     rows: list[dict[str, Any]] = []
     section, subs = None, False
     for piece in _pieces(text, teams):
@@ -191,14 +220,16 @@ def read(text: str, teams: dict[str, dict[str, Any]], want: str, lookup=None) ->
     # one team or both? Both when several names belong clearly to the other squad
     clear_other = sum(1 for r in rows if r["found"].get(other, (None, 0))[1] >= SURE
                       and r["found"].get(other, (None, 0))[1] > r["found"].get(want, (None, 0))[1])
-    both = clear_other >= 4 and other in teams
+    both = (clear_other >= 4 or by_column) and other in teams
 
     out: dict[str, dict[str, Any]] = {s: {"players": [], "subs": []} for s in ((want, other) if both else (want,))}
     ignored: list[str] = []
     taken: dict[str, set[str]] = {s: set() for s in out}
     for r in rows:
         f = r["found"]
-        if both:
+        if both and by_column and r["section"] in out:
+            side = r["section"]  # side-by-side columns under the team names: the column decides
+        elif both:
             side = max(out, key=lambda s: (f.get(s, (None, 0))[1], s == r["section"]))
             if f.get(side, (None, 0))[1] < MAYBE and r["section"] in out:
                 side = r["section"]

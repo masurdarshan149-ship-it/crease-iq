@@ -2781,8 +2781,7 @@
     const winnerCode = r.winner === r.chasing_team ? r.chasing_code : r.winner === r.batting_team ? r.batting_code : null;
     if (winnerCode) paintBadge($("#c-badge"), winnerCode); $("#c-badge").hidden = !winnerCode;
     setHero("chase", winnerCode, r.status === "live" ? (winnerCode === r.chasing_code ? r.chase_pct : 100 - r.chase_pct) : null);
-    $("#c-winner").textContent = r.status === "live" ? r.winner : r.verdict;
-    $("#c-equation").innerHTML = r.status === "live"
+    $("#c-winner").textContent = r.status === "live" ? r.winner : r.verdict;    $("#c-equation").innerHTML = r.status === "live"
       ? `${esc(r.chasing_team)} <b>${e.runs}/${e.wickets}</b> (${e.overs_text}) · need <b>${e.runs_needed}</b> off <b>${e.balls_left}</b> balls · RRR <b>${e.required_rate ?? "–"}</b> · CRR <b>${e.current_rate ?? "–"}</b> · <b>${e.wickets_in_hand}</b> wickets left`
       : r.status === "won" ? `${esc(r.chasing_team)} reached <b>${e.runs}/${e.wickets}</b> with <b>${e.balls_left}</b> balls and <b>${e.wickets_in_hand}</b> wickets to spare.`
       : r.status === "tied" ? `Scores level on <b>${e.runs}</b>. Super over!`
@@ -4773,11 +4772,59 @@
     if (state.stage === "chase") predictChase(false); else livePredict();
   });
   syncConditions();
+  // ---- pictures in the online copy: the server has no Windows text recognition, so the phone / browser reads the
+  // picture itself with Tesseract.js (free, open source; loaded only when a picture is chosen; the picture never
+  // leaves the device). Like the Windows reader, a wide gap between two words on a line (side-by-side columns, e.g.
+  // two teams on a TV graphic) is written as " | ", so the pitch and team-sheet readers get the same kind of text.
+  const OCR_LIB = "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js";
+  let ocrWorker = null;
+  async function browserOcr(canvas, onStatus) {
+    if (!window.Tesseract) {
+      onStatus?.("Getting the picture reader ready… (first time only)");
+      await new Promise((ok, fail) => {
+        const s = document.createElement("script"); s.src = OCR_LIB; s.onload = ok;
+        s.onerror = () => fail(new Error("Couldn't load the picture reader. Check the internet connection."));
+        document.head.appendChild(s);
+      });
+    }
+    if (!ocrWorker) ocrWorker = window.Tesseract.createWorker("eng");
+    const worker = await ocrWorker;
+    onStatus?.("Reading the picture… (a few seconds)");
+    const { data } = await worker.recognize(canvas);
+    const lines = [];
+    for (const line of data.lines || []) {
+      const words = (line.words || []).filter((w) => w.text.trim());
+      if (!words.length) continue;
+      let text = words[0].text;
+      for (let i = 1; i < words.length; i++) {
+        const a = words[i - 1].bbox, b = words[i].bbox;
+        const tall = Math.max(a.y1 - a.y0, b.y1 - b.y0);
+        text += (b.x0 - a.x1 > 1.6 * tall ? " | " : " ") + words[i].text;
+      }
+      lines.push(text);
+    }
+    return lines.join("\n").trim();
+  }
+  // a picture file -> a white-backed canvas, shrunk if huge and enlarged if small (clearer for text recognition)
+  function pictureCanvas(file) {
+    return new Promise((ok, fail) => {
+      if (!file || !file.type.startsWith("image/")) { fail(new Error("That isn't a picture.")); return; }
+      const url = URL.createObjectURL(file); const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(2400 / Math.max(img.width, img.height), img.width < 900 ? 2 : 1);
+        const c = document.createElement("canvas"); c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url); ok(c);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); fail(new Error("That picture couldn't be opened. Try a PNG or JPG.")); };
+      img.src = url;
+    });
+  }
+
   // ---- read a pitch report (text, a picture, or a pasted screenshot): sets the pitch and dew buttons, with Undo
   (() => {
     const box = $("#pitch-read"); if (!box) return;
     const status = (t) => { $("#pr-status").textContent = t; };
-    if (PUBLIC) $("#pr-pic-label").hidden = true;  // pictures are read by Windows on your PC
     const show = (r, before) => {
       const pick = r.pitch !== state.pitch || r.dew !== state.dew;
       state.pitchReport = (r.text || "").slice(0, 600);
@@ -4806,6 +4853,7 @@
         const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
         const r = await res.json();
         if (!res.ok || r.error) { status(r.error || "Couldn't read that."); return; }
+        if (body.picture) r.from_picture = true;  // read on this device (online copy)
         if (r.from_picture && r.text) $("#pr-text").value = r.text;  // so you can see (and fix) what was read
         status(""); show(r, before);
       } catch { status("Couldn't reach the app. Is it still running?"); }
@@ -4815,25 +4863,21 @@
       if (!text) { status("Paste or type a pitch report first."); return; }
       ask("/api/pitch-read", { text }, "Reading…");
     });
-    // pictures: shrink big ones and enlarge small ones (clearer for text recognition), always sent as PNG
-    const readPicture = (file) => {
-      if (!file || !file.type.startsWith("image/")) { status("That isn't a picture."); return; }
-      const url = URL.createObjectURL(file); const img = new Image();
-      img.onload = () => {
-        const scale = Math.min(2400 / Math.max(img.width, img.height), img.width < 900 ? 2 : 1);
-        const c = document.createElement("canvas");
-        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
-        const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
-        URL.revokeObjectURL(url);
-        ask("/api/pitch-read-image", { image: c.toDataURL("image/png") }, "Reading the picture… (a few seconds)");
-      };
-      img.onerror = () => { URL.revokeObjectURL(url); status("That picture couldn't be opened. Try a PNG or JPG."); };
-      img.src = url;
+    // pictures: on your PC Windows reads them (sent as PNG); online this device reads them and sends only the text
+    const readPicture = async (file) => {
+      try {
+        const c = await pictureCanvas(file);
+        if (!PUBLIC) { ask("/api/pitch-read-image", { image: c.toDataURL("image/png") }, "Reading the picture… (a few seconds)"); return; }
+        const text = await browserOcr(c, status);
+        if (!text) { status("No text found in that picture. Try a clearer one, or type the report."); return; }
+        $("#pr-text").value = text;
+        ask("/api/pitch-read", { text, picture: true }, "Reading…");
+      } catch (err) { status(err.message || "Couldn't read that picture."); }
     };
     $("#pr-pic").addEventListener("change", (e) => { readPicture(e.target.files[0]); e.target.value = ""; });
     $("#pr-text").addEventListener("paste", (e) => {
       const item = [...(e.clipboardData?.items || [])].find((i) => i.type.startsWith("image/"));
-      if (!item || PUBLIC) return;
+      if (!item) return;
       e.preventDefault(); readPicture(item.getAsFile());
     });
   })();
@@ -4846,7 +4890,6 @@
     const SIDE = { bat: "Batting first", chase: "Chasing" };
     const BADGE = { squad: ["ok", "in squad"], data: ["info", "from match data"], check: ["warn", "check"], new: ["new", "new player"] };
     let last = null;  // { from, picks: {side: [name|null per row]}, before }
-    if (PUBLIC) $$(".xr-pic").forEach((el) => { el.hidden = true; });
     const apply = () => {
       for (const [s, picks] of Object.entries(last.picks)) {
         state.xi[s] = [...new Set(picks.filter(Boolean))].slice(0, 11);
@@ -4894,6 +4937,7 @@
       try {
         const r = await api(body.image ? "/api/xi-read-image" : "/api/xi-read",
           { ...body, side: s, mode: state.mode, format: state.format, batting: state.batting, chasing: state.chasing });
+        if (body.picture) r.from_picture = true;  // read on this device (online copy)
         if (r.from_picture && r.text) $(`[data-xr-text="${s}"]`).value = r.text;
         const found = Object.values(r.sides).reduce((a, g) => a + g.players.length, 0);
         if (!found) { status(s, "No player names found. Try a clearer picture, or paste the list."); return; }
@@ -4909,18 +4953,16 @@
         toast(squadLike ? "That's a full squad: your XI wasn't changed" : r.both ? "Both XIs filled from the team sheet" : `${r.teams[s]} XI filled from the team sheet`);
       } catch (err) { status(s, err.message || "Couldn't read that."); }
     };
-    const readPicture = (s, file) => {
-      if (!file || !file.type.startsWith("image/")) { status(s, "That isn't a picture."); return; }
-      const url = URL.createObjectURL(file); const img = new Image();
-      img.onload = () => {
-        const scale = Math.min(2400 / Math.max(img.width, img.height), img.width < 900 ? 2 : 1);
-        const c = document.createElement("canvas"); c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
-        const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
-        URL.revokeObjectURL(url);
-        read(s, { image: c.toDataURL("image/png") }, "Reading the picture… (a few seconds)");
-      };
-      img.onerror = () => { URL.revokeObjectURL(url); status(s, "That picture couldn't be opened. Try a PNG or JPG."); };
-      img.src = url;
+    // on your PC Windows reads the picture; online this device reads it and sends only the text
+    const readPicture = async (s, file) => {
+      try {
+        const c = await pictureCanvas(file);
+        if (!PUBLIC) { read(s, { image: c.toDataURL("image/png") }, "Reading the picture… (a few seconds)"); return; }
+        const text = await browserOcr(c, (t) => status(s, t));
+        if (!text) { status(s, "No text found in that picture. Try a clearer one, or paste the list."); return; }
+        $(`[data-xr-text="${s}"]`).value = text;
+        read(s, { text: text.slice(0, 6000), picture: true }, "Matching the names…");
+      } catch (err) { status(s, err.message || "Couldn't read that picture."); }
     };
     document.addEventListener("click", (e) => {
       const open = e.target.closest("[data-xi-read]");
@@ -4978,7 +5020,7 @@
       if (pic) { readPicture(pic.dataset.xrPic, pic.files[0]); pic.value = ""; }
     });
     document.addEventListener("paste", (e) => {
-      const ta = e.target.closest?.("[data-xr-text]"); if (!ta || PUBLIC) return;
+      const ta = e.target.closest?.("[data-xr-text]"); if (!ta) return;
       const item = [...(e.clipboardData?.items || [])].find((i) => i.type.startsWith("image/"));
       if (!item) return;
       e.preventDefault(); readPicture(ta.dataset.xrText, item.getAsFile());
@@ -5157,6 +5199,127 @@
     const mae = a.score?.slices?.["All T20 states"]?.model?.mae;
     if (mae) $("#club-mae").textContent = `±${Math.round(mae)}`;
   }).catch(() => {});
+  // ================= phone layout (screens up to 760 px wide; desktop is untouched) =================
+  // "Scoreboard" style: one job per screen. The page's own parts are reused, not copied: groups of extras are wrapped
+  // in .m-fold boxes (display: contents on desktop, so nothing changes there; folded with a button on phones), the
+  // Predict steps open one at a time with a progress bar, and teams are picked by tapping their crests.
+  (function phoneLayout() {
+    const mq = matchMedia("(max-width: 760px)");
+    const sync = () => document.documentElement.classList.toggle("m-phone", mq.matches);
+    sync(); mq.addEventListener?.("change", sync);
+    // wrap a run of neighbouring elements in a fold with a title (they keep their order and ids)
+    const fold = (els, title, sub = "") => {
+      els = els.filter(Boolean); if (!els.length) return null;
+      const box = document.createElement("div"); box.className = "m-fold";
+      const btn = document.createElement("button"); btn.type = "button"; btn.className = "m-fold-btn";
+      btn.innerHTML = `<span><b>${esc(title)}</b>${sub ? `<small>${esc(sub)}</small>` : ""}</span><i aria-hidden="true"></i>`;
+      btn.setAttribute("aria-expanded", "false");
+      const body = document.createElement("div"); body.className = "m-fold-body";
+      els[0].before(box); box.append(btn, body); els.forEach((el) => body.append(el));
+      btn.addEventListener("click", () => { const open = box.classList.toggle("open"); btn.setAttribute("aria-expanded", String(open)); });
+      return box;
+    };
+    const run = (first, last) => {  // first .. last, siblings in order
+      const out = []; let el = first;
+      while (el) { out.push(el); if (el === last) break; el = el.nextElementSibling; }
+      return out;
+    };
+    // ---- Home: the hero (photo, two buttons, scoreboard numbers) stays; everything below folds into one box
+    const home = $("#view-home");
+    if (home) {
+      const firstExtra = $("#home-search"); const lastExtra = home.querySelector(".benefits");
+      if (firstExtra && lastExtra) fold(run(firstExtra, lastExtra), "More from Crease IQ", "Accuracy, top teams, how it works");
+    }
+    // ---- Predict: compact header with the step title and a progress bar; steps open one at a time
+    const form = $("#predict-form");
+    const steps = form ? $$(".step", form) : [];
+    const STEP_TITLE = ["Who's playing?", "Where, and which format?", "What's the score?", "Playing XIs"];
+    if (form && steps.length) {
+      const head = document.createElement("div"); head.className = "m-phead";
+      head.innerHTML = `<small class="m-step-no"></small><h2 class="m-step-title"></h2><div class="m-progress">${STEP_TITLE.map(() => "<i></i>").join("")}</div>`;
+      form.querySelector(".stage-toggle")?.after(head);
+      const visible = () => steps.filter((s) => !s.hidden);
+      const summary = (s) => {
+        const i = visible().indexOf(s);
+        if (i === 0) return `${team(state.batting)?.name || state.batting} v ${team(state.chasing)?.name || state.chasing}`;
+        if (i === 1) return `${state.format.toUpperCase()} · ${($("#venue-input")?.value || "any ground").split(",")[0]}`;
+        if (i === 2) return state.stage === "chase" ? `${$("#c-runs-input")?.value || 0}/${$("#c-wickets-input")?.value || 0} chasing ${$("#target-input")?.value || ""}`
+          : `${$("#runs-input")?.value || 0}/${$("#wickets-input")?.value || 0} (${$("#overs-input")?.value || 0} ov)`;
+        return $("#xi-summary")?.textContent || "";
+      };
+      const openStep = (target, scroll) => {
+        const vis = visible(); const idx = Math.max(0, vis.indexOf(target));
+        vis.forEach((s, i) => s.classList.toggle("m-closed", i !== idx));
+        $$(".m-progress i", head).forEach((b, i) => b.classList.toggle("on", i <= idx));
+        $(".m-step-no", head).textContent = `Step ${idx + 1} of ${vis.length}`;
+        $(".m-step-title", head).textContent = idx === 2 && state.stage === "chase" ? "The chase" : STEP_TITLE[idx] || "";
+        refreshSums();
+        if (scroll && mq.matches) head.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      const refreshSums = () => visible().forEach((s) => { const el = $(".m-sum", s); if (el) el.textContent = summary(s); });
+      steps.forEach((s, i) => {
+        const sh = $(".step-head", s); if (!sh) return;
+        const sum = document.createElement("small"); sum.className = "m-sum"; sh.append(sum);
+        sh.addEventListener("click", (e) => { if (!mq.matches || e.target.closest("button, a, input, select")) return; openStep(s, true); });
+        // "Next" at the end of each step but the last
+        const next = document.createElement("button"); next.type = "button"; next.className = "m-next";
+        next.innerHTML = `Next <span aria-hidden="true">→</span>`;
+        next.addEventListener("click", () => { const vis = visible(); const k = vis.indexOf(s); if (vis[k + 1]) openStep(vis[k + 1], true); });
+        s.append(next);
+      });
+      // extras inside the steps fold away: pitch and conditions, the batters at the crease, the XI helpers
+      fold([$("#conditions")], "Pitch and conditions", "From the pitch report · read a report or a picture");
+      fold([$(".step-hint", steps[steps.length - 1])], "How to pick the XIs");
+      openStep(steps[0], false);
+      form.addEventListener("change", refreshSums); form.addEventListener("input", refreshSums); form.addEventListener("click", () => setTimeout(refreshSums, 30));
+      // the chase / first-innings switch swaps step 3: keep the open step sensible
+      new MutationObserver(() => { const open = visible().find((s) => !s.classList.contains("m-closed")); openStep(open || visible()[0], false); })
+        .observe(form, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
+    }
+    // ---- team crests: tap the team batting first, then the chasing team (the drop-downs stay for every team)
+    const teamsBox = form?.querySelector(".teams");
+    if (teamsBox) {
+      const wrap = document.createElement("div"); wrap.className = "m-crests";
+      wrap.innerHTML = `<p class="m-crest-hint"></p><div class="m-crest-grid" role="group" aria-label="Pick the teams"></div>`;
+      teamsBox.before(wrap);
+      let next = "bat";
+      const hint = () => { $(".m-crest-hint", wrap).innerHTML = next === "bat" ? "Tap the team <b>batting first</b>" : "Now tap the <b>chasing</b> team"; };
+      const pick = (code) => {
+        const bat = $("#batting-select"), ch = $("#chasing-select");
+        if (next === "bat") {
+          if (code === state.chasing) { $("#swap-btn")?.click(); }
+          else if (code !== state.batting) { bat.value = code; bat.dispatchEvent(new Event("change", { bubbles: true })); }
+          next = "chase";
+        } else {
+          if (code === state.batting) return;
+          ch.value = code; ch.dispatchEvent(new Event("change", { bubbles: true })); next = "bat";
+        }
+        hint(); mark();
+      };
+      const mark = () => $$("button", wrap).forEach((b) => {
+        b.classList.toggle("bat", b.dataset.code === state.batting); b.classList.toggle("chase", b.dataset.code === state.chasing);
+      });
+      const build = () => {
+        const opts = [...$("#batting-select").options].filter((o) => o.value);
+        $(".m-crest-grid", wrap).innerHTML = opts.map((o) => `<button type="button" data-code="${esc(o.value)}" title="${esc(o.textContent)}">${badgeHTML(o.value, "md")}<small>${esc(o.value)}</small></button>`).join("");
+        hint(); mark();
+      };
+      wrap.addEventListener("click", (e) => { const b = e.target.closest("button[data-code]"); if (b) pick(b.dataset.code); });
+      new MutationObserver(build).observe($("#batting-select"), { childList: true });
+      $("#batting-select").addEventListener("change", mark); $("#chasing-select").addEventListener("change", mark);
+      $("#swap-btn")?.addEventListener("click", () => setTimeout(mark, 30));
+      build();
+    }
+    // ---- results: the winner, the chance and the bar stay on top; the rest folds
+    fold(run($("#first-phases"), $("#r-worm-wrap")), "Charts and projection", "Phase tracker, par by wickets, projected total");
+    const rWhy = $("#r-factors")?.previousElementSibling;
+    fold(run(rWhy, $("#r-model")), "Why this call", "What moved the needle, what if, ask why");
+    fold(run($("#chase-phases"), $("#chase-res")), "Phases, par and who's left");
+    const cWorm = $("#c-worm")?.previousElementSibling;
+    fold(run(cWorm, $("#c-model")), "Charts and why", "Win chance through the chase, what moved it");
+    fold([$("#insights")], "Matchups and form", "Batter v bowler, last 10 innings, venues");
+  })();
+
   state.stage = store.get("stage", "first") === "chase" ? "chase" : "first";
   loadPhotos().finally(() => setMode(state.mode).then(() => { setStage(state.stage); route(); }));
 })();
