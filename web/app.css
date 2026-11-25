@@ -3064,3 +3064,9 @@ html.m-phone .hist-item:not(.m-open) .outcome { display: block; white-space: now
 html.m-phone .hist-item .hist-pct { font-family: var(--display); }
 html.m-phone .hist-item:not(.m-open)::after { content: "Tap for details"; display: block; grid-column: 1 / -1; color: var(--faint); font-size: 0.66rem; margin-top: 4px; }
 html.m-phone #history-body .score-head p { display: none; }  /* the explanation: the pie and the counts say it
+
+/* online copy: Save / Load my history beside Clear history */
+.hist-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
+.hist-tools label.ghost-btn { display: inline-flex; align-items: center; }
+html.m-phone .hist-tools { justify-content: flex-start; margin-top: 10px; }
+html.m-phone .hist-tools .ghost-btn { padding: 8px 14px; font-size: 0.85rem; }

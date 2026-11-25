@@ -253,13 +253,19 @@
     if (openList) $("#venue-input").focus();
   }
 
+  // other names a ground is known by (sponsor names change; broadcasters use the old name): extra search words only,
+  // the ground and its data stay as they are
+  const VENUE_ALIASES = [
+    [/metricon|heritage bank|people first|carrara/i, "carrara oval gold coast"],  // the Gold Coast's ground (Carrara)
+  ];
+  const aliasWords = (v) => VENUE_ALIASES.filter(([re]) => re.test(`${v.name} ${v.city}`)).map(([, w]) => w).join(" ");
   function venueMatches(query) {
     const venues = venuesInCountry();
     const words = fold(query).split(/\s+/).filter(Boolean);
     if (!words.length) return [...venues].sort((a, b) => b.matches - a.matches).slice(0, state.country === "all" ? 30 : 200);
     return venues
       .map((v) => {
-        const hay = fold(`${v.name} ${v.city} ${v.country}`);
+        const hay = fold(`${v.name} ${v.city} ${v.country} ${aliasWords(v)}`);
         if (!words.every((w) => hay.includes(w))) return null;
         const name = fold(v.name);
         const score = (name.startsWith(words[0]) ? 2000 : 0) + (fold(v.city).startsWith(words[0]) ? 1000 : 0) + v.matches;
@@ -4701,6 +4707,39 @@
 
   // ------------------------------------------------------------------ boot
   $$(".mode-switch button").forEach((b) => b.addEventListener("click", () => { if (b.dataset.mode !== state.mode) setMode(b.dataset.mode); }));
+  // ---- online copy: your saved predictions live only in this browser, so you can save them to a file and load them
+  // back (after clearing browsing data, or on a new phone). Nothing is sent anywhere: the file stays on your device.
+  if (PUBLIC) {
+    const clearBtn = $("#clear-history");
+    const tools = document.createElement("div"); tools.className = "hist-tools";
+    tools.innerHTML = `<button type="button" class="ghost-btn" id="hist-save">Save my history</button>
+      <label class="ghost-btn" id="hist-load-label">Load my history<input type="file" id="hist-load" accept=".json,application/json" hidden></label>`;
+    clearBtn.before(tools); tools.append(clearBtn);
+    const keyOf = (e) => [e.timestamp, e.batting_first_team, e.chasing_team, e.stage].join("|");
+    $("#hist-save").addEventListener("click", () => {
+      const items = store.get("pub.history", []);
+      if (!items.length) { toast("Nothing saved yet"); return; }
+      const day = new Date().toISOString().slice(0, 10);
+      const blob = new Blob([JSON.stringify({ app: "crease-iq", saved: new Date().toISOString(), items }, null, 1)], { type: "application/json" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `crease-iq-history-${day}.json`;
+      document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      toast(`Saved ${items.length} prediction${items.length === 1 ? "" : "s"} to a file`);
+    });
+    $("#hist-load").addEventListener("change", async (e) => {
+      const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+      let data;
+      try { data = JSON.parse(await file.text()); } catch { toast("That file isn't a Crease IQ history file"); return; }
+      const incoming = (Array.isArray(data) ? data : data?.items || [])
+        .filter((x) => x && typeof x === "object" && typeof x.timestamp === "string" && x.batting_first_team && x.chasing_team);
+      if (!incoming.length) { toast("No saved predictions in that file"); return; }
+      const have = store.get("pub.history", []); const seen = new Set(have.map(keyOf));
+      const fresh = incoming.filter((x) => !seen.has(keyOf(x)));
+      const merged = [...have, ...fresh].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp))).slice(0, 500);
+      store.set("pub.history", merged);
+      await loadHistory();
+      toast(fresh.length ? `Loaded ${fresh.length} prediction${fresh.length === 1 ? "" : "s"}` : "Those predictions are already here");
+    });
+  }
   $("#clear-history").addEventListener("click", async () => {
     if (!confirm("Delete all saved predictions? (You can undo this for a few seconds.)")) return;
     const res = await api("/api/history/clear", {}); await loadHistory();
