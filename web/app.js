@@ -4638,7 +4638,11 @@
     const banner = retraining ? "" : s.needs_retrain
       ? `<div class="banner warn">⚡ <span>New match data arrived after the model was trained. Press <b>Retrain model</b> so predictions use it.</span></div>`
       : `<div class="banner ok">✓ <span>The model is trained on the newest data you have.</span></div>`;
-    $("#data-body").innerHTML = `${banner}${healthHTML}
+    const bk = s.backup || {};
+    const backupHTML = PUBLIC ? "" : `<p class="data-fresh backup-line">${bk.at
+      ? `${bk.ok ? "✓" : "⚠"} Copy of your predictions, squads and settings in OneDrive: <b>${esc(fd(bk.at))}</b> · ${esc(bk.note || "")}`
+      : "A copy of your predictions, squads and settings goes to OneDrive each time the app starts."}</p>`;
+    $("#data-body").innerHTML = `${banner}${healthHTML}${backupHTML}
       <div class="data-grid">
         <article class="panel data-card">
           <h2><span class="step-num">1</span>Download latest matches</h2>

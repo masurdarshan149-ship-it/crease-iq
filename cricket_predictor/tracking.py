@@ -389,6 +389,17 @@ def first_innings_totals() -> list[dict[str, Any]]:
 def _read_totals() -> list[dict[str, Any]]:
     import json
     import zipfile
+    import os
+    # the online copy uses the list exactly as published from your PC (its archive files get new dates on every
+    # deploy, and it restarts after every sleep: re-reading 48 MB of archives on its tiny processor held up the first
+    # visitor each time)
+    if os.environ.get("CREASE_PUBLIC") == "1":
+        if "rows" not in _TOTALS:
+            try:
+                _TOTALS.update(json.loads(_TOTALS_PATH.read_text(encoding="utf-8")))
+            except (OSError, ValueError):
+                _TOTALS.update(stamp=None, rows=[])
+        return _TOTALS["rows"]
     archives = [p for p in _archives() if p.exists()]
     stamp = [[str(p), p.stat().st_mtime_ns, p.stat().st_size] for p in archives]
     if _TOTALS.get("stamp") == stamp:

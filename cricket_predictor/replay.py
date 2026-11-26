@@ -271,7 +271,11 @@ _INDEX_CACHE: dict[str, Any] = {}
 def _quick_index() -> list[dict[str, Any]] | None:
     """The saved match list if it belongs to the current row file; None if there isn't one yet."""
     key = _rows_key()
-    if key and _INDEX_CACHE.get("key") == key:
+    # the online copy has no row files (key ""): it uses the list exactly as published from the PC, where it was checked,
+    # and keeps it in memory like the PC does (it used to read and decode the 2 MB file on every use)
+    online = not key and __import__("os").environ.get("CREASE_PUBLIC") == "1"
+    mem_key = key or ("online" if online else "")
+    if mem_key and _INDEX_CACHE.get("key") == mem_key:
         return _INDEX_CACHE["index"]
     try:
         import json
@@ -279,11 +283,9 @@ def _quick_index() -> list[dict[str, Any]] | None:
         saved = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
-    # the online copy has no row files (key ""): it uses the list exactly as published from the PC, where it was checked
-    online = not key and __import__("os").environ.get("CREASE_PUBLIC") == "1"
     if not online and (not key or saved.get("key") != key):
         return None
-    _INDEX_CACHE.update(key=key, index=saved["index"])
+    _INDEX_CACHE.update(key=mem_key, index=saved["index"])
     return saved["index"]
 
 

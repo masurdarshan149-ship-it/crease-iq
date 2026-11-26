@@ -84,6 +84,46 @@ def _crossing(runs_list: list[int], probs: list[float], want_high: bool) -> floa
     return None
 
 
+COARSE = 4  # the first pass looks at every 4th score of the grid; the second only between the two around 50%
+
+
+def _crossings(cells: list[tuple[Any, list[int]]], row_of, predict, value_of) -> dict[Any, float | None]:
+    """The 50% score of every cell (key, scores), in two passes instead of asking the model about every score: first
+    every COARSE-th score (and the last), then only the scores between the two coarse points around 50%. Because more
+    runs never lower the batting side's chance, this finds the same crossing as the full grid with about a third of
+    the model work. row_of(key, runs) builds a model row; predict(rows) gives chances; value_of(key, p) turns a chance
+    into the one that rises with runs (with your dew call applied)."""
+    coarse_rows, coarse_at = [], []
+    for key, runs_list in cells:
+        idx = list(range(0, len(runs_list), COARSE))
+        if idx[-1] != len(runs_list) - 1:
+            idx.append(len(runs_list) - 1)
+        coarse_at.append((len(coarse_rows), idx))
+        coarse_rows.extend(row_of(key, runs_list[i]) for i in idx)
+    coarse_p = predict(coarse_rows) if coarse_rows else []
+    out: dict[Any, float | None] = {}
+    fine_rows, fine_at = [], []
+    for (key, runs_list), (start, idx) in zip(cells, coarse_at):
+        vals = {i: value_of(key, coarse_p[start + n]) for n, i in enumerate(idx)}
+        j = next((n for n, i in enumerate(idx) if vals[i] >= 0.5), None)
+        if j is None:
+            out[key] = None
+        elif j == 0:
+            out[key] = float(runs_list[idx[0]])
+        else:
+            lo, hi = idx[j - 1], idx[j]
+            between = list(range(lo + 1, hi))
+            fine_at.append((key, runs_list, lo, hi, vals, len(fine_rows), between))
+            fine_rows.extend(row_of(key, runs_list[i]) for i in between)
+    fine_p = predict(fine_rows) if fine_rows else []
+    for key, runs_list, lo, hi, vals, start, between in fine_at:
+        for n, i in enumerate(between):
+            vals[i] = value_of(key, fine_p[start + n])
+        seq = list(range(lo, hi + 1))
+        out[key] = _crossing([runs_list[i] for i in seq], [vals[i] for i in seq], want_high=True)
+    return out
+
+
 def first_innings(context: Any, wickets_shown: int = 9, dew: float = 0.0, even: bool = False) -> dict[str, Any] | None:
     built = ml_model.build_features(context)
     if built is None:
@@ -95,22 +135,22 @@ def first_innings(context: Any, wickets_shown: int = 9, dew: float = 0.0, even: 
     max_balls = FORMAT_MAX_BALLS[fam]
     par = float(base["venue_avg"])
     step = 3 if fam == "t20" else 5
-    cells, rows = [], []
+    cells, extras = [], {}
     for balls in _checkpoints(fam, max_balls) + [max_balls]:
         top = int(min(par * 1.9 + 40, par * 1.9 * balls / max_balls + 60))
         runs_list = list(range(0, top + step, step))
         for w in range(0, wickets_shown + 1):
-            extra = _lineup(base, w, balls, fam)
-            start = len(rows)
-            for r in runs_list:
-                row = _first_variant(base, r, w, balls, max_balls, fam)
-                row.update(extra)
-                rows.append(row)
-            cells.append((balls, w, runs_list, start))
-    probs = [1 - _dew(1 - p, dew) for p in ml_model.predict_probability(rows)]
+            extras[(balls, w)] = _lineup(base, w, balls, fam)
+            cells.append(((balls, w), runs_list))
+
+    def row_of(key, runs):
+        row = _first_variant(base, runs, key[1], key[0], max_balls, fam)
+        row.update(extras[key])
+        return row
+
+    found = _crossings(cells, row_of, ml_model.predict_probability, lambda key, p: 1 - _dew(1 - p, dew))
     grid: dict[str, dict[str, int | None]] = {}
-    for balls, w, runs_list, start in cells:
-        x = _crossing(runs_list, probs[start:start + len(runs_list)], want_high=True)
+    for (balls, w), x in found.items():
         grid.setdefault(str(balls), {})[str(w)] = round(x) if x is not None else None
     return {"kind": "first", "even": even, "format": fam, "max_balls": max_balls, "venue_par": round(par), "grid": grid}
 
@@ -127,19 +167,20 @@ def chase(context: Any, target: int, wickets_shown: int = 9, dew: float = 0.0, e
     fam = context.format
     max_balls = FORMAT_MAX_BALLS[fam]
     step = 3 if fam == "t20" else 5
-    cells, rows = [], []
+    cells = []
     for balls in _checkpoints(fam, max_balls):
         runs_list = list(range(0, target, step))
-        for w in range(0, wickets_shown + 1):
-            start = len(rows)
-            for r in runs_list:
-                rows.append(chase_model._row(first, target, r, w, balls))
-            cells.append((balls, w, runs_list, start))
-    probs = chase_model._probabilities(rows)[0] if rows else []
+        if runs_list:
+            for w in range(0, wickets_shown + 1):
+                cells.append(((balls, w), runs_list))
+
+    def shift(balls: int) -> float:
+        return dew * max(0.0, 1 - balls / max_balls) ** 0.5  # fades through the chase, as in the app
+
+    found = _crossings(cells, lambda key, runs: chase_model._row(first, target, runs, key[1], key[0]),
+                       lambda rows: chase_model._probabilities(rows)[0], lambda key, p: _dew(p, shift(key[0])))
     grid: dict[str, dict[str, int | None]] = {}
-    for balls, w, runs_list, start in cells:
-        shift = dew * max(0.0, 1 - balls / max_balls) ** 0.5  # fades through the chase, as in the app
-        x = _crossing(runs_list, [_dew(p, shift) for p in probs[start:start + len(runs_list)]], want_high=True)
+    for (balls, w), x in found.items():
         grid.setdefault(str(balls), {})[str(w)] = round(x) if x is not None else None
     return {"kind": "chase", "even": even, "format": fam, "max_balls": max_balls, "target": target, "grid": grid}
 

@@ -1,6 +1,6 @@
-"""JSON API + static files for the new single-page UI.
+"""JSON API + static files for the app's page (web/index.html).
 
-main.py keeps the original pages at /classic and forwards these routes here:
+main.py serves the page and forwards these routes here (the old server-made pages were removed on 26 Nov 2026):
   GET  /                      new app shell (web/index.html)
   GET  /static/<file>         CSS / JS
   GET  /api/config?mode=ipl   teams, squads, venues, model info
@@ -1668,7 +1668,9 @@ def status(update_snapshot: dict[str, Any]) -> dict[str, Any]:
     archives = [_file_info(ROOT / "data" / name) for name in ("cricsheet_ipl.zip", "cricsheet_t20s.zip", "cricsheet_odis.zip")]
     newest_archive = max((a["modified"] for a in archives if a), default=None)
     needs_retrain = bool(newest_archive and info.get("trained_at") and newest_archive > info["trained_at"])
+    from . import backup
     return {
+        "backup": backup.last(),  # the OneDrive copy of your personal files (Data page)
         "archives": [a for a in archives if a],
         "store": store_info,
         "model": {"label": ml_model.MODEL_LABELS.get(info.get("chosen", ""), info.get("chosen")),
