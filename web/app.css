@@ -3075,3 +3075,194 @@ html.m-phone .hist-tools .ghost-btn { padding: 8px 14px; font-size: 0.85rem; }
    (a card with a badge - Baseline / Used in app - no longer pushes its numbers lower than the others) */
 #acc-body .cards-4 { margin-top: 18px; }
 .model-card .big-num { margin-top: auto; }
+
+
+/* =================================================================================================================
+   Motion layer (26 Nov 2026): motion that means something. Page changes, the gliding tab marker, the result reveal,
+   touch, charts growing into view, stadium light, the 3D ball. Everything here respects reduced motion (html.no-motion
+   / prefers-reduced-motion) and animates only transform / opacity where it can.
+   ================================================================================================================= */
+:root { --spring: cubic-bezier(.34, 1.56, .64, 1); --ease-out: cubic-bezier(.2, .8, .2, 1); }
+
+/* ---- 4. page changes: the new page slides in from the side you're heading; the bars stay put */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .36s; animation-timing-function: var(--ease-out); }
+::view-transition-old(root) { animation-name: vt-out; }
+::view-transition-new(root) { animation-name: vt-in; }
+@keyframes vt-out { to { opacity: 0; transform: translateX(calc(var(--vt-dir, 1) * -5%)) scale(.99); } }
+@keyframes vt-in { from { opacity: 0; transform: translateX(calc(var(--vt-dir, 1) * 7%)) scale(.99); } }
+html[data-nav-dir="back"] { --vt-dir: -1; }
+.topbar { view-transition-name: topbar; }
+::view-transition-group(topbar), ::view-transition-old(topbar), ::view-transition-new(topbar) { animation: none; }
+html.m-phone .tabs { view-transition-name: tabbar; }
+::view-transition-group(tabbar), ::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation: none; }
+/* the marker morphs from the old tab to the new one during a page change (its own transition otherwise) */
+.tab-glider { view-transition-name: tab-glider; }
+::view-transition-group(tab-glider) { animation-duration: .42s; animation-timing-function: var(--spring); }
+
+/* ---- 4. the gliding tab marker */
+@media (min-width: 761px) { .tabs.has-glider { position: relative; } }  /* the phone bar is already fixed (that places the marker) */
+.tabs.has-glider a { z-index: 1; }
+.tab-glider { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; display: block;
+  transform: translate(var(--gx, 0), var(--gy, 0)); width: var(--gw, 0); height: var(--gh, 0);
+  border-radius: 999px; background: var(--surface); box-shadow: 0 0 0 1px var(--line), 0 6px 16px -10px rgba(40, 40, 30, .35);
+  transition: transform .42s var(--spring), width .42s var(--spring), height .3s var(--ease-out), opacity .2s; }
+.tabs.has-glider a.active { background: transparent; box-shadow: none; }
+/* phone: a gold bar on top of the tab bar, over the open tab */
+html.m-phone .tab-glider { height: 3px; width: 28px; border-radius: 0 0 4px 4px; background: var(--gold); box-shadow: 0 0 12px rgba(213, 166, 55, .65);
+  transform: translate(calc(var(--gx, 0) + var(--gw, 0) / 2 - 14px), 0); top: -1px; }
+html.m-phone .tabs.has-glider a.active { background: transparent; }
+html.m-phone .tabs a.active::before { animation: tab-pop .45s var(--spring); }
+@keyframes tab-pop { 40% { transform: translateY(-3px) scale(1.12); } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .tab-glider { transition: none; }
+  html.m-phone .tabs a.active::before { animation: none; }
+}
+
+/* ---- 1. the result reveal: crest flip, a ring that fills to the chance in the team's colours, count-up, glow */
+@property --ring { syntax: "<number>"; inherits: true; initial-value: 0; }  /* inherited: the ring is the crest's ::after */
+.rh-glass .team-badge.lg { position: relative; overflow: visible; transition: --ring 1.15s var(--ease-out); }
+.rh-glass .team-badge.lg.ring-reset { transition: none; }
+.rh-glass .team-badge.lg::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(var(--gold) 0, var(--c1, var(--gold)) calc(var(--ring) * 1%), rgba(255, 255, 255, .14) calc(var(--ring) * 1%));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px)); }
+html.m-phone .result .r-winner .team-badge.lg { box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .7); }
+html.m-phone .rh-glass .team-badge.lg::after { inset: -10px; }
+/* the moment itself */
+.rhero::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--t1, #888) 75%, #fff 15%) 0, transparent 62%); }
+.rhero.revealing::after { animation: rh-glow 1.7s var(--ease-out) both; }
+.rhero.revealing.lvl-strong::after { animation-name: rh-glow-strong; }
+.rhero.revealing.lvl-tossup::after { animation-name: rh-glow-soft; }
+@keyframes rh-glow { 25% { opacity: .55; } 100% { opacity: 0; } }
+@keyframes rh-glow-strong { 22% { opacity: .85; } 100% { opacity: 0; } }
+@keyframes rh-glow-soft { 30% { opacity: .3; } 100% { opacity: 0; } }
+.rhero.revealing .rh-glass { animation: rh-in .75s var(--spring) both, rh-float 7s ease-in-out .75s infinite; }
+.rhero.revealing.lvl-strong .rh-glass { animation: rh-in-strong .85s var(--spring) both, rh-float 7s ease-in-out .85s infinite; }
+.rhero.revealing.lvl-tossup .rh-glass { animation: rh-in-soft .7s var(--ease-out) both, rh-float 7s ease-in-out .7s infinite; }
+@keyframes rh-in { from { opacity: 0; transform: translateY(18px) scale(.9); } }
+@keyframes rh-in-strong { from { opacity: 0; transform: translateY(26px) scale(.82); } }
+@keyframes rh-in-soft { from { opacity: 0; transform: translateY(10px) scale(.97); } }
+.rhero.revealing .team-badge.lg { animation: crest-flip .85s var(--spring) .12s both; }
+@keyframes crest-flip { from { opacity: 0; transform: perspective(520px) rotateY(110deg) scale(.55); } }
+.rhero.revealing .eyebrow { animation: rise-in .5s var(--ease-out) .05s both; }
+.rhero.revealing .r-winner > span:last-child { animation: rise-in .6s var(--ease-out) .24s both; }
+.rhero.revealing .rh-pct { animation: pct-in .7s var(--spring) .16s both; }
+@keyframes rise-in { from { opacity: 0; transform: translateY(12px); } }
+@keyframes pct-in { from { opacity: 0; transform: scale(.7); } }
+/* a Strong pick: a burst of gold sparks from the crest */
+.rhero.revealing.lvl-strong .team-badge.lg::before { content: ""; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px;
+  margin: -3px 0 0 -3px; border-radius: 50%; pointer-events: none; background: transparent; z-index: 2;
+  box-shadow: 0 -46px 0 0 var(--gold), 33px -33px 0 -1px #fff3cc, 46px 0 0 0 var(--gold), 33px 33px 0 -1px #fff3cc, 0 46px 0 0 var(--gold),
+    -33px 33px 0 -1px #fff3cc, -46px 0 0 0 var(--gold), -33px -33px 0 -1px #fff3cc, 18px -43px 0 -2px var(--gold), -43px 18px 0 -2px var(--gold);
+  animation: burst .95s var(--ease-out) .5s both; }
+@keyframes burst { from { opacity: 1; transform: scale(.2); } 70% { opacity: .9; } to { opacity: 0; transform: scale(1.35); } }
+@media (prefers-reduced-motion: reduce) {
+  .rh-glass .team-badge.lg { transition: none; }
+  .rhero.revealing .rh-glass, .rhero.revealing .team-badge.lg, .rhero.revealing .eyebrow, .rhero.revealing .r-winner > span:last-child,
+  .rhero.revealing .rh-pct, .rhero.revealing::after, .rhero.revealing.lvl-strong .team-badge.lg::before { animation: none !important; }
+}
+
+/* the page and card "rise in" animations let go when they finish (they used to hold an invisible transform forever,
+   which traps anything pinned to the screen, like the bottom sheets); they look exactly the same */
+.view, .panel, .section, .model-card { animation-fill-mode: backwards; }
+
+/* ---- 5. touch (phone): springy crests, steps that slide in from the swipe side, bottom sheets */
+html.m-phone .m-crest-grid button { transition: transform .18s var(--ease-out), box-shadow .25s; }
+html.m-phone .m-crest-grid button:active { transform: scale(.9); }
+html.m-phone .m-crest-grid button.bat, html.m-phone .m-crest-grid button.chase { animation: crest-pop .5s var(--spring); }
+@keyframes crest-pop { 0% { transform: scale(.82); } 55% { transform: scale(1.1); } 100% { transform: scale(1); } }
+html.m-phone #predict-form[data-swipe="next"] .step:not(.m-closed) > :not(.step-head) { animation: step-in-right .38s var(--ease-out) both; }
+html.m-phone #predict-form[data-swipe="back"] .step:not(.m-closed) > :not(.step-head) { animation: step-in-left .38s var(--ease-out) both; }
+@keyframes step-in-right { from { opacity: 0; transform: translateX(26px); } }
+@keyframes step-in-left { from { opacity: 0; transform: translateX(-26px); } }
+/* the bottom sheet */
+.m-sheet-head { display: none; }
+html.m-phone .m-fold.as-sheet.open::before { content: ""; position: fixed; inset: 0; z-index: 58; background: rgba(8, 8, 6, .55);
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); animation: fade-in .25s ease both; }
+html.m-phone .m-fold.as-sheet.open > .m-fold-body { position: fixed; left: 0; right: 0; bottom: 0; z-index: 59; max-height: 86svh; overflow: auto;
+  overscroll-behavior: contain; padding: 0 16px calc(28px + env(safe-area-inset-bottom)); border-radius: 26px 26px 0 0;
+  background: var(--shell); box-shadow: 0 -24px 60px -20px rgba(0, 0, 0, .6); animation: sheet-up .42s var(--spring) both;
+  transition: transform .25s var(--ease-out); }
+html.m-phone .m-fold.as-sheet.open > .m-fold-body > .m-sheet-head { display: flex; position: sticky; top: 0; z-index: 2; align-items: center; gap: 10px;
+  margin: 0 -16px 10px; padding: 18px 16px 12px; background: var(--shell); border-bottom: 1px solid var(--line); touch-action: none; }
+html.m-phone .m-sheet-head .m-grab { position: absolute; left: 50%; top: 7px; width: 42px; height: 5px; margin-left: -21px; border-radius: 3px; background: var(--line-strong); }
+html.m-phone .m-sheet-head b { flex: 1; font-family: var(--display); font-size: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; }
+html.m-phone .m-sheet-x { width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--surface-2); color: var(--text); font-size: 1.3rem; line-height: 1; cursor: pointer; }
+html.sheet-open, html.sheet-open body { overflow: hidden; }
+@keyframes sheet-up { from { transform: translateY(100%); } }
+@keyframes fade-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html.m-phone .m-crest-grid button.bat, html.m-phone .m-crest-grid button.chase,
+  html.m-phone #predict-form[data-swipe] .step > *, html.m-phone .m-fold.as-sheet.open > .m-fold-body,
+  html.m-phone .m-fold.as-sheet.open::before { animation: none !important; }
+}
+
+/* ---- 7. charts: bars start empty and grow when they come into view (once); split bars grow from both ends; pies wait */
+[data-grow] > i { transform-origin: left center; transform: scaleX(0); animation: none !important;
+  transition: transform .95s var(--ease-out) var(--gd, 0s); }
+[data-grow].pv-split > i:last-child, [data-grow].hs-bar > i:last-child, [data-grow].mp-bar > i:last-child { transform-origin: right center; }
+[data-grow].grown > i { transform: scaleX(1); }
+.hist-pie[data-grow]:not(.grown) .pie-arc { animation-play-state: paused; }
+html.no-motion [data-grow] > i { transform: none; transition: none; }
+
+/* ---- 6. stadium mood. Dark mode: under floodlights (soft beams from the top corners, slowly swaying; the gold
+   scoreboard numbers glow). Light mode: a day match (a faint warm sun wash). A see-through layer: it never blocks a tap. */
+.stadium-light { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; display: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .6) 38%, transparent 72%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .6) 38%, transparent 72%); }
+html[data-theme="dark"] .stadium-light { display: block; mix-blend-mode: screen; opacity: .85; }
+.stadium-light i { position: absolute; top: -12vh; width: 26vmax; height: 130vh; transform-origin: 50% 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 238, 196, .16) 35%, rgba(255, 244, 214, .3) 50%, rgba(255, 238, 196, .16) 65%, transparent);
+  animation: beam-sway 13s ease-in-out infinite alternate; }
+.stadium-light i:nth-child(1) { left: -6vmax; --r0: -32deg; --r1: -26deg; }
+.stadium-light i:nth-child(2) { left: 6vmax; --r0: -18deg; --r1: -12deg; animation-duration: 17s; opacity: .7; }
+.stadium-light i:nth-child(3) { right: -6vmax; --r0: 32deg; --r1: 26deg; animation-duration: 15s; }
+.stadium-light i:nth-child(4) { right: 6vmax; --r0: 18deg; --r1: 12deg; animation-duration: 19s; opacity: .7; }
+@keyframes beam-sway { from { transform: rotate(var(--r0)); } to { transform: rotate(var(--r1)); } }
+/* the floodlight heads: two warm glows at the top corners */
+.stadium-light b { position: absolute; top: -9vmax; width: 26vmax; height: 18vmax; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 246, 220, .55), rgba(255, 230, 170, .14) 55%, transparent); }
+.stadium-light b:nth-of-type(1) { left: -10vmax; }
+.stadium-light b:nth-of-type(2) { right: -10vmax; }
+/* day match: one faint warm wash from the top left, no beams */
+html:not([data-theme="dark"]) .stadium-light { display: block; mix-blend-mode: soft-light; opacity: .55; }
+html:not([data-theme="dark"]) .stadium-light i, html:not([data-theme="dark"]) .stadium-light b:nth-of-type(2) { display: none; }
+html:not([data-theme="dark"]) .stadium-light b:nth-of-type(1) { left: -14vmax; top: -14vmax; width: 60vmax; height: 46vmax;
+  background: radial-gradient(closest-side, rgba(255, 214, 130, .9), rgba(255, 214, 130, .25) 55%, transparent); }
+/* the gold scoreboard numbers glow under the lights */
+html[data-theme="dark"] .m-acc-card b, html[data-theme="dark"] .rh-pct, html[data-theme="dark"] html.m-phone #view-home .float-card b,
+html[data-theme="dark"] .scoreboard .sb-value, html[data-theme="dark"] .sc .sc-num b {
+  text-shadow: 0 0 18px rgba(213, 166, 55, .45), 0 0 2px rgba(255, 220, 140, .4); }
+html.m-phone[data-theme="dark"] #view-home .float-card b { text-shadow: 0 0 18px rgba(213, 166, 55, .45), 0 0 2px rgba(255, 220, 140, .4); }
+@media (prefers-reduced-motion: reduce) { .stadium-light i { animation: none; transform: rotate(var(--r0)); } }
+html.no-motion .stadium-light i { animation: none; transform: rotate(var(--r0)); }
+
+/* ---- 3. the 3D cricket ball on Home (a still CSS ball shows until it's ready, or instead of it) */
+.ball3d { position: absolute; z-index: 3; width: clamp(120px, 15vw, 210px); aspect-ratio: 1; right: 15%; top: 18%; pointer-events: none; }
+.ball3d .ball-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; z-index: 1; opacity: 0;
+  transition: opacity .8s var(--ease-out); pointer-events: auto; touch-action: pan-y; cursor: grab; }
+.ball3d.ready .ball-canvas { opacity: 1; }
+.ball3d.held .ball-canvas { cursor: grabbing; }
+.ball3d .ball-css { position: absolute; inset: 6%; border-radius: 50%; transition: opacity .8s var(--ease-out);
+  background: radial-gradient(circle at 32% 28%, #ff9a80 0, #c8352b 16%, #8f1b16 52%, #3d0806 100%);
+  box-shadow: inset -14px -16px 30px rgba(0, 0, 0, .45), inset 6px 8px 18px rgba(255, 200, 170, .25); }
+.ball3d .ball-css::before { content: ""; position: absolute; inset: 44% -2% 44% -2%; border-radius: 50%;
+  border-top: 4px solid #ecdfc3; border-bottom: 3px dotted #f4ead2; transform: rotate(-24deg); opacity: .95; }
+.ball3d.ready .ball-css { opacity: 0; }
+.ball3d .ball-shadow { position: absolute; left: 18%; right: 18%; bottom: -10%; height: 14%; border-radius: 50%; z-index: 0;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, .5), transparent); filter: blur(2px); }
+.ball3d { animation: ball-in 1s var(--spring) .3s both; }
+@keyframes ball-in { from { opacity: 0; transform: translateY(-30px) scale(.6); } }
+/* phone: at the edge between the photo and the headline card, on the right */
+html.m-phone .ball3d { width: 104px; right: 16px; top: calc(var(--copy-top, 200px) - 70px); bottom: auto; }
+html.m-phone #view-home .hero2-copy { z-index: 2; }
+html.m-phone .ball3d { z-index: 4; }
+@media (prefers-reduced-motion: reduce) { .ball3d { animation: none; } }
+
+/* phone Home in light mode: the headline card is dark in both themes, so the hero behind the fading photo is dark too,
+   and the bold number in the line under the headline is light (it was the light theme's dark text, unreadable here) */
+html.m-phone #view-home .hero2 { background: #1a1a12; }
+html.m-phone #view-home .hero2-copy .lede b { color: #fff; text-shadow: none; }

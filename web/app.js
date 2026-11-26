@@ -173,20 +173,49 @@
     $$(".tabs a").forEach((a) => a.classList.toggle("active", a.dataset.tabAlias === "chase"
       ? tab === "predict" && state.stage === "chase"
       : a.dataset.tab === tab && !(tab === "predict" && state.stage === "chase")));
+    placeGlider();
   }
+  // the marker under the open tab glides to the next one (desktop: the white pill; phone: a gold bar on the tab bar)
+  function placeGlider() {
+    const bar = $(".tabs"); if (!bar) return;
+    let g = $(".tab-glider", bar);
+    if (!g) {
+      g = document.createElement("i"); g.className = "tab-glider"; g.setAttribute("aria-hidden", "true"); bar.prepend(g); bar.classList.add("has-glider");
+      // tabs change size when the fonts arrive, the window changes or the phone layout switches: measure again then
+      if ("ResizeObserver" in window) { const ro = new ResizeObserver(() => placeGlider()); $$(".tabs a").forEach((a) => ro.observe(a)); ro.observe(bar); }
+    }
+    const a = $(".tabs a.active");
+    if (!a || a.offsetParent === null) { g.style.opacity = "0"; return; }
+    g.style.opacity = "";
+    g.style.setProperty("--gx", `${a.offsetLeft}px`); g.style.setProperty("--gy", `${a.offsetTop}px`);
+    g.style.setProperty("--gw", `${a.offsetWidth}px`); g.style.setProperty("--gh", `${a.offsetHeight}px`);
+  }
+  addEventListener("resize", () => placeGlider());
+  document.fonts?.ready?.then(() => placeGlider());
+  let routedOnce = false;
   function route() {
     // online copy: no Data page, and no Replay (its match archive isn't uploaded and wouldn't fit the free plan's memory)
     if (PUBLIC && (location.hash === "#data" || location.hash === "#replay")) { location.hash = "#home"; return; }
     const tab = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
-    VIEWS.forEach((v) => { $(`#view-${v}`).hidden = v !== tab; });
-    $("#insights").hidden = tab !== "predict";
-    markTabs();
-    if (tab === "accuracy") loadAccuracy();
-    if (tab === "history") loadHistory();
-    if (tab === "replay") openReplay(); else pauseReplay();
-    if (tab === "data") loadData();
-    if (tab !== "data") stopPolling();
-    window.scrollTo({ top: 0 });
+    const prev = VIEWS.find((v) => !$(`#view-${v}`).hidden);
+    const show = () => {
+      VIEWS.forEach((v) => { $(`#view-${v}`).hidden = v !== tab; });
+      $("#insights").hidden = tab !== "predict";
+      markTabs();
+      if (tab === "accuracy") loadAccuracy();
+      if (tab === "history") loadHistory();
+      if (tab === "replay") openReplay(); else pauseReplay();
+      if (tab === "data") loadData();
+      if (tab !== "data") stopPolling();
+      window.scrollTo({ top: 0 });
+    };
+    // moving to another page: the new one slides in from the side you're heading (the bars stay put), where the
+    // browser supports page transitions; otherwise (or with reduced motion) it switches at once as before
+    const slide = routedOnce && prev && prev !== tab && document.startViewTransition && !NO_MOTION;
+    routedOnce = true;
+    if (!slide) { show(); return; }
+    document.documentElement.dataset.navDir = VIEWS.indexOf(tab) >= VIEWS.indexOf(prev) ? "fwd" : "back";
+    document.startViewTransition(show);
   }
 
   // ------------------------------------------------------------------ mode
@@ -1124,11 +1153,52 @@
       if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => hero.classList.toggle("paused", !e.isIntersecting)).observe(hero);
     }
   }
+  // ---- the result card's number, and the reveal (the signature moment): when you press Predict the card pops in,
+  // the crest flips, the chance counts up while a ring fills around the crest in the team's colours, the card glows
+  // (a Strong pick lands with more weight and a burst; a Toss-up gently) and a phone gives a short buzz. Updates after
+  // that (ball by ball, live) don't replay it: the number glides from the old value to the new one.
+  const HERO_PCT = { first: null, chase: null };
+  const REVEAL_NEXT = { first: false, chase: false };
+  function tweenNumber(el, from, to, ms) {
+    if (NO_MOTION) { el.textContent = `${to}%`; return; }
+    const t0 = performance.now(); el._tween = t0;
+    const tick = (t) => {
+      if (el._tween !== t0) return;  // a newer number took over
+      const k = Math.min(1, (t - t0) / ms); const v = from + (to - from) * (1 - Math.pow(1 - k, 3));
+      el.textContent = `${Math.round(v)}%`; if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  function revealHero(kind, hero, to) {
+    const badge = $(kind === "first" ? "#r-badge" : "#c-badge");
+    const trust = $(kind === "first" ? "#r-trust" : "#c-trust");
+    const level = trust && !trust.hidden ? (trust.classList.contains("strong") ? "strong" : trust.classList.contains("tossup") ? "tossup" : "lean") : "lean";
+    const pctEl = hero.querySelector(".rh-pct");
+    if (NO_MOTION) { pctEl.textContent = `${to}%`; badge?.style.setProperty("--ring", to); return; }
+    hero.classList.remove("revealing", "lvl-strong", "lvl-lean", "lvl-tossup");
+    if (badge) { badge.classList.add("ring-reset"); badge.style.setProperty("--ring", 0); }
+    void hero.offsetWidth;  // restart the animations
+    hero.classList.add("revealing", `lvl-${level}`);
+    requestAnimationFrame(() => requestAnimationFrame(() => { badge?.classList.remove("ring-reset"); badge?.style.setProperty("--ring", to); }));
+    pctEl.textContent = "0%";
+    setTimeout(() => tweenNumber(pctEl, 0, to, 1100), 180);
+    clearTimeout(hero._revealEnd); hero._revealEnd = setTimeout(() => hero.classList.remove("revealing"), 1900);
+    if (document.documentElement.classList.contains("m-phone")) {
+      try { navigator.vibrate?.(level === "strong" ? [18, 40, 30] : level === "tossup" ? 10 : 16); } catch { /* not allowed */ }
+    }
+  }
   function setHero(kind, code, pct) {
     const hero = $(`#${kind}-hero`); if (!hero) return;
     const cs = teamStyle(code || "");
     hero.style.setProperty("--t1", cs.c1); hero.style.setProperty("--t2", cs.c2); hero.style.setProperty("--tb", brightOf(cs));
-    hero.querySelector(".rh-pct").textContent = pct == null ? "" : `${Math.round(pct)}%`;
+    const el = hero.querySelector(".rh-pct");
+    const badge = $(kind === "first" ? "#r-badge" : "#c-badge");
+    if (pct == null) { el.textContent = ""; HERO_PCT[kind] = null; badge?.style.setProperty("--ring", 0); return; }
+    const to = Math.round(pct), from = HERO_PCT[kind];
+    HERO_PCT[kind] = to;
+    if (REVEAL_NEXT[kind] || from == null) { REVEAL_NEXT[kind] = false; revealHero(kind, hero, to); return; }
+    badge?.style.setProperty("--ring", to);
+    if (from !== to) tweenNumber(el, from, to, 420); else el.textContent = `${to}%`;
   }
 
   // ------------------------------------------------------------------ result layout: summary strip + tabs + Simple / Detailed
@@ -1856,7 +1926,11 @@
     $$("[data-whatif]").forEach((b) => b.addEventListener("click", () => {
       const [field, delta] = b.dataset.whatif.split(":"); state[field] += Number(delta); syncScore(); predict(false, false);
     }));
-    $("#predict-form").addEventListener("submit", (e) => { e.preventDefault(); if (state.stage === "chase") predictChase(true); else predict(true); });
+    $("#predict-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      REVEAL_NEXT[state.stage === "chase" ? "chase" : "first"] = true;  // the answer you asked for gets the full reveal
+      if (state.stage === "chase") predictChase(true); else predict(true);
+    });
   }
 
 
@@ -5342,10 +5416,40 @@
       btn.innerHTML = `<span><b>${esc(title)}</b>${sub ? `<small>${esc(sub)}</small>` : ""}</span><i aria-hidden="true"></i>`;
       btn.setAttribute("aria-expanded", "false");
       const body = document.createElement("div"); body.className = "m-fold-body";
-      els[0].before(box); box.append(btn, body); els.forEach((el) => body.append(el));
-      btn.addEventListener("click", () => { const open = box.classList.toggle("open"); btn.setAttribute("aria-expanded", String(open)); });
+      // on phones an open fold is a bottom sheet: a grab handle, its title and ×; swipe it down or tap outside to close
+      const head = document.createElement("div"); head.className = "m-sheet-head";
+      head.innerHTML = `<i class="m-grab" aria-hidden="true"></i><b>${esc(title)}</b><button type="button" class="m-sheet-x" aria-label="Close">&times;</button>`;
+      els[0].before(box); box.append(btn, body); body.append(head); els.forEach((el) => body.append(el));
+      const setOpen = (open) => {
+        // a sheet only when nothing around it would trap a screen-fixed box (else it opens in place, as before)
+        const sheet = open && mq.matches && !trapped(box);
+        box.classList.toggle("open", open); box.classList.toggle("as-sheet", sheet);
+        document.documentElement.classList.toggle("sheet-open", !!document.querySelector(".m-fold.as-sheet.open"));
+        btn.setAttribute("aria-expanded", String(open));
+        body.style.transform = "";
+      };
+      btn.addEventListener("click", () => setOpen(!box.classList.contains("open")));
+      head.querySelector(".m-sheet-x").addEventListener("click", () => setOpen(false));
+      box.addEventListener("click", (e) => { if (e.target === box && box.classList.contains("as-sheet")) setOpen(false); });  // the dimmed backdrop
+      // drag the handle down to close
+      let y0 = null;
+      head.addEventListener("pointerdown", (e) => { if (box.classList.contains("as-sheet") && !e.target.closest("button")) { y0 = e.clientY; try { head.setPointerCapture(e.pointerId); } catch { /* not capturable */ } } });
+      head.addEventListener("pointermove", (e) => { if (y0 != null) body.style.transform = `translateY(${Math.max(0, e.clientY - y0)}px)`; });
+      const end = (e) => { if (y0 == null) return; const dy = e.clientY - y0; y0 = null; if (dy > 90) setOpen(false); else body.style.transform = ""; };
+      head.addEventListener("pointerup", end); head.addEventListener("pointercancel", end);
       return box;
     };
+    // an ancestor with a transform / filter / backdrop blur would trap a screen-fixed sheet inside it
+    function trapped(el) {
+      for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+        // a page / card still rising in (the first half second) would trap it for a moment: finish that rise now
+        if (getComputedStyle(a).transform !== "none") a.getAnimations?.().forEach((an) => { try { an.finish(); } catch { /* infinite */ } });
+        const s = getComputedStyle(a);
+        if (s.transform !== "none" || s.filter !== "none" || (s.backdropFilter && s.backdropFilter !== "none")
+            || (s.webkitBackdropFilter && s.webkitBackdropFilter !== "none") || /paint|layout|strict|content/.test(s.contain)) return true;
+      }
+      return false;
+    }
     const run = (first, last) => {  // first .. last, siblings in order
       const out = []; let el = first;
       while (el) { out.push(el); if (el === last) break; el = el.nextElementSibling; }
@@ -5435,6 +5539,22 @@
         else if (!inChase && mMode === "chase") setMode("inns", false);
         const open = visible().find((s) => !s.classList.contains("m-closed")); openStep(open || visible()[0], false);
       }).observe(form, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
+      // swipe left / right to go to the next / previous step (not from typing boxes, the ball pad or the XI lists)
+      let sx = null, sy = 0, st = 0;
+      form.addEventListener("touchstart", (e) => {
+        if (!mq.matches || e.touches.length !== 1 || e.target.closest("input, select, textarea, .xi-body, .xi-list, .ball-pad, .m-crest-grid, .combo-list")) { sx = null; return; }
+        sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now();
+      }, { passive: true });
+      form.addEventListener("touchend", (e) => {
+        if (sx == null) return;
+        const t = e.changedTouches[0]; const dx = t.clientX - sx, dy = t.clientY - sy; sx = null;
+        if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.6 || Date.now() - st > 700) return;
+        const vis = visible(); const k = vis.findIndex((s) => !s.classList.contains("m-closed"));
+        const next = vis[k + (dx < 0 ? 1 : -1)]; if (!next) return;
+        form.dataset.swipe = dx < 0 ? "next" : "back";
+        openStep(next, true);
+        setTimeout(() => { delete form.dataset.swipe; }, 450);
+      }, { passive: true });
     }
     // ---- team crests: tap the team batting first, then the chasing team (the drop-downs stay for every team)
     const teamsBox = form?.querySelector(".teams");
@@ -5525,6 +5645,162 @@
         const item = e.target.closest(".hist-item"); if (item) item.classList.toggle("m-open");
       });
     }
+  })();
+
+  // ================= 3. the 3D cricket ball on Home =================
+  // A real 3D ball (Three.js, loaded only for Home): red leather, a raised cream seam with stitching, a warm gold key
+  // light and a cool rim light. It turns slowly with the seam tumbling, spins when you drag it, and tilts with an
+  // Android phone. Phones that are too slow, "reduce motion" or data saver get a still CSS ball instead. Paused when
+  // it's off screen, on another page or in a background tab.
+  const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js";
+  function ballCapable() {
+    if (NO_MOTION || navigator.connection?.saveData) return false;
+    if ((navigator.hardwareConcurrency || 4) < 4 || (navigator.deviceMemory || 4) < 3) return false;
+    try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch { return false; }
+  }
+  function leatherTextures() {
+    const W = 1024, H = 512;
+    const col = document.createElement("canvas"); col.width = W; col.height = H; const g = col.getContext("2d");
+    const bump = document.createElement("canvas"); bump.width = W; bump.height = H; const b = bump.getContext("2d");
+    // leather: deep ball red with a little grain, a touch lighter on the polished side
+    const base = g.createLinearGradient(0, 0, W, 0);
+    base.addColorStop(0, "#7d1712"); base.addColorStop(0.5, "#a8231c"); base.addColorStop(1, "#7d1712");
+    g.fillStyle = base; g.fillRect(0, 0, W, H);
+    b.fillStyle = "#808080"; b.fillRect(0, 0, W, H);
+    for (let i = 0; i < 9000; i++) {
+      const x = Math.random() * W, y = Math.random() * H, r = Math.random() * 1.6 + 0.4, l = Math.random() < 0.5;
+      g.fillStyle = l ? "rgba(255,190,170,0.05)" : "rgba(40,0,0,0.08)"; g.fillRect(x, y, r, r);
+      b.fillStyle = l ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"; b.fillRect(x, y, r, r);
+    }
+    // the main seam: a raised cream band round the ball (the equator; the ball itself is tilted), two rows of stitches
+    const mid = H / 2;
+    g.fillStyle = "#e9dcc0"; g.fillRect(0, mid - 5, W, 10);
+    g.fillStyle = "rgba(120,80,40,0.35)"; g.fillRect(0, mid - 1, W, 2);
+    b.fillStyle = "#ffffff"; b.fillRect(0, mid - 5, W, 10);
+    for (const off of [-11, 11]) {
+      for (let x = 0; x < W; x += 7) {
+        g.save(); g.translate(x, mid + off); g.rotate(off < 0 ? -0.5 : 0.5);
+        g.fillStyle = "#f4ead2"; g.fillRect(-2.6, -1.1, 5.2, 2.2); g.restore();
+        b.save(); b.translate(x, mid + off); b.rotate(off < 0 ? -0.5 : 0.5);
+        b.fillStyle = "#e0e0e0"; b.fillRect(-2.6, -1.1, 5.2, 2.2); b.restore();
+      }
+    }
+    // the fainter quarter seams on each half
+    for (const x of [W * 0.25, W * 0.75]) {
+      g.strokeStyle = "rgba(60,10,8,0.55)"; g.lineWidth = 2; g.beginPath(); g.moveTo(x, 40); g.lineTo(x, mid - 18); g.moveTo(x + W / 2 > W ? x - W / 2 : x, mid + 18); g.lineTo(x + W / 2 > W ? x - W / 2 : x, H - 40); g.stroke();
+      b.strokeStyle = "#a0a0a0"; b.lineWidth = 2; b.beginPath(); b.moveTo(x, 40); b.lineTo(x, mid - 18); b.stroke();
+    }
+    return { col, bump };
+  }
+  function initBall() {
+    const host = $("#view-home .hero2"); if (!host || host.querySelector(".ball3d")) return;
+    const wrap = document.createElement("div"); wrap.className = "ball3d"; wrap.setAttribute("aria-hidden", "true");
+    wrap.innerHTML = `<div class="ball-css"></div><i class="ball-shadow"></i>`;
+    host.append(wrap);
+    const copy = $(".hero2-copy", host);
+    const sizeUp = () => { if (copy) host.style.setProperty("--copy-top", `${copy.offsetTop}px`); };
+    sizeUp(); addEventListener("resize", sizeUp);
+    if ("ResizeObserver" in window && copy) new ResizeObserver(sizeUp).observe(copy);
+    if (!ballCapable()) return;
+    import(THREE_URL).then((T) => buildBall(T, wrap)).catch(() => { /* offline or blocked: the still ball stays */ });
+  }
+  function buildBall(T, wrap) {
+    const renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" });
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    renderer.outputColorSpace = T.SRGBColorSpace;
+    const scene = new T.Scene();
+    const camera = new T.PerspectiveCamera(28, 1, 0.1, 20); camera.position.set(0, 0, 4.6);
+    const { col, bump } = leatherTextures();
+    const map = new T.CanvasTexture(col); map.colorSpace = T.SRGBColorSpace; map.anisotropy = 4;
+    const bumpMap = new T.CanvasTexture(bump);
+    const ball = new T.Mesh(new T.SphereGeometry(1, 96, 64),
+      new T.MeshStandardMaterial({ map, bumpMap, bumpScale: 2.2, roughness: 0.42, metalness: 0.04 }));
+    const tilt = new T.Group(); tilt.rotation.z = 0.42; tilt.add(ball); scene.add(tilt);  // seam leaning like a swing delivery
+    scene.add(new T.AmbientLight(0xfff2dd, 0.45));
+    const key = new T.DirectionalLight(0xffd38a, 2.6); key.position.set(2.6, 2.2, 3); scene.add(key);
+    const rim = new T.DirectionalLight(0x9cc2ff, 1.4); rim.position.set(-3, -1.2, -2.2); scene.add(rim);
+    const fill = new T.DirectionalLight(0xffffff, 0.35); fill.position.set(-2, 1, 3); scene.add(fill);
+    const canvas = renderer.domElement; canvas.className = "ball-canvas";
+    wrap.prepend(canvas);
+    const fit = () => { const s = Math.max(40, wrap.clientWidth); renderer.setSize(s, s, false); };
+    fit(); addEventListener("resize", fit);
+    // spin: idle tumble, drag to spin (with a little inertia), tilt with the phone (Android: no permission needed)
+    let vx = 0, vy = 0.006, drag = null, tiltX = 0, tiltY = 0;
+    canvas.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY }; wrap.classList.add("held"); try { canvas.setPointerCapture(e.pointerId); } catch { /* not capturable */ } });
+    canvas.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      vy = (e.clientX - drag.x) * 0.012; vx = (e.clientY - drag.y) * 0.012; drag = { x: e.clientX, y: e.clientY };
+    });
+    const let_go = () => { drag = null; wrap.classList.remove("held"); };
+    canvas.addEventListener("pointerup", let_go); canvas.addEventListener("pointercancel", let_go);
+    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== "function") {
+      addEventListener("deviceorientation", (e) => {
+        if (e.beta == null) return;
+        tiltX = Math.max(-0.35, Math.min(0.35, ((e.beta || 0) - 45) / 120)); tiltY = Math.max(-0.35, Math.min(0.35, (e.gamma || 0) / 90));
+      });
+    }
+    let visible = true, raf = 0;
+    const frame = () => {
+      raf = 0;
+      if (!visible || document.hidden || wrap.offsetParent === null) return;
+      if (!drag) { vx *= 0.94; vy = vy * 0.97 + 0.006 * 0.03; }  // settle back to the slow tumble
+      ball.rotation.x += vx; ball.rotation.y += vy;
+      tilt.rotation.x += (tiltX - tilt.rotation.x) * 0.05; tilt.rotation.y += (tiltY - tilt.rotation.y) * 0.05;
+      renderer.render(scene, camera);
+      raf = requestAnimationFrame(frame);
+    };
+    const go = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) go(); }).observe(wrap);
+    document.addEventListener("visibilitychange", go); addEventListener("hashchange", () => setTimeout(go, 400));
+    renderer.render(scene, camera);
+    wrap.classList.add("ready");  // the 3D ball fades in over the still one
+    go();
+  }
+
+  // ================= motion layer: charts that grow into view, the stadium light =================
+  (function motionLayer() {
+    // ---- 6. stadium mood: under floodlights in dark mode, a day match in light mode (one fixed, see-through layer)
+    const light = document.createElement("div"); light.className = "stadium-light"; light.setAttribute("aria-hidden", "true");
+    light.innerHTML = "<i></i><i></i><i></i><i></i><b></b><b></b>";
+    document.body.append(light);
+    initBall();
+    if (NO_MOTION || !("IntersectionObserver" in window)) return;
+    // ---- 7. bars start empty and grow (once) when they come into view, neighbours one after another; pies too
+    const BARS = ".track, .meter, .tk-bar, .phase-prog, .mp-bar, .pv-split, .hs-bar, .hist-pie";
+    const io = new IntersectionObserver((entries) => {
+      let n = 0;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        e.target.style.setProperty("--gd", `${Math.min(n++, 10) * 55}ms`);
+        e.target.classList.add("grown");
+      }
+    }, { threshold: 0.2 });
+    const mark = (root) => {
+      const list = root.matches?.(BARS) ? [root] : [];
+      root.querySelectorAll?.(BARS).forEach((el) => list.push(el));
+      for (const el of list) { if (!el.dataset.grow) { el.dataset.grow = "1"; io.observe(el); } }
+    };
+    mark(document.body);
+    new MutationObserver((muts) => { for (const m of muts) m.addedNodes.forEach((nd) => { if (nd.nodeType === 1) mark(nd); }); })
+      .observe(document.body, { childList: true, subtree: true });
+    // the phone Accuracy card's three numbers count up when it comes into view
+    const counted = new WeakSet();
+    const countIo = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll("b").forEach((b) => {
+        if (counted.has(b)) return; counted.add(b);
+        const m = b.textContent.match(/^([^\d-]*)(\d+(?:\.\d+)?)(.*)$/); if (!m) return;
+        const [, pre, num, post] = m; const to = Number(num), dec = (num.split(".")[1] || "").length, t0 = performance.now();
+        const tick = (t) => { const k = Math.min(1, (t - t0) / 1100); b.textContent = `${pre}${(to * (1 - Math.pow(1 - k, 3))).toFixed(dec)}${post}`; if (k < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+    }), { threshold: 0.4 });
+    const watchCard = () => { const c = $(".m-acc-card"); if (c) countIo.observe(c); };
+    watchCard();
+    const card = $(".m-acc-card");
+    if (card) new MutationObserver(() => { card.querySelectorAll("b").forEach((b) => counted.delete(b)); countIo.unobserve(card); countIo.observe(card); })
+      .observe(card, { childList: true });
   })();
 
   state.stage = store.get("stage", "first") === "chase" ? "chase" : "first";
