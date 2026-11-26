@@ -823,7 +823,8 @@ def compare_players(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
         out["venue"] = dict(zip(vfields, raw)) if raw else None
         return out
 
-    a, b = payload.get("a") or {}, payload.get("b") or {}
+    # each player is {"name", "team"} (the page); a plain name is accepted too
+    a, b = ({"name": str(x)} if isinstance(x, str) else x if isinstance(x, dict) else {} for x in (payload.get("a"), payload.get("b")))
     pa, pb = one(a), one(b)
     vs = {
         "a_bats": insights.head_to_head(pa["name"], pa["team"], pb["name"], pb["team"]).get(fmt),
@@ -1105,7 +1106,6 @@ def resources(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
 
 def scorecard(app: ModuleType) -> dict[str, Any]:
     """Home-page scorecard: per competition and season on unseen matches, plus your saved predictions' record."""
-    from . import tracking
 
     try:
         out = json.loads((ML_DIR / "scorecard.json").read_text(encoding="utf-8"))
@@ -1204,7 +1204,6 @@ def head_to_head(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
 # --------------------------------------------------------------------------- history
 def history(app: ModuleType) -> dict[str, Any]:
     """Saved predictions, each checked against the real result where one is known."""
-    from . import tracking
 
     items, summary = _with_model_checks(app)  # your predictions + the model's checked matches, one per match
     # the model's own score on unseen matches, for comparison with yours
@@ -1846,7 +1845,7 @@ def cached_check(app: ModuleType, match_id: str) -> dict[str, Any]:
 def model_check_entries(app: ModuleType, user_items: list[dict[str, Any]], include_archive: bool = True) -> list[dict[str, Any]]:
     """The model's checked matches (Last 5 / Check the model / the daily auto-check) as History entries: one per
     match, and none for a match you predicted yourself (your own prediction counts for that match instead)."""
-    from datetime import date as _date, timedelta as _td
+    from datetime import timedelta as _td
 
     from . import live_results, ml_model, tracking
     try:

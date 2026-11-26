@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
+import re
 import subprocess
 import sys
 import threading
@@ -10,7 +12,7 @@ from datetime import datetime
 from dataclasses import asdict
 from email.utils import parsedate_to_datetime
 from html import escape
-from http.server import BaseHTTPRequestHandler, HTTPServer, ThreadingHTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
@@ -31,6 +33,36 @@ PUBLIC = os.environ.get("CREASE_PUBLIC") == "1"
 # the online copy also shows your photos and team logos (web/img) when this is set: the Render build sets it
 PUBLIC_IMAGES = PUBLIC and os.environ.get("CREASE_PUBLIC_IMAGES") == "1"
 _REQ = threading.local()  # the current request's copy of the visitor's history (public mode only)
+# the largest request body accepted: online only text is sent (pictures are read on the phone), so 3 MB is plenty even
+# with 500 saved predictions; on your PC a picture goes to Windows' text reader as a data URL (up to about 11 MB)
+MAX_BODY = 3_000_000 if PUBLIC else 25_000_000
+NUMBER_FIELDS = ("runs", "wickets", "overs", "target", "par")
+
+
+def _input_problem(payload: Any) -> str | None:
+    """A plain reason when a request can't be used as sent (checked once, for every API route): not an object, a
+    score field that isn't a number, a team the app doesn't know, or the same team on both sides."""
+    if not isinstance(payload, dict):
+        return "That request couldn't be read (send the details as a JSON object)."
+    for field in NUMBER_FIELDS:
+        v = payload.get(field)
+        if v in (None, ""):
+            continue
+        try:
+            num = float(v)
+        except (TypeError, ValueError):
+            return f"Check what you entered: {field} must be a number."
+        if num != num or num in (float("inf"), float("-inf")):
+            return f"Check what you entered: {field} must be a number."
+    bat, chase = payload.get("batting"), payload.get("chasing")
+    if isinstance(bat, str) and isinstance(chase, str) and bat and chase:
+        if bat == chase:
+            return "Pick two different teams."
+        bank = _team_bank(_mode_key(payload.get("mode")))
+        unknown = [c for c in (bat, chase) if c not in bank]
+        if unknown:
+            return f"Unknown team: {', '.join(unknown)}. Pick the teams from the list."
+    return None
 PUBLIC_BLOCKED = {"/api/settings", "/api/retrain", "/api/update-all", "/api/auto-update", "/api/update-data", "/api/history/restore-backup"}
 _RATE: dict = {}
 _RATE_LOCK = threading.Lock()
@@ -2820,7 +2852,6 @@ def _render_home_status(message: str, is_error: bool = False, is_running: bool =
     if is_running:
         progress_value = max(1, min(100, int(snapshot.get("percent", 12) or 12)))
         stage_raw = str(snapshot.get("stage", "Downloading")).lower()
-        stage = escape(stage_raw)
         meta_copy = escape(_progress_meta_text(snapshot))
         downloaded_bytes = int(snapshot.get("downloaded", 0) or 0)
         total_bytes = int(snapshot.get("total", 0) or 0)
@@ -6115,7 +6146,7 @@ class PredictorHandler(BaseHTTPRequestHandler):
                 else:
                     self.send_error(404)
             except Exception as exc:  # report API errors as JSON instead of dropping the connection
-                self._send_json({"error": f"{type(exc).__name__}: {exc}"}, status=500)
+                self._send_error_json(exc, parsed.path)
             return
         # ---- original pages ("classic") ----
         if parsed.path == "/classic":
@@ -6142,6 +6173,15 @@ class PredictorHandler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
         _REQ.history, _REQ.changed = [], False
+        # a size limit before anything is read: one huge request could otherwise fill the (small) online server's memory
+        try:
+            length = int(self.headers.get("Content-Length", "0") or 0)
+        except ValueError:
+            length = -1
+        if length < 0 or length > MAX_BODY:
+            self.close_connection = True
+            self._send_json({"error": f"That request is too big (the limit is {MAX_BODY // 1_000_000} MB)."}, 413)
+            return
         if PUBLIC:
             if not parsed.path.startswith("/api/") or parsed.path in PUBLIC_BLOCKED:
                 self._send_json({"error": "That isn't available in the online version."}, 403)
@@ -6168,6 +6208,10 @@ class PredictorHandler(BaseHTTPRequestHandler):
                 length = int(self.headers.get("Content-Length", "0") or 0)
                 raw = self.rfile.read(length) if length else b""
                 payload = json.loads(raw.decode("utf-8")) if raw else {}
+                problem = _input_problem(payload)
+                if problem:
+                    self._send_json({"error": problem}, status=400)
+                    return
                 webapp.set_view(payload.get("source") if isinstance(payload, dict) else None)
                 if PUBLIC:
                     sent = payload.pop("client_history", None) if isinstance(payload, dict) else None
@@ -6278,7 +6322,7 @@ class PredictorHandler(BaseHTTPRequestHandler):
                 else:
                     self.send_error(404)
             except Exception as exc:
-                self._send_json({"error": f"{type(exc).__name__}: {exc}"}, status=500)
+                self._send_error_json(exc, parsed.path)
             return
 
         global _LAST_RESULT
@@ -6328,6 +6372,22 @@ class PredictorHandler(BaseHTTPRequestHandler):
     def _client_ip(self) -> str:
         fwd = self.headers.get("X-Forwarded-For", "")
         return fwd.split(",")[0].strip() if fwd else self.client_address[0]
+
+    def _send_error_json(self, exc: Exception, path: str) -> None:
+        """An API error as a plain message: what you sent couldn't be used (400), or the server failed (500). The
+        technical details go to the log (and, on your PC, also to the message, to help track a fault down)."""
+        if isinstance(exc, json.JSONDecodeError):
+            self._send_json({"error": "That request couldn't be read (it isn't valid JSON)."}, status=400)
+            return
+        if isinstance(exc, (ValueError, TypeError)):
+            text = str(exc)
+            technical = isinstance(exc, TypeError) or re.search(r"invalid literal|could not convert|unsupported operand|object has no", text)
+            self._send_json({"error": "Check what you entered: the score, wickets, overs and target must be numbers."
+                             if technical else text}, status=400)
+            return
+        logging.getLogger(__name__).exception("API error on %s", path)
+        message = "Something went wrong on the server. Try again in a moment."
+        self._send_json({"error": message if PUBLIC else f"{message} ({type(exc).__name__}: {exc})"}, status=500)
 
     def _send_json(self, payload: dict[str, Any], status: int = 200) -> None:
         if PUBLIC and getattr(_REQ, "changed", False) and isinstance(payload, dict):

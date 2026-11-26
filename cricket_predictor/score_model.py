@@ -7,12 +7,10 @@ made it cover 80% of the 2024 tuning season (see scripts/train_score_model.py).
 
 from __future__ import annotations
 
-from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 from . import ml_model
-from .ml_features import FORMAT_MAX_BALLS
 from .models import MatchContext
 from .once import locked_cache
 

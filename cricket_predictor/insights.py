@@ -7,7 +7,6 @@ T20 figures include T20 internationals, the IPL and other T20 leagues (BBL, PSL,
 from __future__ import annotations
 
 import json
-from functools import lru_cache
 from pathlib import Path
 from typing import Any
 

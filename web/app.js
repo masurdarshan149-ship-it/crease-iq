@@ -4612,7 +4612,10 @@
           <button type="button" class="chip-btn" id="live-check">Check now</button></div>
         <p class="muted small">Checks every 3 hours while the app runs, so your History predictions are marked right or wrong before Cricsheet publishes the match. The models still learn only from Cricsheet.</p>
         <p class="data-fresh">${L.fetched_at ? `Last checked <b>${esc(fd(L.fetched_at))}</b> · ` : "Not checked yet · "}${used} · ${L.count} recent results kept</p>
-        ${L.last_error ? `<p class="form-error">Last check failed: ${esc(L.last_error)}</p>` : ""}
+        ${L.paused ? `<p class="form-error"><b>CricketData refused the key today</b> (${esc(L.paused)}). Calls are paused until tomorrow, so
+            results won't come in. Check your key at cricketdata.org; if it changed, paste the new key into <code>data/cricketdata_key.txt</code>
+            and it's used straight away.</p>`
+          : L.last_error ? `<p class="form-error">Last check failed${L.last_error_at ? ` (${esc(fd(L.last_error_at))})` : ""}: ${esc(L.last_error)}</p>` : ""}
         ${rows ? `<ul class="lr-list">${rows}</ul>` : `<p class="muted small">No men's results fetched yet.</p>`}
       </section>`;
   }

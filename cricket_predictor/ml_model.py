@@ -11,12 +11,10 @@ original formula.
 from __future__ import annotations
 
 import json
-from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 from .ml_features import (
-    FEATURE_COLUMNS,
     FORMAT_MAX_BALLS,
     FULL_MEMBERS,
     ELO_START,

@@ -74,6 +74,29 @@ class BudgetError(RuntimeError):
     """Not enough of today's calls left for this request."""
 
 
+class KeyRejected(BudgetError):
+    """CricketData refused the key ("Invalid API Key", or its own daily limit reached): calls pause until tomorrow, or
+    until the key file changes (a new key is tried straight away)."""
+
+
+def _key_tag() -> str:
+    """A short fingerprint of the key in use (not the key), so a pause ends as soon as you paste a new key."""
+    import hashlib
+    k = _key() or ""
+    return hashlib.sha256(k.encode("utf-8")).hexdigest()[:10] if k else ""
+
+
+def paused() -> str:
+    """Why CricketData calls are paused today ("" when they aren't)."""
+    try:
+        h = json.loads(HITS_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ""
+    if h.get("date") == date.today().isoformat() and h.get("paused") and h.get("paused_key") == _key_tag():
+        return str(h["paused"])
+    return ""
+
+
 class _KeyLock:
     """Thread lock + a lock file next to the count (other processes using the same key wait for it)."""
 
@@ -120,9 +143,20 @@ def used_today() -> int:
         return int(c.get("hits_today") or 0) if c.get("hits_date") == today else 0
 
 
-def _set_used(n: int) -> None:
+def _set_used(n: int, pause: str | None = None) -> None:
+    """Save today's count; `pause` (a reason) stops calls on this key until tomorrow. An existing pause is kept."""
+    today = date.today().isoformat()
+    try:
+        old = json.loads(HITS_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        old = {}
+    rec = {"date": today, "used": int(n)}
+    if pause:
+        rec.update(paused=pause, paused_key=_key_tag())
+    elif old.get("date") == today and old.get("paused"):
+        rec.update(paused=old["paused"], paused_key=old.get("paused_key"))
     tmp = HITS_PATH.with_name(HITS_PATH.name + ".tmp")
-    tmp.write_text(json.dumps({"date": date.today().isoformat(), "used": int(n)}), encoding="utf-8")
+    tmp.write_text(json.dumps(rec), encoding="utf-8")
     tmp.replace(HITS_PATH)
 
 
@@ -130,6 +164,10 @@ def _call(name: str, params: dict[str, Any], cost: int = 1) -> dict[str, Any]:
     """One CricketData request, only if `cost` calls still fit under BUDGET today; the count is updated before the
     lock is let go. Raises BudgetError when there's no room."""
     with _KeyLock():
+        why = paused()
+        if why:
+            raise KeyRejected(f"CricketData refused the key earlier today ({why}). Calls are paused until tomorrow, "
+                              "or until you put a new key in data/cricketdata_key.txt.")
         used = used_today()
         if used + cost > BUDGET:
             raise BudgetError(f"Not enough calls left today ({used} used, this needs about {cost}; this app stops at {BUDGET})")
@@ -139,8 +177,25 @@ def _call(name: str, params: dict[str, Any], cost: int = 1) -> dict[str, Any]:
             _set_used(used + cost)  # it may have been counted by CricketData anyway: assume it was
             raise
         info = d.get("info") or {}
+        if str(d.get("status") or "").lower() == "failure":
+            reason = str(d.get("reason") or "CricketData refused the request")
+            key_problem = re.search(r"api ?key|apikey|hits|limit|blocked|expired", reason, re.I)
+            _set_used(int(info.get("hitsToday") or used + cost), pause=reason if key_problem else None)
+            _note_error(reason)
+            raise (KeyRejected if key_problem else BudgetError)(f"CricketData said: {reason}")
         _set_used(int(info.get("hitsToday") or used + cost))
         return d
+
+
+def _note_error(reason: str) -> None:
+    """Keep the last refusal where the Data page shows it (any call, not only the results refresh)."""
+    try:
+        cache = load()
+        cache["last_error"] = reason
+        cache["last_error_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        _save(cache)
+    except Exception:  # noqa: BLE001 - never let a note break a request
+        pass
 
 
 WON = re.compile(r"^(?P<team>.+?) won by (?P<margin>.+)$", re.I)
@@ -446,9 +501,9 @@ def status(known: set[str] | None = None) -> dict[str, Any]:
     c = load()
     men = [m for m in c.get("matches", []) if not m.get("women")
            and (not known or (m["team1"] in known and m["team2"] in known))]
-    today = date.today().isoformat()
     return {
         "enabled": has_key(), "fetched_at": c.get("fetched_at"), "last_error": c.get("last_error") or "",
+        "last_error_at": c.get("last_error_at") or "", "paused": paused(),
         "hits_today": used_today(),  # the shared count for this key (all leagues / threads)
         "hits_limit": c.get("hits_limit", DAILY_LIMIT), "budget": BUDGET,
         "count": len(c.get("matches", [])),
