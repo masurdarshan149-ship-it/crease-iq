@@ -880,7 +880,7 @@
   }
   async function loadTopTeams(mode) {
     const row = $("#team-row"); if (!row) return;
-    row.innerHTML = `<div class="loading">Loading teams…</div>`;
+    row.innerHTML = skel("Loading teams…", "cards", 4);
     try {
       const r = await api(`/api/top-teams?mode=${mode}`);
       if (mode !== state.mode) return;
@@ -902,6 +902,11 @@
         return `<i class="${lg ? "has-logo" : ""}" style="${lg ? `--logo:url('${lg}')` : `background:linear-gradient(135deg, ${st.c1}, ${st.c2})`}">${esc(st.code)}</i>`;
       }).join("");
     } catch (err) { row.innerHTML = `<div class="loading">Couldn't load teams (${esc(err.message)}).</div>`; }
+  }
+  // loading placeholders: grey shapes that shimmer while the data arrives, with a small caption (and the words for
+  // screen readers). Keeps the "loading" class, which other code checks for (e.g. the phone Accuracy folds).
+  function skel(label, kind = "lines", n = 3) {
+    return `<div class="loading skel ${kind}" role="status" aria-label="${esc(label)}"><span class="sk-label">${esc(label)}</span>${"<i></i>".repeat(n)}</div>`;
   }
   // Photos: web/img/<name>.jpg|.jpeg|.webp|.png, dropped in by the user. Until then a soft placeholder shows.
   let PHOTOS = {};
@@ -1163,13 +1168,13 @@
   // that (ball by ball, live) don't replay it: the number glides from the old value to the new one.
   const HERO_PCT = { first: null, chase: null };
   const REVEAL_NEXT = { first: false, chase: false };
-  function tweenNumber(el, from, to, ms) {
-    if (NO_MOTION) { el.textContent = `${to}%`; return; }
+  function tweenNumber(el, from, to, ms, suffix = "%") {
+    if (NO_MOTION) { el.textContent = `${to}${suffix}`; return; }
     const t0 = performance.now(); el._tween = t0;
     const tick = (t) => {
       if (el._tween !== t0) return;  // a newer number took over
       const k = Math.min(1, (t - t0) / ms); const v = from + (to - from) * (1 - Math.pow(1 - k, 3));
-      el.textContent = `${Math.round(v)}%`; if (k < 1) requestAnimationFrame(tick);
+      el.textContent = `${Math.round(v)}${suffix}`; if (k < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   }
@@ -2655,7 +2660,7 @@
       if (kind === "wd" || kind === "nb") chase.runs += 1;
       else if (kind === "W") { chase.wickets += 1; chase.balls += 1; }
       else { chase.runs += Number(kind); chase.balls += 1; }
-      celebrate(kind, $("#chase-step .ball-pad"));
+      celebrate(kind, $("#chase-step .ball-pad")); ballFx(kind, "chase");
     }
     tapAnim($(`#chase-step [data-ball="${kind}"]`));
     syncChase(); scheduleChase(0);
@@ -2663,6 +2668,19 @@
   function tapAnim(btn) { if (btn) { btn.classList.remove("tapped"); void btn.offsetWidth; btn.classList.add("tapped"); } }
   function celebrate(kind, pad) {
     if (kind === "4") burst("FOUR!", "four", pad); else if (kind === "6") burst("SIX!", "six", pad); else if (kind === "W") burst("OUT!", "wkt", pad);
+  }
+  // a wicket flashes the result card red and a six gold (the SIX! pop also throws gold sparks); phones give a short
+  // buzz for a four, a six or a wicket. Nothing moves with reduced motion.
+  function ballFx(kind, stage) {
+    if (NO_MOTION || !["4", "6", "W"].includes(kind)) return;
+    try {  // (browsers only allow a buzz right after a real tap)
+      if (document.documentElement.classList.contains("m-phone") && navigator.userActivation?.isActive !== false) navigator.vibrate?.(kind === "W" ? [35, 50, 35] : kind === "6" ? 30 : 12);
+    } catch { /* no vibration */ }
+    if (kind === "4") return;
+    const res = $(stage === "chase" ? "#chase-result" : "#result");  // .result is position: relative on every screen
+    if (!res || res.hidden) return;
+    const fx = document.createElement("i"); fx.className = `ball-flash ${kind === "W" ? "wkt" : "six"}`; fx.setAttribute("aria-hidden", "true");
+    res.append(fx); setTimeout(() => fx.remove(), 800);
   }
   function burst(text, kind, pad) {  // a short "FOUR!" / "SIX!" / "OUT!" pop above the ball buttons
     const el = document.createElement("div");
@@ -2705,7 +2723,7 @@
       if (kind === "wd" || kind === "nb") state.runs += 1;
       else if (kind === "W") { state.wickets += 1; state.balls += 1; }
       else { state.runs += Number(kind); state.balls += 1; }
-      celebrate(kind, $("#first-ball-pad"));
+      celebrate(kind, $("#first-ball-pad")); ballFx(kind, "first");
     }
     tapAnim($(`#first-ball-pad [data-fball="${kind}"]`));
     syncScore();
@@ -2799,7 +2817,7 @@
     const btn = $("#preview-btn"); btn.disabled = true; btn.classList.add("busy");
     const panel = $("#match-preview"); panel.hidden = false;
     const key = previewKey(); panel.dataset.key = key;
-    $("#mp-body").innerHTML = `<div class="loading">Working out the match…</div>`;
+    $("#mp-body").innerHTML = skel("Working out the match…", "rows", 2);
     panel.scrollIntoView({ behavior: "smooth", block: "start" });
     try {
       const { runs, wickets, overs, save, ...rest } = payload(false);
@@ -2865,11 +2883,19 @@
     const winnerCode = r.winner === r.chasing_team ? r.chasing_code : r.winner === r.batting_team ? r.batting_code : null;
     if (winnerCode) paintBadge($("#c-badge"), winnerCode); $("#c-badge").hidden = !winnerCode;
     setHero("chase", winnerCode, r.status === "live" ? (winnerCode === r.chasing_code ? r.chase_pct : 100 - r.chase_pct) : null);
-    $("#c-winner").textContent = r.status === "live" ? r.winner : r.verdict;    $("#c-equation").innerHTML = r.status === "live"
-      ? `${esc(r.chasing_team)} <b>${e.runs}/${e.wickets}</b> (${e.overs_text}) · need <b>${e.runs_needed}</b> off <b>${e.balls_left}</b> balls · RRR <b>${e.required_rate ?? "–"}</b> · CRR <b>${e.current_rate ?? "–"}</b> · <b>${e.wickets_in_hand}</b> wickets left`
+    $("#c-winner").textContent = r.status === "live" ? r.winner : r.verdict;
+    const prevEq = chase.eqShown; chase.eqShown = r.status === "live" ? { need: e.runs_needed, left: e.balls_left, key: chaseKey() } : null;
+    $("#c-equation").innerHTML = r.status === "live"
+      ? `${esc(r.chasing_team)} <b>${e.runs}/${e.wickets}</b> (${e.overs_text}) · need <b class="eq-need">${e.runs_needed}</b> off <b class="eq-left">${e.balls_left}</b> balls · RRR <b>${e.required_rate ?? "–"}</b> · CRR <b>${e.current_rate ?? "–"}</b> · <b>${e.wickets_in_hand}</b> wickets left`
       : r.status === "won" ? `${esc(r.chasing_team)} reached <b>${e.runs}/${e.wickets}</b> with <b>${e.balls_left}</b> balls and <b>${e.wickets_in_hand}</b> wickets to spare.`
       : r.status === "tied" ? `Scores level on <b>${e.runs}</b>. Super over!`
       : `${esc(r.chasing_team)} finished on <b>${e.runs}/${e.wickets}</b>, <b>${e.runs_needed - 1}</b> runs short.`;
+    // "need 42 off 30" counts down to the new numbers instead of jumping (same chase, one ball later)
+    if (prevEq && chase.eqShown && prevEq.key === chase.eqShown.key) {
+      for (const [sel, from, to] of [["#c-equation .eq-need", prevEq.need, e.runs_needed], ["#c-equation .eq-left", prevEq.left, e.balls_left]]) {
+        const el = $(sel); if (el && from !== to) { el.textContent = from; tweenNumber(el, from, to, 450, ""); }
+      }
+    }
     $("#c-bat-name").textContent = r.batting_team; $("#c-chase-name").textContent = r.chasing_team;
     const bb = $("#c-bat-bar"), cb = $("#c-chase-bar"); const batPct = 100 - r.chase_pct;
     bb.style.setProperty("--c1", bs.c1); bb.style.setProperty("--c2", bs.c2); cb.style.setProperty("--c1", cs.c1); cb.style.setProperty("--c2", cs.c2);
@@ -2927,17 +2953,31 @@
     const last = tl[tl.length - 1];
     const momentMarks = renderMoments(el, tl, teamName, x, y);
     const glow = brightOf(cs);
+    // one more ball than last time (same match, nothing changed before it): the new piece of the line draws from the
+    // previous point to the new one and the end dot glides along; a new wicket's dot pops when the line reaches it
+    const before = el._tl || []; el._tl = tl.map((p) => ({ balls: p.balls, pct: p.pct }));
+    const grew = !NO_MOTION && before.length >= 2 && tl.length === before.length + 1
+      && before.every((p, i) => p.balls === tl[i].balls && p.pct === tl[i].pct);
+    const prev = tl[tl.length - 2]; const D = 0.5;
+    const ease = `calcMode="spline" keyTimes="0;1" keySplines="0.2 0.8 0.2 1"`;
+    const glide = (attr, from, to) => (grew ? `<animate attributeName="${attr}" from="${from}" to="${to}" dur="${D}s" fill="freeze" ${ease}/>` : "");
+    const clip = grew ? ` clip-path="url(#wormclip-${id})"` : "";
+    const newWicket = grew && last.wickets > prev.wickets;
     el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(teamName)} win chance through the innings">
-      <defs><linearGradient id="wormfill-${id}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${glow}" stop-opacity=".32"/><stop offset="1" stop-color="${glow}" stop-opacity="0"/></linearGradient></defs>
+      <defs><linearGradient id="wormfill-${id}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${glow}" stop-opacity=".32"/><stop offset="1" stop-color="${glow}" stop-opacity="0"/></linearGradient>
+        ${grew ? `<clipPath id="wormclip-${id}"><rect x="0" y="0" height="${H}" width="${W}">${glide("width", x(prev.balls).toFixed(1), W)}</rect></clipPath>` : ""}</defs>
       ${[25, 50, 75].map((g) => `<line x1="${pad}" x2="${W - pad}" y1="${y(g)}" y2="${y(g)}" stroke="rgba(255,255,255,${g === 50 ? 0.22 : 0.08})" stroke-dasharray="${g === 50 ? "5 5" : "2 4"}"/><text x="4" y="${y(g) + 3}" fill="rgba(255,255,255,.72)" font-size="10">${g}%</text>`).join("")}
       ${ticks.map((o) => `<text x="${x(o * 6)}" y="${H - 6}" fill="rgba(255,255,255,.72)" font-size="10" text-anchor="middle">${o}</text>`).join("")}
+      <g${clip}>
       <polygon points="${area}" fill="url(#wormfill-${id})"/>
       <polyline points="${pts}" fill="none" stroke="${glow}" stroke-width="7" stroke-linejoin="round" opacity=".28" style="filter:blur(4px)"/>
       <polyline points="${pts}" fill="none" stroke="${glow}" stroke-width="2.6" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="filter:drop-shadow(0 0 4px ${glow})"/>
-      ${wickets.map((p) => `<circle cx="${x(p.balls)}" cy="${y(p.pct)}" r="4.5" fill="#e5483a" stroke="#fff" stroke-width="1"><title>Wicket at ${oversText(p.balls)}: ${p.pct}%</title></circle>`).join("")}
+      ${wickets.map((p) => `<circle cx="${x(p.balls)}" cy="${y(p.pct)}" r="4.5" fill="#e5483a" stroke="#fff" stroke-width="1">${newWicket && p === last
+        ? `<animate attributeName="r" values="4.5;9;4.5" keyTimes="0;.5;1" dur=".45s" begin="${D - 0.05}s" fill="freeze"/>` : ""}<title>Wicket at ${oversText(p.balls)}: ${p.pct}%</title></circle>`).join("")}
+      </g>
       ${momentMarks}
-      <circle cx="${x(last.balls)}" cy="${y(last.pct)}" r="11" fill="${glow}" opacity=".25" class="worm-pulse"/>
-      <circle cx="${x(last.balls)}" cy="${y(last.pct)}" r="5.5" fill="#fff" stroke="${glow}" stroke-width="2" style="filter:drop-shadow(0 0 6px ${glow})"/>
+      <circle cx="${x(last.balls)}" cy="${y(last.pct)}" r="11" fill="${glow}" opacity=".25" class="worm-pulse">${glide("cx", x(prev.balls).toFixed(1), x(last.balls).toFixed(1))}${glide("cy", y(prev.pct).toFixed(1), y(last.pct).toFixed(1))}</circle>
+      <circle cx="${x(last.balls)}" cy="${y(last.pct)}" r="5.5" fill="#fff" stroke="${glow}" stroke-width="2" style="filter:drop-shadow(0 0 6px ${glow})">${glide("cx", x(prev.balls).toFixed(1), x(last.balls).toFixed(1))}${glide("cy", y(prev.pct).toFixed(1), y(last.pct).toFixed(1))}</circle>
     </svg>`;
   }
 

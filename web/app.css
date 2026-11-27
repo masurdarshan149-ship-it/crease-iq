@@ -3150,8 +3150,9 @@ html.m-phone .rh-glass .team-badge.lg::after { inset: -10px; }
   margin: -3px 0 0 -3px; border-radius: 50%; pointer-events: none; background: transparent; z-index: 2;
   box-shadow: 0 -46px 0 0 var(--gold), 33px -33px 0 -1px #fff3cc, 46px 0 0 0 var(--gold), 33px 33px 0 -1px #fff3cc, 0 46px 0 0 var(--gold),
     -33px 33px 0 -1px #fff3cc, -46px 0 0 0 var(--gold), -33px -33px 0 -1px #fff3cc, 18px -43px 0 -2px var(--gold), -43px 18px 0 -2px var(--gold);
-  animation: burst .95s var(--ease-out) .5s both; }
-@keyframes burst { from { opacity: 1; transform: scale(.2); } 70% { opacity: .9; } to { opacity: 0; transform: scale(1.35); } }
+  animation: crest-sparks .95s var(--ease-out) .5s both; }
+/* (its own name: sharing "burst" with the FOUR! / SIX! pop replaced that pop's centring) */
+@keyframes crest-sparks { from { opacity: 1; transform: scale(.2); } 70% { opacity: .9; } to { opacity: 0; transform: scale(1.35); } }
 @media (prefers-reduced-motion: reduce) {
   .rh-glass .team-badge.lg { transition: none; }
   .rhero.revealing .rh-glass, .rhero.revealing .team-badge.lg, .rhero.revealing .eyebrow, .rhero.revealing .r-winner > span:last-child,
@@ -3259,3 +3260,35 @@ html.m-phone .how-ball { justify-self: center; width: min(100%, 168px); }
    and the bold number in the line under the headline is light (it was the light theme's dark text, unreadable here) */
 html.m-phone #view-home .hero2 { background: #1a1a12; }
 html.m-phone #view-home .hero2-copy .lede b { color: #fff; text-shadow: none; }
+
+/* ---- Live chase (27 Nov 2026): a wicket flashes the result card red, a six flashes it gold and the SIX! pop throws
+   gold sparks; the chart's new piece draws itself and "need X off Y" counts down (app.js: ballFx, drawWorm) */
+.ball-flash { position: absolute; inset: -6px; border-radius: 18px; pointer-events: none; z-index: 4; animation: ball-flash .75s ease-out forwards; }
+.ball-flash.wkt { box-shadow: inset 0 0 0 3px rgba(229, 72, 58, .9), inset 0 0 70px rgba(229, 72, 58, .32); }
+.ball-flash.six { box-shadow: inset 0 0 0 3px var(--gold, #d9b45a), inset 0 0 70px rgba(217, 180, 90, .3); }
+@keyframes ball-flash { from { opacity: 1; } to { opacity: 0; } }
+.burst.six::before { content: ""; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
+  pointer-events: none; box-shadow: 0 -36px 0 0 var(--gold, #d9b45a), 26px -26px 0 -1px #fff3cc, 36px 0 0 0 var(--gold, #d9b45a),
+    26px 26px 0 -1px #fff3cc, 0 36px 0 0 var(--gold, #d9b45a), -26px 26px 0 -1px #fff3cc, -36px 0 0 0 var(--gold, #d9b45a), -26px -26px 0 -1px #fff3cc;
+  animation: crest-sparks .8s var(--ease-out, ease-out) .08s both; }
+@media (prefers-reduced-motion: reduce) { .ball-flash, .burst.six::before { display: none; } }
+html.no-motion .ball-flash, html.no-motion .burst.six::before, html.motion-off .ball-flash, html.motion-off .burst.six::before { display: none; }
+
+/* ---- loading placeholders (27 Nov 2026): grey shapes that shimmer while data arrives, instead of a bare "Loading…"
+   (they keep the .loading class; app.js skel() and index.html) */
+.loading.skel { display: grid; gap: 10px; padding: 8px 0; text-align: left; color: var(--muted); }
+.skel .sk-label { font-size: .8rem; }
+.skel i { display: block; height: 14px; border-radius: 8px; background: linear-gradient(90deg, color-mix(in srgb, var(--text) 7%, transparent) 30%, color-mix(in srgb, var(--text) 16%, transparent) 50%,
+    color-mix(in srgb, var(--text) 7%, transparent) 70%);
+  background-size: 300% 100%; animation: sk-shimmer 1.3s ease-in-out infinite; }
+.skel.lines i:nth-of-type(3n+2) { width: 82%; }
+.skel.lines i:nth-of-type(3n) { width: 64%; }
+.loading.skel.cards { display: flex; flex-wrap: wrap; }  /* the caption on its own line, the cards share the width */
+.skel.cards .sk-label { flex-basis: 100%; }
+.skel.cards i { flex: 1 1 150px; height: 118px; border-radius: 18px; }
+.skel.rows i { height: 64px; border-radius: 16px; }
+.team-row:has(> .skel) { grid-auto-flow: row; grid-auto-columns: auto; }  /* the sideways row would squeeze it into one slot */
+.team-row > .skel, .sc-grid > .skel { grid-column: 1 / -1; min-width: 0; }
+@keyframes sk-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .skel i { animation: none; } }
+html.no-motion .skel i, html.motion-off .skel i { animation: none; }

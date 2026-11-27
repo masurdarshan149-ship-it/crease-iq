@@ -106,12 +106,12 @@
           <p class="muted" id="sc-sub">Tested on matches the model never saw.</p>
           <div class="seg-tabs sc-tabs" id="sc-tabs" hidden></div>
         </div>
-        <div class="sc-grid" id="sc-body"><div class="loading">Loading the scorecard…</div></div>
+        <div class="sc-grid" id="sc-body"><div class="loading skel cards" role="status" aria-label="Loading the scorecard…"><span class="sk-label">Loading the scorecard…</span><i></i><i></i><i></i></div></div>
       </section>
 
       <div class="sec-head" data-reveal="up"><h2>Top-rated teams</h2><a href="#predict" class="see-all">Predict a match <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a></div>
       <div class="team-row-wrap" data-reveal="up">
-        <div class="team-row" id="team-row"><div class="loading">Loading teams…</div></div>
+        <div class="team-row" id="team-row"><div class="loading skel cards" role="status" aria-label="Loading teams…"><span class="sk-label">Loading teams…</span><i></i><i></i><i></i><i></i></div></div>
         <button type="button" class="row-next" id="team-row-next" aria-label="More teams"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
       </div>
 
@@ -776,12 +776,12 @@
 
       <!-- Phases -->
       <div class="ins-pane" id="ins-phases" hidden>
-        <div id="phases-body"><p class="muted">Loading…</p></div>
+        <div id="phases-body"><div class="loading skel lines" role="status" aria-label="Loading phases…"><span class="sk-label">Loading phases…</span><i></i><i></i><i></i></div></div>
       </div>
 
       <!-- Teams -->
       <div class="ins-pane" id="ins-teams" hidden>
-        <div id="teams-body"><p class="muted">Loading…</p></div>
+        <div id="teams-body"><div class="loading skel lines" role="status" aria-label="Loading head-to-head…"><span class="sk-label">Loading head-to-head…</span><i></i><i></i><i></i></div></div>
       </div>
 
       <!-- Compare two players -->
@@ -796,7 +796,7 @@
 
       <!-- Fielding -->
       <div class="ins-pane" id="ins-fielding" hidden>
-        <div id="fielding-body"><p class="muted">Loading…</p></div>
+        <div id="fielding-body"><div class="loading skel lines" role="status" aria-label="Loading fielding…"><span class="sk-label">Loading fielding…</span><i></i><i></i><i></i></div></div>
       </div>
 
       <!-- Venue -->
@@ -817,7 +817,7 @@
         <p class="muted">A comparison on fresh matches you follow. Forecasts are scored after Cricsheet publishes a matching first-innings score and result.</p>
         <div id="innings-trial-body" aria-live="polite">Loading trial…</div>
       </section>
-      <div id="acc-body"><div class="loading">Loading report…</div></div>
+      <div id="acc-body"><div class="loading skel cards" role="status" aria-label="Loading the report…"><span class="sk-label">Loading the report…</span><i></i><i></i><i></i></div></div>
       <section class="panel section honesty" id="acc-honesty" hidden aria-label="How honest are the percentages"></section>
     </section>
 
@@ -868,7 +868,7 @@
         </div>
         <button type="button" class="ghost-btn danger" id="clear-history">Clear history</button>
       </div>
-      <div id="history-body"><div class="loading">Loading…</div></div>
+      <div id="history-body"><div class="loading skel rows" role="status" aria-label="Loading your history…"><span class="sk-label">Loading your history…</span><i></i><i></i><i></i></div></div>
     </section>
 
     <!-- ============================== DATA ============================== -->
@@ -878,7 +878,7 @@
         <h1 id="data-title">Data &amp; model</h1>
         <p class="lede"><b>Update now</b> downloads the newest matches and retrains every model. Turn on <b>automatic updates</b> and it happens by itself every few days.</p>
       </div>
-      <div id="data-body"><div class="loading">Loading…</div></div>
+      <div id="data-body"><div class="loading skel rows" role="status" aria-label="Loading the data status…"><span class="sk-label">Loading the data status…</span><i></i><i></i><i></i></div></div>
       <section class="panel section how-panel" aria-labelledby="how-title">
         <div>
           <h2 id="how-title">How it works</h2>
