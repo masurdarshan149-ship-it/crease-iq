@@ -57,7 +57,7 @@
    "won_when_chose_bowl": 51.4
   }
  },
- "trained_at": "2026-11-26 23:08",
+ "trained_at": "2026-11-27 11:39",
  "chosen": "ensemble_lr_lgbm",
  "model_names": {
   "original_formula": "Old formula",
@@ -78,7 +78,7 @@
   "lightgbm",
   "ensemble_lr_lgbm"
  ],
- "data_through": "2026-11-24",
+ "data_through": "2026-11-25",
  "test_period": "2025-01-01 to 2026-11-24",
  "split": {
   "train": {

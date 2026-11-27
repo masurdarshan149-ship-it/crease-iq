@@ -1,5 +1,5 @@
 {
- "trained_at": "2026-11-26 23:11",
+ "trained_at": "2026-11-27 11:44",
  "data_through": "2026-11-24",
  "test_period": "2025-01-01 to 2026-11-24",
  "test_innings": 1312,
@@ -280,6 +280,15 @@
   {
    "trained_at": "2026-11-26 23:11",
    "label": "Retrained from the app",
+   "data_through": "2026-11-24",
+   "test_innings": 1312,
+   "t20_mae": 18.0,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 80.8
+  },
+  {
+   "trained_at": "2026-11-27 11:44",
+   "label": "Updated from the app",
    "data_through": "2026-11-24",
    "test_innings": 1312,
    "t20_mae": 18.0,

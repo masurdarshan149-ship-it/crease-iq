@@ -226,5 +226,17 @@
   "accuracy_ipl_innings_break": 0.7,
   "log_loss": 0.4969,
   "formula_accuracy_all_states": 0.5915
+ },
+ {
+  "trained_at": "2026-11-27 11:39",
+  "label": "Updated from the app",
+  "model": "Ensemble (LR + LightGBM)",
+  "data_through": "2026-11-25",
+  "test_matches": 1312,
+  "accuracy_all_states": 0.7437,
+  "accuracy_innings_break": 0.7832,
+  "accuracy_ipl_innings_break": 0.7,
+  "log_loss": 0.4969,
+  "formula_accuracy_all_states": 0.5915
  }
 ]

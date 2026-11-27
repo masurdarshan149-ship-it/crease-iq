@@ -3247,6 +3247,18 @@ def run_server(host: str = "127.0.0.1", port: int = 8000) -> None:
         except Exception:  # noqa: BLE001 - only a head start
             pass
 
+    def count_cores() -> None:
+        """LightGBM asks joblib how many CPU cores this PC has before its first prediction, and on Windows joblib
+        finds out by starting PowerShell (about 2 s, once; the answer is kept). Asked here, it runs alongside the
+        model loading instead of after it."""
+        try:
+            from joblib import cpu_count
+
+            cpu_count(only_physical_cores=True)
+        except Exception:  # noqa: BLE001 - only a head start
+            pass
+
+    threading.Thread(target=count_cores, daemon=True, name="core-count").start()
     threading.Thread(target=practice_run, daemon=True, name="practice-run").start()
     server = ThreadingHTTPServer((host, port), PredictorHandler)
     server.daemon_threads = True

@@ -1400,9 +1400,11 @@ class Retrainer:
         ]
         if download:
             steps.insert(0, ("Downloading the newest matches from Cricsheet", [sys.executable, str(ROOT / "scripts" / "download_data.py")]))
-        for label, cmd in steps:
+        # step_no / steps let the Data page show "Step 5 of 8" and a bar of the steps done (step_no = steps + 1 while
+        # the new models are loaded at the end)
+        for no, (label, cmd) in enumerate(steps, 1):
             with self.lock:
-                self.state["step"] = label
+                self.state.update(step=label, step_no=no, steps=len(steps))
             proc = subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
             assert proc.stdout is not None
             for line in proc.stdout:
@@ -1421,6 +1423,8 @@ class Retrainer:
                     with self.lock:
                         self.state.update(state="done", step="Already up to date: no new matches on Cricsheet", finished_at=time.time())
                     return
+        with self.lock:
+            self.state.update(step="Loading the new models into the app", step_no=len(steps) + 1)
         ml_model.reload()
         try:
             from . import player_ratings

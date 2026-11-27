@@ -770,6 +770,8 @@ html[data-theme="dark"] .toast-undo { background: rgba(0,0,0,.1); color: #9a5b00
 .data-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .data-grid .auto-card { grid-column: 1 / -1; order: 3; }
 .data-card { padding: 24px; display: flex; flex-direction: column; gap: 14px; animation: rise .45s ease both; }
+/* the Data page redraws every 1.5 s while an update runs: no fade-in on those redraws (the cards blinked) */
+#data-body.redraw > *, #data-body.redraw .data-grid > * { animation: none; }
 .data-card h2 { margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .data-card h2 .step-num { width: 28px; height: 28px; }
 .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }

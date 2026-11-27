@@ -4693,7 +4693,23 @@
         ${rows ? `<ul class="lr-list">${rows}</ul>` : `<p class="muted small">No men's results fetched yet.</p>`}
       </section>`;
   }
-  async function loadData() {
+  // Update / retrain progress: "Step 5 of 8" and a bar of the steps done, with the minutes so far. (It was a moving
+  // stripe; the page redraws every 1.5 s, which restarted the stripe each time, so it sat at the left and looked stuck.
+  // The stripe is kept only when the server doesn't say which step it's on, and now carries on across redraws.)
+  function retrainProgress(rt) {
+    const secs = rt.started_at ? Math.max(0, Date.now() / 1000 - rt.started_at) : null;
+    const took = secs == null ? "" : ` · ${secs < 60 ? "under a minute" : `${Math.floor(secs / 60)} min`} so far`;
+    if (!rt.steps || !rt.step_no) {
+      return `<div class="progress indeterminate"><i style="animation-delay:-${Date.now() % 1200}ms"></i></div>
+        <p class="muted small">${esc(rt.step)}${took}</p>`;
+    }
+    const done = Math.min(rt.steps, rt.step_no - 1);
+    const width = Math.max(3, Math.round((done / rt.steps) * 100));
+    return `<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${rt.steps}" aria-valuenow="${done}"
+        aria-label="${done} of ${rt.steps} steps done"><i style="width:${width}%"></i></div>
+      <p class="muted small"><b>${rt.step_no > rt.steps ? "Finishing" : `Step ${rt.step_no} of ${rt.steps}`}:</b> ${esc(rt.step)}${took}</p>`;
+  }
+  async function loadData(redraw = false) {  // redraw: the 1.5 s refresh during an update (no fade-in)
     let s;
     try { s = await api("/api/status"); } catch (err) { $("#data-body").innerHTML = `<div class="empty">${esc(err.message)}</div>`; return; }
     const up = s.update || {}; const rt = s.retrain || {};
@@ -4716,6 +4732,7 @@
     const backupHTML = PUBLIC ? "" : `<p class="data-fresh backup-line">${bk.at
       ? `${bk.ok ? "✓" : "⚠"} Copy of your predictions, squads and settings in OneDrive: <b>${esc(fd(bk.at))}</b> · ${esc(bk.note || "")}`
       : "A copy of your predictions, squads and settings goes to OneDrive each time the app starts."}</p>`;
+    $("#data-body").classList.toggle("redraw", redraw);
     $("#data-body").innerHTML = `${banner}${healthHTML}${backupHTML}
       <div class="data-grid">
         <article class="panel data-card">
@@ -4727,7 +4744,7 @@
           </div>
           ${s.cricsheet && s.cricsheet.checked_at ? `<p class="data-fresh">Last checked with Cricsheet <b>${esc(s.cricsheet.checked_at)}</b>${s.cricsheet.published ? ` · Cricsheet last published new files <b>${esc(s.cricsheet.published.slice(0, 10))}</b>` : ""}. Cricsheet publishes matches in batches, often a week or two after they're played, so the latest match can be behind today.</p>` : ""}
           <ul class="files">${s.archives.map((a) => `<li><span>${esc(a.name)}</span><span>${a.size_mb} MB · ${esc(a.modified)}</span></li>`).join("")}</ul>
-          ${retraining && rt.mode === "update" ? `<div class="progress indeterminate"><i></i></div><p class="muted small">${esc(rt.step)}</p>`
+          ${retraining && rt.mode === "update" ? retrainProgress(rt)
             : rt.mode === "update" && rt.state === "done" ? `<p class="small" style="color:var(--good)">✓ ${esc(rt.step)}</p>`
             : rt.mode === "update" && rt.state === "error" ? `<p class="form-error">${esc(rt.step)}</p>` : ""}
           <button class="action-btn" id="update-btn" ${updating || retraining ? "disabled" : ""}>${retraining && rt.mode === "update" ? "Updating…" : "Update now"}</button>
@@ -4744,7 +4761,7 @@
             <div class="stat"><small>Trained</small><b>${esc(s.model.trained_at || "–")}</b></div>
             <div class="stat"><small>Data up to</small><b>${esc(s.model.data_through || "–")}</b></div>
           </div>
-          ${retraining ? `<div class="progress indeterminate"><i></i></div><p class="muted small">${esc(rt.step)}</p>`
+          ${retraining ? retrainProgress(rt)
             : rt.state === "done" ? `<p class="small" style="color:var(--good)">✓ ${esc(rt.step)}. <a href="#accuracy">See the new accuracy →</a></p>`
             : rt.state === "error" ? `<p class="form-error">${esc(rt.step)}</p>` : ""}
           ${rt.log && rt.log.length ? `<pre class="log">${esc(rt.log.join("\n"))}</pre>` : ""}
@@ -4753,6 +4770,7 @@
         </article>
       </div>
       ${liveResultsHTML(s.live)}`;
+    const log = $("#data-body .log"); if (log) log.scrollTop = log.scrollHeight;  // the newest lines, not the oldest
     $("#update-btn").addEventListener("click", async () => { await api("/api/update-all", {}).catch((e) => toast(e.message)); toast("Update started"); loadData(); });
     $("#live-check")?.addEventListener("click", async (e) => {
       e.currentTarget.disabled = true; e.currentTarget.textContent = "Checking…";
@@ -4772,7 +4790,7 @@
     });
     stopPolling();
     if (!$("#tuning").childElementCount) { if (!SETTINGS) await loadSettings(); renderTuning(); }
-    if (updating || retraining) pollTimer = setTimeout(loadData, 1500);
+    if (updating || retraining) pollTimer = setTimeout(() => loadData(true), 1500);
     if (rt.state === "done" && loadData.lastRetrain === "running") { accCache = null; toast("Model retrained ✓"); setMode(state.mode); }
     loadData.lastRetrain = rt.state;
   }

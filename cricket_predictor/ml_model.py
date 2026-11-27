@@ -91,13 +91,16 @@ def load_store() -> dict[str, Any] | None:
     store = json.loads(STORE_PATH.read_text(encoding="utf-8"))
     by_name: dict[str, list[str]] = {}
     by_surname: dict[str, list[tuple[str, str]]] = {}  # surname -> [(initials, id)]
+    by_last: dict[str, list[str]] = {}  # last word of the name -> ids (the "same surname in this team" step)
     for pid, name in store["player_names"].items():
         by_name.setdefault(normalize_name(name), []).append(pid)
         tokens = name.split()
+        if tokens:
+            by_last.setdefault(normalize_name(tokens[-1]), []).append(pid)
         # Cricsheet style "MS Dhoni", "Q de Kock": leading all-caps token = initials
         if len(tokens) >= 2 and tokens[0].isupper() and tokens[0].isalpha() and len(tokens[0]) <= 4:
             by_surname.setdefault(normalize_name(" ".join(tokens[1:])), []).append((tokens[0], pid))
-    return {"store": store, "by_name": by_name, "by_surname": by_surname}
+    return {"store": store, "by_name": by_name, "by_surname": by_surname, "by_last": by_last}
 
 
 @locked_cache
@@ -217,11 +220,9 @@ def _resolve_id(name: str, fam: str, loaded: dict[str, Any], team: str | None = 
         if team:
             last = normalize_name(parts[-1])
             first = normalize_name(parts[0])
-            same_team = [
-                pid for pid, pname in store["player_names"].items()
-                if pid in table and team in teams_of.get(pid, [])
-                and normalize_name(pname.split()[-1]) == last
-            ]
+            # (a look-up made once when the data loads: scanning every name here cost about 2 ms per new player,
+            # over a second each time the page opened)
+            same_team = [pid for pid in loaded["by_last"].get(last, []) if pid in table and team in teams_of.get(pid, [])]
             with_first = [pid for pid in same_team if first in normalize_name(store["player_names"][pid])]
             for group in (with_first, same_team):
                 if len(group) == 1:
