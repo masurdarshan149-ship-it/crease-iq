@@ -211,6 +211,7 @@
       if (tab === "replay") openReplay(); else pauseReplay();
       if (tab === "data") loadData();
       if (tab !== "data") stopPolling();
+      if (tab === "predict") loadSavedMatches();
       window.scrollTo({ top: 0 });
     };
     // moving to another page: the new one slides in from the side you're heading (the bars stay put), where the
@@ -803,6 +804,96 @@
     out.getContext("2d").drawImage(cv, 0, 0);
     return { canvas: out, data: c };
   }
+  // Story size (1080 x 1920, for a WhatsApp status or a story): the match photo up top, the winner's crest inside a
+  // ring filled to the win chance (like the reveal in the app), the chance, both sides' bar, the score and the chart.
+  // The top and bottom ~200 px stay clear of the buttons those apps put over a story.
+  async function drawStory(kind) {
+    const c = cardData(kind); if (!c) return null;
+    try { await document.fonts.ready; } catch { /* fonts API unavailable */ }
+    const W = 1080, H = 1920;
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+    const ctx = cv.getContext("2d");
+    const SANS = '"Inter", "Segoe UI", sans-serif', CONDENSED = '"Big Shoulders Display", "Segoe UI", sans-serif';
+    const soft = "rgba(255,255,255,.72)", faint = "rgba(255,255,255,.45)", gold = "#d9b45a";
+    ctx.fillStyle = "#15150f"; ctx.fillRect(0, 0, W, H);
+    // the match photo, fading into the dark
+    const photo = (state.mode === "ipl" && PHOTOS["ipl:hero"]) || PHOTOS.hero;
+    const img = photo ? await new Promise((res) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = photo; }) : null;
+    if (img) {
+      const ph = 1000; const scale = Math.max(W / img.naturalWidth, ph / img.naturalHeight);
+      const w = img.naturalWidth * scale, h = img.naturalHeight * scale;
+      ctx.save(); ctx.globalAlpha = 0.55; ctx.drawImage(img, (W - w) / 2, (ph - h) * 0.4, w, h); ctx.restore();
+      const fade = ctx.createLinearGradient(0, 0, 0, ph);
+      fade.addColorStop(0, "rgba(21,21,15,.55)"); fade.addColorStop(0.55, "rgba(21,21,15,.35)"); fade.addColorStop(1, "#15150f");
+      ctx.fillStyle = fade; ctx.fillRect(0, 0, W, ph);
+    }
+    // wordmark
+    ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+    ctx.font = `800 64px ${CONDENSED}`; const cw = ctx.measureText("Crease").width;
+    const wx = W / 2 - (cw + 90) / 2;
+    ctx.textAlign = "left"; ctx.fillStyle = "#fff"; ctx.fillText("Crease", wx, 262);
+    rr(ctx, wx + cw + 14, 220, 74, 50, 12); ctx.fillStyle = "#c9cab3"; ctx.fill();
+    ctx.fillStyle = "#2e2e22"; ctx.font = `800 36px ${CONDENSED}`; ctx.fillText("IQ", wx + cw + 29, 258);
+    ctx.textAlign = "center"; ctx.fillStyle = faint; ctx.font = `700 24px ${SANS}`;
+    ctx.fillText(c.kind === "chase" ? "LIVE CHASE PREDICTION" : "MATCH PREDICTION", W / 2, 318);
+    // the winner's crest in a ring filled to the chance
+    const winPct = Math.max(Number(c.left.pct) || 0, Number(c.right.pct) || 0);
+    const st = teamStyle(c.headCode || c.headline); const glow = brightOf(st);
+    const cx = W / 2, cy = 640, R = 200;
+    ctx.lineWidth = 22; ctx.lineCap = "round";
+    ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
+    ctx.save(); ctx.shadowColor = glow; ctx.shadowBlur = 30; ctx.strokeStyle = glow;
+    ctx.beginPath(); ctx.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * Math.min(100, winPct)) / 100); ctx.stroke(); ctx.restore();
+    const g = ctx.createLinearGradient(cx - 160, cy - 160, cx + 160, cy + 160); g.addColorStop(0, st.c1); g.addColorStop(1, st.c2);
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, 160, 0, Math.PI * 2); ctx.fill();
+    const lg = c.headCode ? LOGO_IMG[st.code] : null;
+    if (lg && lg.complete && lg.naturalWidth) {
+      ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, 160, 0, Math.PI * 2); ctx.clip(); ctx.drawImage(lg, cx - 160, cy - 160, 320, 320); ctx.restore();
+    } else { ctx.fillStyle = "#fff"; fitFont(ctx, st.code, 700, 110, CONDENSED, 260); ctx.fillText(st.code, cx, cy + 38); }
+    // the chance, the winner, the verdict
+    ctx.fillStyle = "#fff"; ctx.font = `800 170px ${CONDENSED}`; ctx.fillText(`${Math.round(winPct)}%`, cx, 1010);
+    ctx.fillStyle = "#fff"; fitFont(ctx, c.headline, 800, 84, CONDENSED, 960); ctx.fillText(c.headline, cx, 1110);
+    ctx.fillStyle = gold; fitFont(ctx, c.eyebrow, 700, 28, SANS, 960); ctx.fillText(c.eyebrow, cx, 1162);
+    // both sides
+    const ls = teamStyle(c.left.code || c.left.name), rs = teamStyle(c.right.code || c.right.name);
+    const bx = 90, bw = 900, by = 1220, bh = 56;
+    const lw = Math.max(0, Math.min(bw, (bw * Number(c.left.pct)) / 100));
+    ctx.save(); rr(ctx, bx, by, bw, bh, 28); ctx.clip();
+    let bg = ctx.createLinearGradient(bx, 0, bx + lw, 0); bg.addColorStop(0, ls.c1); bg.addColorStop(1, ls.c2);
+    ctx.fillStyle = bg; ctx.fillRect(bx, by, lw, bh);
+    bg = ctx.createLinearGradient(bx + lw, 0, bx + bw, 0); bg.addColorStop(0, rs.c2); bg.addColorStop(1, rs.c1);
+    ctx.fillStyle = bg; ctx.fillRect(bx + lw, by, bw - lw, bh);
+    ctx.fillStyle = "rgba(255,255,255,.9)"; ctx.fillRect(bx + lw - 2, by, 4, bh); ctx.restore();
+    ctx.font = `700 30px ${CONDENSED}`; ctx.fillStyle = "#fff";
+    ctx.textAlign = "left"; if (Number(c.left.pct) >= 12) ctx.fillText(`${c.left.pct}%`, bx + 22, by + 39);
+    ctx.textAlign = "right"; if (Number(c.right.pct) >= 12) ctx.fillText(`${c.right.pct}%`, bx + bw - 22, by + 39);
+    ctx.font = `600 26px ${SANS}`; ctx.fillStyle = soft;
+    ctx.textAlign = "left"; fitFont(ctx, c.left.name, 600, 26, SANS, 420); ctx.fillText(c.left.name, bx, by + bh + 40);
+    ctx.textAlign = "right"; fitFont(ctx, c.right.name, 600, 26, SANS, 420); ctx.fillText(c.right.name, bx + bw, by + bh + 40);
+    // the score / situation
+    ctx.textAlign = "center"; let y = 1400;
+    c.lines.slice(0, 2).forEach((t, i) => { ctx.fillStyle = i === 0 ? "#fff" : soft; fitFont(ctx, t, i === 0 ? 700 : 500, 32, SANS, 940); ctx.fillText(t, cx, y); y += 48; });
+    // the win-chance chart, if the innings was followed ball by ball
+    const tl = c.worm.tl || [];
+    if (tl.length >= 2) {
+      const x0 = 110, w0 = 860, h0 = 150, y0 = y + 20;
+      const last = tl[tl.length - 1].balls; const mb = Math.min(maxBalls(), Math.max(30, Math.ceil(last / 6) * 6));
+      const X = (b) => x0 + (b / mb) * w0, Y = (p) => y0 + (1 - p / 100) * h0;
+      ctx.strokeStyle = "rgba(255,255,255,.18)"; ctx.lineWidth = 2; ctx.setLineDash([6, 8]);
+      ctx.beginPath(); ctx.moveTo(x0, Y(50)); ctx.lineTo(x0 + w0, Y(50)); ctx.stroke(); ctx.setLineDash([]);
+      const ws = teamStyle(c.worm.code || c.worm.name); const wg = brightOf(ws);
+      ctx.beginPath(); tl.forEach((p, i) => (i ? ctx.lineTo(X(p.balls), Y(p.pct)) : ctx.moveTo(X(p.balls), Y(p.pct))));
+      ctx.strokeStyle = wg; ctx.lineWidth = 5; ctx.lineJoin = "round"; ctx.save(); ctx.shadowColor = wg; ctx.shadowBlur = 14; ctx.stroke(); ctx.restore();
+      tl.forEach((p, i) => { if (i > 0 && p.wickets > tl[i - 1].wickets) { ctx.fillStyle = "#e5483a"; ctx.beginPath(); ctx.arc(X(p.balls), Y(p.pct), 8, 0, Math.PI * 2); ctx.fill(); } });
+      ctx.fillStyle = faint; ctx.font = `600 20px ${SANS}`;
+      ctx.fillText(`Win chance through the ${c.kind === "chase" ? "chase" : "innings"} · ${c.worm.name}`, cx, y0 + h0 + 40);
+    }
+    // footer (above the bottom ~200 px that story apps cover)
+    ctx.fillStyle = soft; fitFont(ctx, c.meta, 500, 24, SANS, 940); ctx.fillText(c.meta, cx, 1690);
+    ctx.fillStyle = faint; ctx.font = `500 22px ${SANS}`; ctx.fillText("A prediction from past data, not a guarantee.", cx, 1728);
+    ctx.textAlign = "left";
+    return { canvas: cv, data: { ...c, file: `${c.file}-story` } };
+  }
   const toBlob = (cv) => new Promise((res) => cv.toBlob(res, "image/png"));
   function downloadBlob(blob, name) {
     const url = URL.createObjectURL(blob); const a = document.createElement("a");
@@ -812,11 +903,19 @@
   async function shareAction(kind, action, btn) {
     btn.disabled = true;
     try {
-      const card = await drawCard(kind);
+      const card = action === "story" ? await drawStory(kind) : await drawCard(kind);
       if (!card) { toast("Make a prediction first."); return; }
       const name = `${card.data.file}-${new Date().toISOString().slice(0, 10)}.png`;
       const blob = await toBlob(card.canvas);
       if (action === "png") { downloadBlob(blob, name); toast("Image saved to your downloads"); return; }
+      if (action === "story") {  // share straight to a status / story where the phone can; otherwise save it
+        const file = new File([blob], name, { type: "image/png" });
+        let shared = false;
+        try { if (navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], title: "Crease IQ" }); shared = true; } }
+        catch (err) { if (err && err.name === "AbortError") return; }
+        if (!shared) { downloadBlob(blob, name); toast("Story image saved to your downloads"); }
+        return;
+      }
       if (action === "share") {
         const file = new File([blob], name, { type: "image/png" });
         try { await navigator.share({ files: [file], title: "Crease IQ", text: `${card.data.headline}: ${card.data.sub || card.data.eyebrow}` }); }
@@ -1192,7 +1291,9 @@
     pctEl.textContent = "0%";
     setTimeout(() => tweenNumber(pctEl, 0, to, 1100), 180);
     clearTimeout(hero._revealEnd); hero._revealEnd = setTimeout(() => hero.classList.remove("revealing"), 1900);
-    if (document.documentElement.classList.contains("m-phone")) {
+    // a short buzz on a phone, only right after a real tap (a result shown when the app opens, e.g. a live chase
+    // carried over, would be blocked by the browser and log an error)
+    if (document.documentElement.classList.contains("m-phone") && navigator.userActivation?.isActive !== false) {
       try { navigator.vibrate?.(level === "strong" ? [18, 40, 30] : level === "tossup" ? 10 : 16); } catch { /* not allowed */ }
     }
   }
@@ -1704,6 +1805,7 @@
     state.wickets = Math.max(0, Math.min(10, Math.round(state.wickets || 0)));
     state.balls = Math.max(0, Math.min(maxBalls(), state.balls));
     $("#runs-input").value = state.runs; $("#wickets-input").value = state.wickets; $("#overs-input").value = oversText(state.balls);
+    if (state.awaitingScore && (state.runs || state.wickets)) state.awaitingScore = false;  // the score is in: back to the usual bar
     renderFlow();
   }
   function parseOvers(text) {
@@ -2827,6 +2929,55 @@
     } catch (err) { $("#mp-body").innerHTML = `<p class="form-error">Preview failed: ${esc(err.message)}</p>`; }
     finally { btn.disabled = false; btn.classList.remove("busy"); }
   }
+  // the preview's spider chart: both sides on the model's own team inputs. The dashed middle ring is level; further out
+  // on a spoke = ahead on that input, measured against how much the app's teams usually differ (server: _team_compare)
+  function compareHTML(cmp, A, B, sa, sb) {
+    if (!cmp || !cmp.axes?.length) return "";
+    const N = cmp.axes.length, R = 100, C = 150;
+    const ang = (i) => -Math.PI / 2 + (i * 2 * Math.PI) / N;
+    const at = (i, v) => { const r = (R * Math.max(3, Math.min(100, v))) / 100; return `${(C + r * Math.cos(ang(i))).toFixed(1)},${(C + r * Math.sin(ang(i))).toFixed(1)}`; };
+    const shape = (pick) => cmp.axes.map((ax, i) => at(i, pick(ax))).join(" ");
+    // the two teams in clearly different colours: if theirs are close in hue (e.g. saffron and gold), the second side
+    // gets light blue against a warm colour, amber against a cool one
+    const hue = (col) => {
+      const m = col.startsWith("#") ? [1, 3, 5].map((i) => parseInt(col.slice(i, i + 2), 16)) : (col.match(/\d+/g) || [0, 0, 0]).slice(0, 3).map(Number);
+      const [r, g, b] = m.map((v) => v / 255); const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+      if (!d) return null;  // grey: no hue
+      const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+      return (h * 60 + 360) % 360;
+    };
+    const colA = brightOf(sa); let colB = brightOf(sb);
+    const ha = hue(colA), hb = hue(colB);
+    if (colA === colB || (ha != null && hb != null && Math.min(Math.abs(ha - hb), 360 - Math.abs(ha - hb)) < 45)) {
+      colB = ha != null && (ha < 90 || ha > 300) ? "#6cc4ff" : "#ffb347";
+    }
+    const labels = cmp.axes.map((ax, i) => {
+      const x = C + (R + 16) * Math.cos(ang(i)), y = C + (R + 16) * Math.sin(ang(i)) + 4;
+      const anchor = Math.abs(Math.cos(ang(i))) < 0.2 ? "middle" : Math.cos(ang(i)) > 0 ? "start" : "end";
+      return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}">${esc(ax.label)}<title>${esc(ax.hint)}</title></text>`;
+    }).join("");
+    const rows = cmp.axes.map((ax) => {
+      const who = ax.ahead === "bat" ? A : ax.ahead === "chase" ? B : null;
+      return `<li><span>${esc(ax.label)}<small>${esc(ax.hint)}</small></span><b style="${who ? `color:${who === A ? colA : colB}` : ""}">${who ? `${esc(who.name)} · ${esc(ax.word)}` : "Level"}</b></li>`;
+    }).join("");
+    return `<div class="mp-compare">
+      <div class="mpc-head"><h3>What the model sees</h3>
+        <div class="mpc-legend"><span style="--c:${colA}"><i></i>${esc(A.name)}</span><span class="b" style="--c:${colB}"><i></i>${esc(B.name)}</span></div></div>
+      <div class="mpc-body">
+        <svg viewBox="-58 -4 416 308" class="mpc-radar" role="img" aria-label="${esc(A.name)} and ${esc(B.name)} on the model's six team inputs">
+          ${[25, 50, 75, 100].map((v) => `<polygon points="${shape(() => v)}" class="mpc-ring${v === 50 ? " level" : ""}"/>`).join("")}
+          ${cmp.axes.map((_, i) => `<line x1="${C}" y1="${C}" x2="${at(i, 100).split(",")[0]}" y2="${at(i, 100).split(",")[1]}" class="mpc-spoke"/>`).join("")}
+          <polygon points="${shape((ax) => ax.bat)}" class="mpc-poly" style="--c:${colA}"/>
+          <polygon points="${shape((ax) => ax.chase)}" class="mpc-poly b" style="--c:${colB}"/>
+          ${labels}
+        </svg>
+        <ul class="mpc-list">${rows}</ul>
+      </div>
+      <p class="muted small">Six of the model's own inputs about the two sides (the XIs ticked above). The dashed middle ring is level;
+        further out means ahead, measured against how much the ${cmp.teams} ${esc(cmp.group)} usually differ.${cmp.home ? ` <b>${esc(cmp.home)}</b> are at home, which gives them a small lift in the model.` : ""}${cmp.associate
+        ? ` ${esc(cmp.associate)} mostly play other associate sides, so their player numbers look better than they would against full members; the team rating weighs who they played.` : ""}</p>
+    </div>`;
+  }
   function renderMatchPreview(r) {
     const box = $("#mp-body");
     if (!r.available) { box.innerHTML = `<p class="muted">${esc(r.reason || "No preview for this match setup.")}</p>`; return; }
@@ -2866,9 +3017,25 @@
         <div class="mp-team right" style="--c1:${sb.c1}"><span class="mp-pct">${bPct}%</span><b>${esc(B.name)}</b>${badgeHTML(B.code, "lg")}</div>
       </div>
       <p class="mp-verdict"><b>${word}</b>${lead >= 55 ? ` · ${pct(lead)} chance to win` : ""}. Before the first ball this is a lean: it gets much sharper once the match starts.</p>
+      ${compareHTML(r.compare, A, B, sa, sb)}
       ${innings}
       <div class="mp-turn"><h3>Could it turn on its head?</h3><ul>${turn.join("")}</ul>
-        <p class="muted small">From the model's results on matches it never saw, and straight from the match data.</p></div>`;
+        <p class="muted small">From the model's results on matches it never saw, and straight from the match data.</p></div>
+      <div class="mp-save"><button type="button" class="action-btn" id="mp-save">Save this match</button>
+        <span class="muted small">Keeps the teams, ground, both XIs, the batting order and the pitch report with this preview's pick
+          (it counts in your History record as a "before the match" call). At the innings break, <b>Continue</b> at the top of
+          Predict brings it all back for the score.</span></div>`;
+    $("#mp-save").addEventListener("click", saveFromPreview);
+  }
+  async function saveFromPreview(e) {
+    const btn = e.currentTarget; btn.disabled = true; btn.textContent = "Saving…";
+    try {
+      const { runs, wickets, overs, save, ...rest } = payload(false);
+      await api("/api/predict", { ...rest, runs: 0, wickets: 0, overs: 0, save: true, saved_from: "preview" });
+      btn.textContent = "Saved ✓"; saveDraft();
+      toast("Saved. At the innings break, tap Continue at the top of Predict.");
+      loadSavedMatches(true);
+    } catch (err) { btn.disabled = false; btn.textContent = "Save this match"; toast(`Couldn't save (${err.message}).`); }
   }
 
   function renderChase(r) {
@@ -3021,13 +3188,14 @@
       + step("first", 2, "First innings", onChase || f.firstDone ? (onChase ? "done" : "done now") : f.notStarted ? "" : "now")
       + step("chase", 3, "The chase", onChase ? (f.chaseOver ? "done now" : "now") : "");
     // first innings
-    if (f.notStarted) ff.innerHTML = `<span>Before the first ball. Preview the match, or tap a ball to start the innings.</span><button type="button" class="chip-btn" data-flow="preview">Preview the match</button>`;
+    if (state.awaitingScore) ff.innerHTML = `<span><b>Innings break.</b> Enter ${esc(f.A)}${/s$/i.test(f.A) ? "'" : "'s"} first-innings score (runs and wickets; the overs too if they were all out early) and press <b>Predict</b>.</span>`;
+    else if (f.notStarted) ff.innerHTML = `<span>Before the first ball. Preview the match, or tap a ball to start the innings.</span><button type="button" class="chip-btn" data-flow="preview">Preview the match</button>`;
     else if (f.firstDone) {
       const going = chase.target === f.target && chase.balls > 0;
       ff.innerHTML = `<span><b>${esc(f.A)} finished on ${state.runs}/${state.wickets}.</b> ${esc(f.B)} need ${f.target} to win.</span>
         <button type="button" class="flow-go" data-flow="start-chase">${going ? "Continue the chase" : `Start the chase: target ${f.target}`} →</button>`;
     } else ff.innerHTML = `<span>${esc(f.A)} ${state.runs}/${state.wickets} after ${oversText(state.balls)} overs. When the innings ends, the chase starts from here with the target filled in.</span>`;
-    ff.classList.toggle("ready", f.firstDone);
+    ff.classList.toggle("ready", f.firstDone && !state.awaitingScore);
     // the chase
     const left = maxBalls() - chase.balls; const need = chase.target - chase.runs;
     if (f.chaseOver) {
@@ -3633,7 +3801,30 @@
       <p class="muted small">${esc(h.source)}.</p>`;
     box.hidden = false;
   }
+  // ---- model health: the model's innings-break call on the newest 30 unseen matches of each kind, against its usual
+  // rate on the earlier unseen ones (server: webapp.model_health). 30 matches is a small sample, so it says how big a
+  // gap is still ordinary ups and downs.
+  function renderHealth(h) {
+    const box = $("#acc-health"); if (!box) return;
+    if (!h || !h.rows || !h.rows.length) { box.hidden = true; return; }
+    const WORD = { normal: ["ok", "Normal ups and downs"], low: ["low", "A little low, still within normal ups and downs"],
+      dip: ["dip", "Below usual: worth watching"], above: ["up", "Above usual (some of that is luck)"] };
+    box.innerHTML = `<div class="row-between"><div><p class="eyebrow">Is it still on form?</p><h2 id="health-title">Model health</h2></div>
+        <span class="muted small">Newest ${h.n} matches of each kind</span></div>
+      <p class="muted small">The model's call at the innings break on the newest matches in the downloaded data (it never trained on
+        them), against how it did on the earlier unseen matches since ${esc(h.since)}. Over ${h.n} matches a gap of 15 points or so
+        is still ordinary ups and downs.</p>
+      <ul class="health-rows">${h.rows.map((r) => {
+        const [cls, word] = WORD[r.status] || WORD.normal;
+        return `<li class="hl-${cls}"><i aria-hidden="true"></i>
+          <span><b>${esc(r.label)}</b><small>${esc(fd(r.from))} – ${esc(fd(r.to))}</small></span>
+          <span class="hl-num"><b>${r.right} of ${r.matches}</b> right (${Math.round(r.pct)}%)<small>usual ${Math.round(r.usual)}% · normal range ±${Math.round(r.band)}</small></span>
+          <span class="hl-word">${esc(word)}</span></li>`;
+      }).join("")}</ul>`;
+    box.hidden = false;
+  }
   function renderAccuracy() {
+    renderHealth(accCache.health);
     const rep = accCache.report;
     if (!rep) { $("#acc-body").innerHTML = `<div class="empty">No report yet. Go to <a href="#data">Data</a> and press <b>Retrain model</b>.</div>`; return; }
     const models = rep.shown_models; const names = rep.model_names; const chosen = rep.chosen;
@@ -3889,16 +4080,18 @@
   // par, XIs and the score. A first-innings prediction opens on the first innings (then "Start the chase" carries
   // on); a chase opens on the chase at the saved score. Older predictions without a stored setup are matched by
   // team and ground names, with each team's latest XI.
-  async function openFromHistory(h) {
-    const s = h.setup || {};
+  // Put a saved setup back on the Predict page: mode, teams, format, both XIs (with batting order and impact player),
+  // ground, pitch and dew, par and the pitch report. Teams or players no longer in the list are skipped (older saves
+  // without a setup are matched by team and ground names, with each team's latest XI). false: the teams aren't there.
+  async function applySetup(s, h = {}) {
     const mode = s.mode || h.mode || state.mode;
-    location.hash = "#predict";
     if (mode !== state.mode || !state.config) { $$(".mode-switch button").forEach((b) => b.classList.toggle("active", b.dataset.mode === mode)); await setMode(mode); }
-    if (!state.config) return;
+    if (!state.config) return false;
     const byName = (name) => state.config.teams.find((t) => t.name === name)?.code;
-    const bat = s.batting && team(s.batting).squad.length ? s.batting : byName(h.batting_first_team);
-    const chs = s.chasing && team(s.chasing).squad.length ? s.chasing : byName(h.chasing_team);
-    if (!bat || !chs) { toast("Those teams aren't in this season's team list any more."); return; }
+    const known = (code) => code && state.config.teams.some((t) => t.code === code) && team(code).squad.length;
+    const bat = known(s.batting) ? s.batting : byName(h.batting_first_team);
+    const chs = known(s.chasing) ? s.chasing : byName(h.chasing_team);
+    if (!bat || !chs) return false;
     state.format = String(s.format || h.format || "t20").toLowerCase() === "odi" ? "odi" : "t20";
     $$(".segmented [data-format]").forEach((x) => x.classList.toggle("active", x.dataset.format === state.format));
     state.batting = bat; state.chasing = chs; resetXI();
@@ -3914,8 +4107,33 @@
     if (v) { state.venue = v.code; state.country = "all"; }
     state.pitch = s.pitch || h.pitch || "balanced"; state.dew = s.dew || h.dew || "none";
     state.par = s.par || null;
+    if (s.pitch_report) state.pitchReport = String(s.pitch_report).slice(0, 600);
     fillSelects(); renderCountries(); syncConditions(); syncPar(); renderXI();
+    return true;
+  }
+  // A save that was made before the first ball (a match preview, or Before the match): nothing scored yet
+  const savedBeforeBall = (h) => {
+    const s = h.setup || {};
+    return h.type !== "chase" && !Number(s.runs ?? h.first_innings_score ?? 0) && !Number(s.wickets ?? h.wickets ?? 0) && !Number(s.overs ?? h.overs ?? 0);
+  };
+  // Open a saved prediction on the Predict page with everything as it was. A first-innings prediction opens on the
+  // first innings (then "Start the chase" carries on); a chase opens on the chase at the saved score. A save from
+  // before the first ball opens at the innings break instead (atBreak), ready for the first-innings score.
+  async function openFromHistory(h, opts = {}) {
+    const s = h.setup || {};
+    location.hash = "#predict";
+    if (!(await applySetup(s, h))) { if (state.config) toast("Those teams aren't in this season's team list any more."); return; }
     const toBalls = (ov) => parseOvers(String(ov ?? ""));
+    const atBreak = opts.atBreak || (h.type !== "chase" && savedBeforeBall(h));
+    if (atBreak) {
+      state.runs = 0; state.wickets = 0; state.balls = maxBalls(); state.awaitingScore = true;  // the bar asks for the score
+      setStage("first"); syncScore(); clearResult();
+      $('[data-m-mode="inns"]')?.click();  // phone: Innings break, at the score step
+      toast(`${team(state.batting).name} v ${team(state.chasing).name}: everything is back. Enter the first-innings score and press Predict.`);
+      setTimeout(() => { const r = $("#runs-input"); if (r) { r.focus({ preventScroll: true }); r.select?.(); } }, 400);
+      $("#first-step")?.scrollIntoView({ behavior: NO_MOTION ? "auto" : "smooth", block: "start" });
+      return;
+    }
     if (h.type === "chase") {
       const target = Number(s.target || h.target) || (Number(h.first_innings_score) + 1);
       state.runs = target - 1; state.wickets = Number(s.first_wickets ?? 10) || 10; state.balls = maxBalls();
@@ -3926,16 +4144,80 @@
       setStage("chase");
       Object.assign(chase, { runs: Number(runs) || 0, wickets: Number(wk) || 0, balls: toBalls(ov), undo: [], timeline: [] });
       saveChase(); syncChase(); predictChase(false);
-      toast(`Opened: ${team(chs).name} chasing ${target}. Update the score as the chase goes on.`);
+      toast(`Opened: ${team(state.chasing).name} chasing ${target}. Update the score as the chase goes on.`);
     } else {
       state.runs = Number(s.runs ?? h.first_innings_score) || 0;
       state.wickets = Number(s.wickets ?? h.wickets ?? 0) || 0;
       state.balls = (s.overs ?? h.overs) != null ? toBalls(s.overs ?? h.overs) : maxBalls();
       setStage("first"); syncScore(); predict(false);
-      toast(`Opened: ${team(bat).name} v ${team(chs).name}. ${state.balls >= maxBalls() || state.wickets >= 10 ? "Press Start the chase to carry on." : "Carry on ball by ball."}`);
+      toast(`Opened: ${team(state.batting).name} v ${team(state.chasing).name}. ${state.balls >= maxBalls() || state.wickets >= 10 ? "Press Start the chase to carry on." : "Carry on ball by ball."}`);
     }
     $("#predict-form").scrollIntoView({ behavior: NO_MOTION ? "auto" : "smooth", block: "start" });
   }
+
+  // ---- "Continue a saved match" (top of Predict): your saves from before the first ball (match preview or Before the
+  // match) in the last 36 hours whose match isn't decided yet, newest first; Continue opens the innings break
+  let savedList = []; let savedAt = 0;
+  async function loadSavedMatches(force = false) {
+    const box = $("#saved-matches"); if (!box) return;
+    if (!force && Date.now() - savedAt < 20000) return;
+    savedAt = Date.now();
+    let items = [];
+    try { items = (await api("/api/history", PUBLIC ? {} : undefined)).items || []; } catch { box.hidden = true; return; }
+    const cutoff = Date.now() - 36 * 3600e3;
+    const time = (h) => new Date(String(h.timestamp).replace(" ", "T")).getTime();
+    const latest = new Map();
+    [...items].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp))).forEach((h) => {
+      if (h.auto) return;
+      const k = h.match_key || `${h.batting_first_team}|${h.chasing_team}|${String(h.timestamp).slice(0, 10)}`;
+      if (!latest.has(k)) latest.set(k, h);  // the newest save of each match
+    });
+    savedList = [...latest.values()].filter((h) => savedBeforeBall(h) && h.setup && h.outcome?.status === "waiting" && time(h) >= cutoff).slice(0, 3);
+    if (!savedList.length) { box.hidden = true; box.innerHTML = ""; return; }
+    const when = (h) => {
+      const n = new Date(); const pad = (x) => String(x).padStart(2, "0");  // this device's date (saves are in local time)
+      const d = String(h.timestamp).slice(0, 10), today = `${n.getFullYear()}-${pad(n.getMonth() + 1)}-${pad(n.getDate())}`;
+      return `${d === today ? "today" : "yesterday"} ${String(h.timestamp).slice(11, 16)}`;
+    };
+    box.innerHTML = `<p class="sm-title">Continue a saved match</p>${savedList.map((h) => `<button type="button" class="sm-item" data-continue="${esc(h.timestamp)}">
+        <span class="sm-teams">${badgeHTML(h.batting_first_team)}${badgeHTML(h.chasing_team)}</span>
+        <span class="sm-text"><b>${esc(h.batting_first_team)} v ${esc(h.chasing_team)}</b>
+          <small>${h.venue ? `${esc(h.venue)} · ` : ""}${esc(String(h.format || "").toUpperCase())} · saved ${esc(when(h))}${h.saved_from === "preview" ? " · match preview" : ""}</small></span>
+        <span class="sm-go">Continue at the innings break <span aria-hidden="true">→</span></span></button>`).join("")}`;
+    box.hidden = false;
+  }
+  $("#saved-matches")?.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-continue]"); if (!b) return;
+    const h = savedList.find((x) => x.timestamp === b.dataset.continue); if (h) openFromHistory(h, { atBreak: true });
+  });
+
+  // ---- the last inputs on this device (teams, ground, format, XIs, conditions, score): a closed tab or a reload
+  // doesn't lose them. Restored once when the app opens, if they're from the last 3 days and the same IPL /
+  // International switch.
+  let draftReady = false; let draftTimer = null;
+  function currentSetup() {
+    return { mode: state.mode, format: state.format, batting: state.batting, chasing: state.chasing, venue: state.venue,
+      par: state.par || null, pitch: state.pitch, dew: state.dew, pitch_report: state.pitchReport || null,
+      batting_xi: state.xi.bat, chasing_xi: state.xi.chase, batting_order_set: state.order.bat, chasing_order_set: state.order.chase,
+      batting_impact: state.impact.bat, chasing_impact: state.impact.chase,
+      runs: state.runs, wickets: state.wickets, overs: Number(oversText(state.balls)) };
+  }
+  function saveDraft() { if (draftReady && state.config) store.set("predict.draft", { at: Date.now(), setup: currentSetup() }); }
+  function draftSoon() { clearTimeout(draftTimer); draftTimer = setTimeout(saveDraft, 800); }
+  async function restoreDraft() {
+    try {
+      const d = store.get("predict.draft", null);
+      if (d && d.setup && d.setup.mode === state.mode && Date.now() - (d.at || 0) < 3 * 86400e3 && (await applySetup(d.setup))) {
+        state.runs = Number(d.setup.runs) || 0; state.wickets = Number(d.setup.wickets) || 0;
+        state.balls = d.setup.overs != null ? parseOvers(String(d.setup.overs)) : maxBalls();
+        syncScore();
+      }
+    } catch { /* an old or broken draft: start from the defaults */ }
+    draftReady = true;
+  }
+  ["change", "input", "click"].forEach((ev) => $("#predict-form")?.addEventListener(ev, draftSoon));
+  addEventListener("pagehide", saveDraft);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) saveDraft(); });
   let histBackups = [];
   async function loadHistory() {
     try { histData = await api("/api/history", PUBLIC ? {} : undefined); } catch (err) { $("#history-body").innerHTML = `<div class="empty">${esc(err.message)}</div>`; return; }
@@ -3993,6 +4275,7 @@
       </div>`;
     $("#history-body").innerHTML = `
       ${sourceTabs()}
+      ${stagePiesHTML(items.filter((h) => !h.is_practice), s.tracker)}  ${"" /* every save but practice runs: each stage counts on its own ("counted" keeps only a match's last save) */}
       <section class="panel score-card">
         <div class="score-head"><div>${(() => {
             // with the model's own checks in the record, say so: it is no longer only your predictions
@@ -4018,6 +4301,25 @@
         .map(([k, l]) => `<button type="button" data-hf="${k}" class="${k === histFilter ? "active" : ""}">${l}</button>`).join("")}</div>
       <div class="hist-list">${shownGroups.length ? datedListHTML(shownGroups) : `<div class="panel empty">Nothing here.</div>`}</div>
       ${backupsHTML()}`;
+    cheerRights();
+  }
+  // "Model got it right": a prediction of yours that has newly been checked and was right gets a tick that pops and a
+  // green glow, once (gold sparks too if it was saved as a Strong pick). Which ones were shown is remembered on this
+  // device; the first time, everything already checked counts as seen, so old predictions don't all go off at once.
+  // The model's own checks don't count.
+  function cheerRights() {
+    const KEY = "cwp.histCheered";
+    let seen = null; try { seen = JSON.parse(localStorage.getItem(KEY) || "null"); } catch { seen = null; }
+    const rights = (histData?.items || []).filter((h) => !h.auto && h.outcome?.status === "right");
+    const fresh = Array.isArray(seen) ? rights.filter((h) => !seen.includes(h.timestamp)) : [];
+    const all = [...new Set([...(Array.isArray(seen) ? seen : []), ...rights.map((h) => h.timestamp)])].slice(-1000);
+    try { localStorage.setItem(KEY, JSON.stringify(all)); } catch { /* private window */ }
+    if (NO_MOTION) return;
+    fresh.slice(0, 6).forEach((h, i) => {
+      const card = [...$$("#history-body .hist-item[data-ts]")].find((c) => c.dataset.ts === h.timestamp); if (!card) return;
+      card.style.setProperty("--cheer-delay", `${0.25 + i * 0.18}s`);
+      card.classList.add("cheer"); if (h.trust === "strong") card.classList.add("cheer-strong");
+    });
   }
   // ---- prediction tracker: your own hit rate by stage, confidence, competition and team, and over time
   function trackerHTML(t, all) {
@@ -4091,6 +4393,67 @@
   }
   // ---- one pie per kind of match (T20 internationals, IPL, ODIs): how the predictions and model checks went
   const KIND_OF = (h) => (h.mode === "ipl" ? "ipl" : String(h.format || "").toUpperCase() === "ODI" ? "odi" : "t20i");
+  // ---- "Can you trust it right now?": three pies, before the match / first innings / live chase, for the predictions
+  // History is showing (the Both / Yours / Model checks switch). Each match counts once per pie (its latest save at that
+  // stage); waiting ones join when the result is in; practice runs are left out. Under each pie: the model's own record
+  // at that stage on unseen matches, to compare with.
+  function stagePiesHTML(saves, tracker) {
+    const bench = (tracker && tracker.model_pct) || {};
+    const pct = (x) => (x == null ? "–" : `${Math.round(x)}%`);
+    const before = (h) => {  // saved before the first ball: 0/0 after 0 overs (older saves have no stage)
+      if (h.stage) return h.stage === "pre_match";
+      const s = h.setup || {};
+      return !h.auto && h.type !== "chase" && !Number(s.runs ?? h.first_innings_score ?? 0) && !Number(s.overs ?? h.overs ?? 0);
+    };
+    const bucket = (h) => (h.type === "chase" || h.stage === "chase" ? "chase" : before(h) ? "before" : "first");
+    const latest = { before: new Map(), first: new Map(), chase: new Map() };
+    saves.forEach((h) => {
+      const k = h.match_key || h.timestamp; const m = latest[bucket(h)];
+      if (!m.has(k) || String(h.timestamp) > String(m.get(k).timestamp)) m.set(k, h);
+    });
+    // before the match: where you didn't save a call of your own, the model's archived call for that match counts (as a
+    // model check: not with "Your predictions" on the switch)
+    let archived = 0;
+    if (histSource !== "yours") {
+      saves.forEach((h) => {
+        const k = h.match_key || h.timestamp;
+        if (!h.pre_call || latest.before.has(k)) return;
+        latest.before.set(k, { timestamp: "", outcome: { status: h.pre_call.right ? "right" : "wrong" }, archived: true }); archived += 1;
+      });
+    }
+    const R = 46, C = 2 * Math.PI * R;
+    const pie = (key, label, benchText, empty) => {
+      const list = [...latest[key].values()];
+      const tally = { right: 0, wrong: 0, waiting: 0 };
+      list.forEach((h) => { const st = h.outcome && h.outcome.status; if (st in tally) tally[st] += 1; });
+      const checked = tally.right + tally.wrong; const total = checked + tally.waiting; let acc = 0;
+      const arcs = total ? [["right", "var(--good)"], ["wrong", "var(--bad)"], ["waiting", "#f2b631"]].filter(([k]) => tally[k]).map(([k, col]) => {
+        const len = (tally[k] / total) * C; const off = -acc; acc += len;
+        return `<circle cx="60" cy="60" r="${R}" class="pie-arc" style="stroke:${col};stroke-dasharray:${len.toFixed(2)} ${(C - len).toFixed(2)};stroke-dashoffset:${off.toFixed(2)}"/>`;
+      }).join("") : "";
+      const note = !checked ? empty : checked < 10 ? `Only ${checked} checked: too few to judge yet` : "";
+      return `<div class="stage-pie" role="img" aria-label="${esc(label)}: ${tally.right} right, ${tally.wrong} wrong, ${tally.waiting} waiting">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="${R}" class="pie-track"/><g transform="rotate(-90 60 60)">${arcs}</g>
+          <text x="60" y="${checked ? 61 : 66}" text-anchor="middle" class="pie-big">${checked ? `${Math.round((tally.right / checked) * 100)}%` : "–"}</text>
+          ${checked ? `<text x="60" y="78" text-anchor="middle" class="pie-sub">right</text>` : ""}</svg>
+        <b>${esc(label)}</b>
+        <small>${checked ? `${tally.right} of ${checked} right` : "None checked"}${tally.waiting ? ` · ${tally.waiting} waiting` : ""}</small>
+        ${key === "before" && archived ? `<small>${archived} of them the model's archived call (no save of yours)</small>` : ""}
+        ${note ? `<small class="sp-few">${esc(note)}</small>` : ""}
+        <small class="sp-bench">Model on unseen matches: ${benchText}</small></div>`;
+    };
+    const firstMid = [...latest.first.values()].some((h) => h.stage === "mid_innings");
+    return `<section class="panel section stage-pies">
+      <p class="eyebrow">Can you trust it right now?</p><h2>Right by stage</h2>
+      <div class="stage-pie-row">
+        ${pie("before", "Before the match", pct(bench.pre_match), "Save a preview or a Before the match call to start this one")}
+        ${pie("first", "First innings", firstMid ? `${pct(bench.mid_innings)} during the innings, ${pct(bench.innings_break)} at the break` : `${pct(bench.innings_break)} at the innings break`, "")}
+        ${pie("chase", "Live chase", pct(bench.chase), "")}
+      </div>
+      <p class="muted small">Each match counts once in each pie (its latest save at that stage); waiting matches count when the result is in, and practice runs are left out.
+        Before the match also uses the model's own archived call where you didn't save one: made with only what was known before that match (from the match data, matches it never trained on).</p>
+    </section>`;
+  }
   function formatPiesHTML(counted) {
     const KINDS = [["t20i", "T20 internationals"], ["ipl", "IPL"], ["odi", "ODIs"]];
     const COLS = [["right", "Right", "var(--good)"], ["wrong", "Wrong", "var(--bad)"], ["waiting", "Waiting", "#f2b631"], ["other", "No result", "var(--faint)"]];
@@ -4185,20 +4548,23 @@
     const winnerIsBat = h.predicted_winner === h.batting_first_team;
     const p = winnerIsBat ? h.batting_first_win_probability : h.chasing_win_probability;
     const [icon, label, cls] = OUTCOME[h.outcome.status] || OUTCOME.waiting;
-    return `<article class="panel hist-item ${cls}">
+    return `<article class="panel hist-item ${cls}" data-ts="${esc(h.timestamp)}">
       <div class="hist-teams">${badgeHTML(h.batting_first_team)}<span class="vs">v</span>${badgeHTML(h.chasing_team)}</div>
       <div class="hist-main"><strong>${h.type === "chase"
         ? `${esc(h.chasing_team)} ${esc(h.chase_score)} chasing ${esc(h.target)} v ${esc(h.batting_first_team)}`
         : `${esc(h.batting_first_team)} ${esc(h.first_innings_score)} v ${esc(h.chasing_team)}`}</strong>
-        <span>${esc(fd(String(h.timestamp).slice(0, 16)))} · ${esc(h.format)} · ${h.type === "chase" ? "live chase · " : ""}${esc((h.model || "formula").replace(/^ML (chase )?\((.*)\)$/, "$2"))}</span>
+        <span>${esc(fd(String(h.timestamp).slice(0, 16)))} · ${esc(h.format)} · ${h.type === "chase" ? "live chase · " : ""}${h.saved_from === "preview" ? "saved from the match preview · " : ""}${esc((h.model || "formula").replace(/^ML (chase )?\((.*)\)$/, "$2"))}</span>
         <span class="outcome ${cls}"><b>${icon} ${label}</b> · ${esc(h.outcome.detail || "")}${h.outcome.source === "you" ? "" : ""}</span>
         ${h.pitch_check ? `<span class="pitch-check pc-${esc(h.pitch_check.status)}"><b>Pitch call</b> · ${esc(h.pitch_check.detail)}</span>` : ""}
+        ${h.pre_call ? `<span class="pre-call ${h.pre_call.right ? "ok" : "no"}"><b>Model before the match</b> · ${esc(h.pre_call.team)} ${Math.round(h.pre_call.pct)}% · ${h.pre_call.right ? "✓ right" : "✗ wrong"}</span>` : ""}
         <div class="hist-actions">
         ${h.type === "chase" && ["right", "wrong", "no_result"].includes(h.outcome.status) ? "" /* chase over: nothing to continue */ : `<button type="button" class="hist-open" data-open="${esc(h.timestamp)}" title="Open this prediction on the Predict page, with the same teams, ground, conditions and XIs">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>${h.type === "chase" ? "Continue chase" : "Open"}</button>`}
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>${h.type === "chase" ? "Continue chase" : savedBeforeBall(h) ? "Continue at the innings break" : "Open"}</button>`}
         <button type="button" class="hist-del" data-del="${esc(h.timestamp)}" title="Delete this prediction" aria-label="Delete this prediction">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 12.5h9l1-12.5M10 11v6M14 11v6"/></svg>Delete</button>
-        ${h.auto ? "" : `<button type="button" class="chip-btn hist-practice-btn" data-practice="${h.is_practice ? 0 : 1}" data-ts="${esc(h.timestamp)}"
+        ${h.auto || !h.is_practice ? "" /* the "Practice run" button was taken off (27 Nov 2026); a save the app put in
+          Practice runs keeps "Count as a real match", so a real match the data doesn't have can still be counted */
+          : `<button type="button" class="chip-btn hist-practice-btn" data-practice="${h.is_practice ? 0 : 1}" data-ts="${esc(h.timestamp)}"
           title="${h.is_practice ? "It was a real match: list it by its date and count it in your record" : "Not a real match: move it to Practice runs and leave it out of your record"}">${h.is_practice ? "Count as a real match" : "Practice run"}</button>`}
         <details class="set-result"><summary>${h.outcome.source === "you" ? "Change result" : "Set result"}</summary>
           <div class="set-result-row">
@@ -5847,5 +6213,5 @@
   })();
 
   state.stage = store.get("stage", "first") === "chase" ? "chase" : "first";
-  loadPhotos().finally(() => setMode(state.mode).then(() => { setStage(state.stage); route(); }));
+  loadPhotos().finally(() => setMode(state.mode).then(restoreDraft).then(() => { setStage(state.stage); route(); }));
 })();

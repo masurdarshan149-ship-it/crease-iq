@@ -810,7 +810,9 @@ html[data-theme="dark"] .toast-undo { background: rgba(0,0,0,.1); color: #9a5b00
 /* ------------------------------------------------------------- responsive */
 @media (max-width: 1020px) {
   .predict-grid { grid-template-columns: 1fr; }
-  .result-panel { position: static; min-height: 0; }
+  /* relative, not static: the panel's corner glow (::before, placed partly outside) must stay inside its clip; with
+     static it hung 137 px past the right edge of a phone and zoomed Predict / Live chase out (27 Nov 2026) */
+  .result-panel { position: relative; min-height: 0; }
   .cards-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stage-groups, .two-col, .data-grid { grid-template-columns: minmax(0, 1fr); }
   .brand-text small { display: none; }
@@ -3292,3 +3294,108 @@ html.no-motion .ball-flash, html.no-motion .burst.six::before, html.motion-off .
 @keyframes sk-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .skel i { animation: none; } }
 html.no-motion .skel i, html.motion-off .skel i { animation: none; }
+
+/* ---- the preview's team comparison (27 Nov 2026): a spider chart of the model's own team inputs (app.js compareHTML) */
+.mp-compare { margin: 18px 0 8px; padding: 16px 18px; border-radius: 18px; background: var(--surface-2); border: 1px solid var(--line); }
+.mpc-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.mpc-head h3 { margin: 0; font-size: 1.05rem; }
+.mpc-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: .82rem; color: var(--muted); }
+.mpc-legend i { display: inline-block; width: 14px; height: 10px; border-radius: 3px; background: var(--c); margin-right: 6px; vertical-align: 0; }
+.mpc-legend .b i { background: transparent; border: 2px dashed var(--c); }
+.mpc-body { display: grid; grid-template-columns: minmax(300px, 400px) 1fr; gap: 18px; align-items: center; margin-top: 8px; }
+.mpc-radar { width: 100%; height: auto; display: block; }
+.mpc-radar text { font-size: 14px; font-weight: 600; fill: var(--muted); }
+.mpc-ring { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.mpc-ring.level { stroke: var(--muted); stroke-dasharray: 3 4; }
+.mpc-spoke { stroke: var(--line-strong); stroke-width: 1; }
+.mpc-poly { fill: var(--c); fill-opacity: .2; stroke: var(--c); stroke-width: 2.4; stroke-linejoin: round;
+  transform-box: view-box; transform-origin: 150px 150px; animation: mpc-grow .75s var(--ease-out, ease-out) both; }
+.mpc-poly.b { fill-opacity: .12; stroke-dasharray: 7 5; animation-delay: .12s; }
+@keyframes mpc-grow { from { transform: scale(.15); opacity: 0; } }
+.mpc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; font-size: .88rem; }
+.mpc-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 6px; border-bottom: 1px dashed var(--line); }
+.mpc-list li span small { display: block; font-size: .74rem; color: var(--muted); }
+.mpc-list b { font-weight: 700; text-align: right; white-space: nowrap; }
+.mp-compare > p { margin: 10px 0 0; }
+@media (max-width: 700px) { .mpc-body { grid-template-columns: 1fr; } .mpc-radar { max-width: 340px; margin: 0 auto; } .mpc-list b { white-space: normal; } }
+@media (prefers-reduced-motion: reduce) { .mpc-poly { animation: none; } }
+html.no-motion .mpc-poly, html.motion-off .mpc-poly { animation: none; }
+
+/* ---- History (27 Nov 2026): a newly checked right prediction of yours gets a tick that pops and a green glow, once;
+   gold sparks for a Strong pick (app.js cheerRights) */
+.hist-item.cheer { position: relative; }
+.hist-item.cheer .outcome.right b { display: inline-block; animation: cheer-pop .7s var(--spring, cubic-bezier(.3, 1.6, .5, 1)) var(--cheer-delay, 0s) both; }
+@keyframes cheer-pop { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); } }
+.hist-item.cheer::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; opacity: 0;
+  box-shadow: 0 0 0 2px var(--good), 0 0 30px color-mix(in srgb, var(--good) 45%, transparent);
+  animation: cheer-glow 1.8s ease-out var(--cheer-delay, 0s) both; }
+@keyframes cheer-glow { 15% { opacity: 1; } 100% { opacity: 0; } }
+.hist-item.cheer-strong .hist-pct { position: relative; }
+.hist-item.cheer-strong .hist-pct::after { content: ""; position: absolute; left: 50%; top: 40%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
+  border-radius: 50%; pointer-events: none;
+  box-shadow: 0 -34px 0 0 var(--gold, #d9b45a), 24px -24px 0 -1px #fff3cc, 34px 0 0 0 var(--gold, #d9b45a), 24px 24px 0 -1px #fff3cc,
+    0 34px 0 0 var(--gold, #d9b45a), -24px 24px 0 -1px #fff3cc, -34px 0 0 0 var(--gold, #d9b45a), -24px -24px 0 -1px #fff3cc;
+  animation: crest-sparks .9s var(--ease-out, ease-out) calc(var(--cheer-delay, 0s) + .3s) both; }
+@media (prefers-reduced-motion: reduce) {
+  .hist-item.cheer .outcome.right b { animation: none; }
+  .hist-item.cheer::after, .hist-item.cheer-strong .hist-pct::after { display: none; }
+}
+html.no-motion .hist-item.cheer::after, html.motion-off .hist-item.cheer::after, html.no-motion .hist-item.cheer-strong .hist-pct::after,
+html.motion-off .hist-item.cheer-strong .hist-pct::after { display: none; }
+
+/* ---- Accuracy: model health (27 Nov 2026; app.js renderHealth) */
+.acc-health h2 { margin: 0; }
+.acc-health .eyebrow { margin: 0 0 2px; }
+.health-rows { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.health-rows li { display: grid; grid-template-columns: auto minmax(0, 1.1fr) minmax(0, 1.3fr) minmax(0, 1.3fr); gap: 14px; align-items: center;
+  padding: 11px 16px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+.health-rows i { width: 12px; height: 12px; border-radius: 50%; background: var(--good); box-shadow: 0 0 0 4px color-mix(in srgb, var(--good) 22%, transparent); }
+.health-rows .hl-low i { background: #e0a526; box-shadow: 0 0 0 4px rgba(224, 165, 38, .22); }
+.health-rows .hl-dip i { background: var(--bad); box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 22%, transparent); }
+.health-rows small { display: block; color: var(--muted); font-size: .76rem; margin-top: 2px; }
+.health-rows .hl-word { font-size: .86rem; font-weight: 600; text-align: right; }
+.health-rows .hl-low .hl-word { color: #b7791f; }
+.health-rows .hl-dip .hl-word { color: var(--bad); }
+@media (max-width: 760px) {
+  .health-rows li { grid-template-columns: auto minmax(0, 1fr); row-gap: 4px; }
+  .health-rows .hl-num, .health-rows .hl-word { grid-column: 2; text-align: left; }
+}
+
+/* ---- save a match at the toss, continue at the innings break (27 Nov 2026; app.js saveFromPreview, loadSavedMatches) */
+.mp-save { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.mp-save .muted { flex: 1 1 260px; }
+.saved-matches { display: grid; gap: 8px; margin: 0 0 14px; }
+.saved-matches .sm-title { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sm-item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; text-align: left;
+  padding: 10px 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); font: inherit; cursor: pointer;
+  transition: border-color .2s, transform .2s; }
+.sm-item:hover { border-color: var(--accent); transform: translateY(-1px); }
+.sm-item:focus-visible { outline: 3px solid var(--gold, #d9b45a); outline-offset: 2px; }
+.sm-teams { display: flex; }
+.sm-teams .team-badge { width: 34px; height: 34px; }
+.sm-teams .team-badge + .team-badge { margin-left: -8px; }
+.sm-text b { display: block; font-size: .95rem; }
+.sm-text small { display: block; color: var(--muted); font-size: .76rem; margin-top: 2px; }
+.sm-go { font-size: .82rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+@media (max-width: 760px) { .sm-item { grid-template-columns: auto minmax(0, 1fr); } .sm-go { grid-column: 2; white-space: normal; } }
+
+/* ---- History: right by stage, three pies (27 Nov 2026; app.js stagePiesHTML) */
+.stage-pies h2 { margin: 0 0 4px; }
+.stage-pie-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 10px 0; }
+.stage-pie { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 14px 10px; border-radius: 16px; background: var(--ink-1); }
+.stage-pie svg { width: 128px; height: 128px; flex: none; stroke: none; }
+.stage-pie .pie-track, .stage-pie .pie-arc { stroke-width: 16; }
+.stage-pie .pie-big { font-size: 26px; }
+.stage-pie b { font-size: .95rem; margin-top: 2px; }
+.stage-pie small { display: block; color: var(--muted); font-size: .76rem; line-height: 1.35; }
+.stage-pie .sp-few { color: #b7791f; }
+.stage-pie .sp-bench { margin-top: 2px; }
+@media (max-width: 760px) {
+  .stage-pie-row { gap: 8px; }
+  .stage-pie { padding: 10px 4px; }
+  .stage-pie svg { width: 92px; height: 92px; }
+  .stage-pie .pie-big { font-size: 22px; }
+}
+/* the model's archived call before the match, on a History card (app.js historyItem; server _attach_pre_calls) */
+.pre-call { display: block; font-size: .8rem; color: var(--muted); margin-top: 2px; }
+.pre-call.ok b { color: var(--good); } .pre-call.no b { color: var(--bad); }

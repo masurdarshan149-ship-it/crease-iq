@@ -215,6 +215,7 @@
 
       <div class="predict-grid">
         <form class="panel input-panel" id="predict-form" autocomplete="off">
+          <div class="saved-matches" id="saved-matches" hidden></div>
           <div class="stage-toggle" role="group" aria-label="What to predict">
             <button type="button" data-stage="first" class="active"><b>First innings</b><small>Score after batting first</small></button>
             <button type="button" data-stage="chase"><b>Live chase</b><small>Second innings, ball by ball</small></button>
@@ -626,6 +627,7 @@
               <span class="muted small">Save or share</span>
               <button type="button" class="chip-btn share-btn" data-share="png"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>Download image</button>
               <button type="button" class="chip-btn share-btn" data-share="share" hidden><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="19" r="2.5" /><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4" /></svg>Share</button>
+              <button type="button" class="chip-btn share-btn" data-share="story" title="A tall 9:16 image for a WhatsApp status or a story"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M10 18.5h4" /></svg>Story size</button>
               <button type="button" class="chip-btn share-btn" data-share="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v4h4M9 13h6M9 17h6" /></svg>Save as PDF</button>
             </div>
           </div>
@@ -708,6 +710,7 @@
               <span class="muted small">Save or share</span>
               <button type="button" class="chip-btn share-btn" data-share="png"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>Download image</button>
               <button type="button" class="chip-btn share-btn" data-share="share" hidden><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="19" r="2.5" /><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4" /></svg>Share</button>
+              <button type="button" class="chip-btn share-btn" data-share="story" title="A tall 9:16 image for a WhatsApp status or a story"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M10 18.5h4" /></svg>Story size</button>
               <button type="button" class="chip-btn share-btn" data-share="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v4h4M9 13h6M9 17h6" /></svg>Save as PDF</button>
             </div>
             <details class="why">
@@ -812,6 +815,7 @@
         <h1 id="acc-title">Which model is most accurate?</h1>
         <p class="lede" id="acc-lede">Every model is tested on recent matches it never saw while learning.</p>
       </div>
+      <section class="panel section acc-health" id="acc-health" hidden aria-labelledby="health-title"></section>
       <section class="panel section" id="innings-trial" hidden>
         <h2>Innings-break trial</h2>
         <p class="muted">A comparison on fresh matches you follow. Forecasts are scored after Cricsheet publishes a matching first-innings score and result.</p>

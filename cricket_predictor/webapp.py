@@ -220,20 +220,6 @@ def chase(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
         lead = min(99.0, max(pct, 100 - pct))  # while the chase is live, nothing is certain
         verdict = ("Too close to call" if lead < 55 else "Slight edge" if lead < 62 else "Clear favourite" if lead < 75 else "Strong favourite") + f" · {lead:.0f}% chance"
         winner = chase_team if pct >= 50 else bat
-    if payload.get("save"):
-        eq = out["equation"]
-        entry = {
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "type": "chase", "format": fmt.upper(),
-            "batting_first_team": bat, "chasing_team": chase_team, "first_innings_score": target - 1,
-            "chase_score": f"{runs}/{wickets} ({eq['overs_text']})", "target": target,
-            "predicted_winner": winner or "Tie", "batting_first_win_probability": round(100 - pct, 2),
-            "chasing_win_probability": pct, "confidence": round(abs(pct - 50) * 2, 2),
-            "model": f"ML chase ({out.get('model_label', '')})", "mode": mode, "stage": "chase",
-            "pitch": _pk, "dew": dew_key, "setup": _setup(payload),
-        }
-        items = app._read_history()
-        items.insert(0, entry)
-        app._write_history(items[: app.HISTORY_LIMIT])
     trust = None
     if out["status"] == "live":
         mb = FORMAT_MAX_BALLS.get(fmt, 120)
@@ -244,6 +230,21 @@ def chase(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
         phase = "start" if done <= 0 else "early" if frac <= 0.3 else "middle" if frac <= 0.75 else "late"
         trust = trust_level("chase", phase, mode, max(pct, 100 - pct))
         verdict = verdict_for_trust(verdict, trust)
+    if payload.get("save"):
+        eq = out["equation"]
+        entry = {
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "type": "chase", "format": fmt.upper(),
+            "batting_first_team": bat, "chasing_team": chase_team, "first_innings_score": target - 1,
+            "chase_score": f"{runs}/{wickets} ({eq['overs_text']})", "target": target,
+            "predicted_winner": winner or "Tie", "batting_first_win_probability": round(100 - pct, 2),
+            "chasing_win_probability": pct, "confidence": round(abs(pct - 50) * 2, 2),
+            "model": f"ML chase ({out.get('model_label', '')})", "mode": mode, "stage": "chase",
+            "pitch": _pk, "dew": dew_key, "setup": _setup(payload),
+            "trust": trust["level"] if trust else None,  # Strong / Lean / Toss-up when saved (History cheers a right Strong pick)
+        }
+        items = app._read_history()
+        items.insert(0, entry)
+        app._write_history(items[: app.HISTORY_LIMIT])
     return {**out, "batting_team": bat, "chasing_team": chase_team, "batting_code": form["batting_first_team_code"],
             "chasing_code": form["chasing_team_code"], "verdict": verdict, "winner": winner, "format": fmt, "trust": trust}
 
@@ -604,9 +605,14 @@ def predict(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
         result.confidence = round(abs(after - 50) * 2, 2)
         dew_info = {"key": dew_key, "label": DEW[dew_key][0], "chase_pts": round(after - before, 1)}
     stage = _stage_of(context.overs_faced, context.wickets_lost, fmt)
+    bat_pct = result.batting_first_win_probability
+    trust = trust_level("win", stage, mode, max(bat_pct, 100 - bat_pct)) if "ML" in str(result.model_used) else None
     if payload.get("save", True):
         app._save_prediction(context, result)
-        _tag_latest(app, {"pitch": _pitch_key, "dew": dew_key, "setup": _setup(payload)})
+        _tag_latest(app, {"pitch": _pitch_key, "dew": dew_key, "setup": _setup(payload),
+                          "trust": trust["level"] if trust else None,  # (History cheers a right Strong pick)
+                          # "preview": saved from the match preview at the toss (Predict offers to continue it)
+                          "saved_from": "preview" if payload.get("saved_from") == "preview" else None})
         _tag_latest(app, {"mode": mode, "venue": (app._venue_bank(mode).get(str(payload.get("venue") or "")) or {}).get("name"),
                           "wickets": context.wickets_lost, "overs": context.overs_faced,
                           "stage": stage})
@@ -615,10 +621,8 @@ def predict(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
             _track_innings_break(context, result, mode, dew_key, trial_time)
         except Exception:
             logging.getLogger(__name__).warning("Could not record the innings-break trial forecast", exc_info=True)
-    bat_pct = result.batting_first_win_probability
     margin = abs(bat_pct - 50)
     verdict = "Too close to call" if margin < 5 else "Slight edge" if margin < 12 else "Clear favourite" if margin < 25 else "Strong favourite"
-    trust = trust_level("win", stage, mode, max(bat_pct, 100 - bat_pct)) if "ML" in str(result.model_used) else None
     verdict = verdict_for_trust(verdict, trust)
     return {
         "batting_team": result.batting_first_team,
@@ -1202,10 +1206,55 @@ def head_to_head(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
 
 
 # --------------------------------------------------------------------------- history
+def _attach_pre_calls(items: list[dict[str, Any]]) -> None:
+    """For each match in History, the model's own call before the first ball, from the replay archive: worked out with
+    only what was known before that match and the XIs that actually played, and kept only for matches the model never
+    trained on (from replay.TEST_START). Re-running today's model on a past match wouldn't be fair: its ratings already
+    include that match's result. The archive keeps the favourite's chance and whether it lost (an upset), so the
+    favourite is the winner, or the loser after an upset. Matched by the archive's own id, else teams, format and date
+    (within a day). Sets e["pre_call"] = {"team", "pct", "right"}."""
+    from datetime import date
+
+    from . import replay
+
+    def day(text: str) -> date | None:
+        try:
+            return date.fromisoformat(str(text)[:10])
+        except ValueError:
+            return None
+
+    key = ml_model._team_key
+    by_teams: dict[tuple, list[dict[str, Any]]] = {}
+    by_id: dict[str, dict[str, Any]] = {}
+    for m in replay._quick_index() or []:
+        if not m.get("m") or m.get("date", "") < replay.TEST_START or m.get("bat_won") not in (0, 1):
+            continue
+        by_teams.setdefault((frozenset((key(m["bat"]), key(m["chase"]))), str(m.get("format") or "").lower()), []).append(m)
+        by_id[str(m["id"])] = m
+    for e in items:
+        mid = str(e.get("match_id") or "")
+        m = by_id.get(mid[3:]) if mid.startswith("cs:") else None
+        if m is None:
+            d0 = day(e.get("match_date") or e.get("timestamp") or "")
+            teams = frozenset((key(str(e.get("batting_first_team") or "")), key(str(e.get("chasing_team") or ""))))
+            near = [(abs((day(c["date"]) - d0).days), c) for c in by_teams.get((teams, str(e.get("format") or "").lower()), [])] if d0 else []
+            near = [x for x in near if x[0] <= 1]
+            m = min(near, key=lambda x: x[0])[1] if near else None
+        if m is None:
+            continue
+        winner, loser = (m["bat"], m["chase"]) if m["bat_won"] else (m["chase"], m["bat"])
+        right = not m["m"]["upset"]
+        e["pre_call"] = {"team": winner if right else loser, "pct": round(float(m["m"]["fav"]), 1), "right": right}
+
+
 def history(app: ModuleType) -> dict[str, Any]:
     """Saved predictions, each checked against the real result where one is known."""
 
     items, summary = _with_model_checks(app)  # your predictions + the model's checked matches, one per match
+    try:
+        _attach_pre_calls(items)  # the model's own call before the first ball, from the replay archive
+    except Exception:  # noqa: BLE001 - an extra; History works without it
+        logging.getLogger(__name__).warning("Before-the-match calls failed", exc_info=True)
     # the model's own score on unseen matches, for comparison with yours
     bench: dict[str, float] = {}
     try:
@@ -1356,7 +1405,34 @@ def accuracy() -> dict[str, Any]:
     chase = json.loads(chase_path.read_text(encoding="utf-8")) if chase_path.exists() else None
     score_path = ML_DIR / "score_accuracy.json"
     score = json.loads(score_path.read_text(encoding="utf-8")) if score_path.exists() else None
-    return {"report": report, "versions": versions, "chase": chase, "score": score}
+    return {"report": report, "versions": versions, "chase": chase, "score": score, "health": model_health()}
+
+
+def model_health(n: int = 30) -> dict[str, Any]:
+    """Is the model still as good as usual? Its innings-break call on the latest n unseen matches of each kind (the
+    replay index has every match in the downloaded data with the model's call) against its rate on the earlier unseen
+    ones. 30 matches is a small sample (about +-8 points is ordinary ups and downs), so only a big gap is a "dip"."""
+    from . import replay
+
+    rows_out = []
+    index = replay._quick_index() or []
+    for code, label in (("ipl", "IPL"), ("t20i", "T20 internationals"), ("odi", "ODIs")):
+        rows = sorted((m for m in index if m.get("m") and m["date"] >= replay.TEST_START and m.get("competition") == code),
+                      key=lambda m: m["date"], reverse=True)
+        if len(rows) < 10:
+            continue
+        recent, earlier = rows[:n], rows[n:]
+        base = earlier if len(earlier) >= n else rows
+        k = len(recent)
+        right = sum(1 for m in recent if not m["m"]["brk_wrong"])
+        usual = sum(1 for m in base if not m["m"]["brk_wrong"]) / len(base)
+        sd = (usual * (1 - usual) / k) ** 0.5
+        gap = right / k - usual
+        status = "dip" if gap < -2 * sd else "low" if gap < -sd else "above" if gap > 2 * sd else "normal"
+        rows_out.append({"kind": code, "label": label, "matches": k, "right": right, "pct": round(100 * right / k, 1),
+                         "usual": round(100 * usual, 1), "usual_matches": len(base), "band": round(200 * sd, 1),
+                         "status": status, "from": recent[-1]["date"], "to": recent[0]["date"]})
+    return {"rows": rows_out, "n": n, "since": replay.TEST_START[:4]}
 
 
 # --------------------------------------------------------------------------- data status + retrain
@@ -2301,7 +2377,91 @@ def match_preview(app: ModuleType, payload: dict[str, Any]) -> dict[str, Any]:
         "first": proj or None, "chase_at": chase_at,
         "record": _pre_match_record(mode, fmt),
         "history": _history_stats(mode, fmt),
+        "compare": _team_compare(app, mode, fmt, a, b, payload),
     }
+
+
+# ---- team comparison (the preview's spider chart): the model's own team inputs, each team ranked among the app's teams
+COMPARE_AXES = [
+    ("rating", "Team rating", "results over recent seasons, recent ones count more", True),
+    ("sr", "Scoring rate", "how fast the XI's batters score", True),
+    ("bpd", "Staying in", "how long the XI's batters last (balls per dismissal)", True),
+    ("wk", "Wicket-taking", "how often the XI's bowlers take wickets", True),
+    ("ec", "Economy", "runs the XI's bowlers give away (fewer is better)", False),
+    ("exp", "Experience", "matches the XI has played", True),
+]
+_COMPARE_CACHE: dict[Any, dict[str, dict[str, float]]] = {}
+
+
+def _xi_names(app: ModuleType, mode: str, code: str, fmt: str) -> list[str]:
+    """A team's latest real XI in this format (else the T20 one, else a balanced pick from the squad)."""
+    preset = app._team_bank(mode).get(code) or {}
+    latest = (preset.get("_latest_xi", {}).get(fmt) or {}).get("xi")
+    return list(latest or _team_default_xi(app, mode, code))[:11]
+
+
+def _team_profile(team_name: str, names: list[str], fmt: str, loaded: dict[str, Any]) -> dict[str, float]:
+    """The per-team inputs the trained model uses: team rating (kal), the XI's player ratings, its experience."""
+    from . import kalman, player_ratings
+    from .ml_features import xi_features
+
+    key = ml_model._team_key(team_name)
+    ids = [ml_model._resolve_id(n, fmt, loaded, key) for n in names]
+    pr = player_ratings.for_xis(ids, ids, fmt)
+    stats = [loaded["store"]["players"][fmt][i] if i is not None else None for i in ids]
+    rating = kalman.team_rating(fmt, key)
+    return {"rating": rating[0] if rating else 0.0, "sr": pr["prb_sr"], "bpd": pr["prb_bpd"], "wk": pr["prb_wk"],
+            "ec": pr["prb_ec"], "exp": xi_features(stats, fmt)["exp"]}
+
+
+def _team_compare(app: ModuleType, mode: str, fmt: str, a: str, b: str, payload: dict[str, Any]) -> dict[str, Any] | None:
+    """Who is ahead on each of the model's team inputs, and by how much: the gap between the two sides (with the XIs
+    ticked) measured against how much the app's teams usually differ on that input (their spread, each team with its
+    latest XI). Not a league table: the player numbers aren't adjusted for opposition (associate sides mostly play each
+    other), and the model itself only uses the gap between the two sides. Chart scores: 50 = level, 0-100."""
+    import statistics
+
+    try:
+        loaded = ml_model.load_store()
+        if not loaded or fmt not in FORMAT_MAX_BALLS:
+            return None
+        bank = app._team_bank(mode)
+        names = {code: _xi_names(app, mode, code, fmt) for code in bank}
+        key = (mode, fmt, id(loaded), tuple((c, tuple(n)) for c, n in names.items()))
+        if key not in _COMPARE_CACHE:
+            _COMPARE_CACHE.clear()
+            _COMPARE_CACHE[key] = {code: _team_profile(bank[code]["name"], n, fmt, loaded) for code, n in names.items()}
+        population = _COMPARE_CACHE[key]
+        sides = {}
+        for code, xi_key in ((a, "batting_xi"), (b, "chasing_xi")):
+            if code not in bank:
+                return None
+            xi = [str(n) for n in (payload.get(xi_key) or [])][:11]
+            sides[code] = _team_profile(bank[code]["name"], xi, fmt, loaded) if xi else population[code]
+        axes = []
+        for axis, label, hint, higher in COMPARE_AXES:
+            spread = statistics.pstdev([p[axis] for p in population.values()]) or 1.0
+            gap = (sides[a][axis] - sides[b][axis]) / spread * (1 if higher else -1)  # + = the side batting first is ahead
+            gap = max(-2.0, min(2.0, gap))
+            size = abs(gap)
+            word = "level" if size < 0.25 else "slight edge" if size < 0.75 else "clear edge" if size < 1.5 else "big edge"
+            axes.append({"key": axis, "label": label, "hint": hint, "edge": round(gap, 2), "word": word,
+                         "ahead": None if word == "level" else ("bat" if gap > 0 else "chase"),
+                         "bat": round(50 + 25 * gap), "chase": round(50 - 25 * gap)})
+        home = None
+        if mode != "ipl":  # the model gives a home side a small lift in internationals only
+            from .venue_countries import country_for
+            v = app._venue_bank(mode).get(str(payload.get("venue") or "")) or {}
+            country = country_for(v.get("name", ""), v.get("city", ""), None) if v else None
+            home = next((bank[c]["name"] for c in (a, b) if bank[c]["name"] == country), None)
+        from .ml_features import FULL_MEMBERS
+        associate = next((bank[c]["name"] for c in (a, b) if mode != "ipl" and bank[c]["name"] not in FULL_MEMBERS), None)
+        return {"axes": axes, "home": home, "teams": len(population), "associate": associate,
+                "group": "IPL teams" if mode == "ipl" else "international teams in the app"}
+    except Exception:  # noqa: BLE001 - an extra; the preview works without it
+        logging.getLogger(__name__).warning("Team comparison failed", exc_info=True)
+        return None
+
 
 def clear_fetched(app: ModuleType, kind: str = "") -> dict[str, Any]:
     """Take the matches Fetch older added for one kind back out of History (they can be fetched again any time).

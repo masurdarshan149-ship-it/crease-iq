@@ -3103,6 +3103,8 @@ class PredictorHandler(BaseHTTPRequestHandler):
     def _send_error_json(self, exc: Exception, path: str) -> None:
         """An API error as a plain message: what you sent couldn't be used (400), or the server failed (500). The
         technical details go to the log (and, on your PC, also to the message, to help track a fault down)."""
+        if isinstance(exc, (ConnectionAbortedError, ConnectionResetError, BrokenPipeError)):
+            return  # the browser left before the answer was sent (a quick page switch, a closed tab): not a fault
         if isinstance(exc, json.JSONDecodeError):
             self._send_json({"error": "That request couldn't be read (it isn't valid JSON)."}, status=400)
             return
@@ -3198,6 +3200,16 @@ def _start_auto_exit() -> None:
     threading.Thread(target=watch, daemon=True, name="auto-exit").start()
 
 
+class QuietHTTPServer(ThreadingHTTPServer):
+    """A browser that leaves while an answer is on its way (a quick page switch, a closed tab) isn't a server error:
+    no traceback for it in the window (or the online logs). Any other error is still printed as before."""
+
+    def handle_error(self, request, client_address):  # noqa: ANN001 - same signature as socketserver
+        if isinstance(sys.exc_info()[1], (ConnectionAbortedError, ConnectionResetError, BrokenPipeError)):
+            return
+        super().handle_error(request, client_address)
+
+
 def run_server(host: str = "127.0.0.1", port: int = 8000) -> None:
     host = os.environ.get("CREASE_HOST", host)
     port = int(os.environ.get("PORT", port))
@@ -3260,7 +3272,7 @@ def run_server(host: str = "127.0.0.1", port: int = 8000) -> None:
 
     threading.Thread(target=count_cores, daemon=True, name="core-count").start()
     threading.Thread(target=practice_run, daemon=True, name="practice-run").start()
-    server = ThreadingHTTPServer((host, port), PredictorHandler)
+    server = QuietHTTPServer((host, port), PredictorHandler)
     server.daemon_threads = True
     print(f"Serving Cricket Win Predictor at http://{host}:{port}", flush=True)
     server.serve_forever()
