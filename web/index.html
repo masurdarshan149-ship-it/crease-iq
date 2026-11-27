@@ -48,6 +48,7 @@
     <section class="view home" id="view-home" aria-labelledby="home-title">
       <div class="hero2">
         <div class="hero2-bg photo-slot" data-photo="hero" data-parallax="0.18">
+          <div class="stadium-light" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b><b></b></div>
           <i class="hero-wash" aria-hidden="true"></i><i class="hero-light" aria-hidden="true"></i><i class="hero-shine" aria-hidden="true"></i>
           <i class="hero-wash" aria-hidden="true"></i><i class="hero-light" aria-hidden="true"></i><i class="hero-shine" aria-hidden="true"></i>
           <div class="photo-ph" aria-hidden="true"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M7.5 5.2c2.2 4 2.2 9.6 0 13.6M16.5 5.2c-2.2 4-2.2 9.6 0 13.6" stroke-dasharray="2 2" /></svg></span><small>Add web/img/hero.jpg: a bowler running in</small></div>
@@ -878,6 +879,21 @@
         <p class="lede"><b>Update now</b> downloads the newest matches and retrains every model. Turn on <b>automatic updates</b> and it happens by itself every few days.</p>
       </div>
       <div id="data-body"><div class="loading">Loading…</div></div>
+      <section class="panel section how-panel" aria-labelledby="how-title">
+        <div>
+          <h2 id="how-title">How it works</h2>
+          <ol class="how">
+            <li>Cricsheet publishes every ball of every recorded match. The app downloads the IPL, T20 international and ODI files.</li>
+            <li>The training step replays each match in date order and records the situation after every over, using only what was known at that moment.</li>
+            <li>Several models learn from matches before 2024, are tuned on 2024, then sit an exam on everything since. The best-balanced one powers the Predict tab.</li>
+            <li>Venue par scores, team ratings and player records shown in the app come from the same data, so they refresh with every retrain.</li>
+          </ol>
+        </div>
+        <figure class="how-ball" aria-hidden="true">
+          <div class="ball3d"><div class="ball-css"></div><i class="ball-shadow"></i></div>
+          <figcaption>Drag to spin</figcaption>
+        </figure>
+      </section>
       <section class="panel section tuning" id="tuning" aria-labelledby="tuning-title"></section>
     </section>
   </main>

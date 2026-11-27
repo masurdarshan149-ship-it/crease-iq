@@ -559,7 +559,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 4,
           "balls": 6,
           "outs": 0,
@@ -571,7 +571,7 @@
           "outs": 0,
           "strike_rate": 140.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 40,
           "balls": 18,
           "outs": 2,
@@ -1103,7 +1103,7 @@
           "outs": 6,
           "strike_rate": 5.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 16,
           "balls": 6,
           "outs": 0,
@@ -1309,135 +1309,19 @@
       }
     },
     "Abhinandan Singh": {
-      "recent_scores": [
-        {
-          "date": "2012-04-11",
-          "score": 0,
-          "balls": 2,
-          "venue": "Wankhede Stadium, Mumbai",
-          "opposition": "Mumbai Indians",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2012-04-11",
-          "score": 0,
-          "balls": 2,
-          "venue": "Wankhede Stadium, Mumbai",
-          "opposition": "Mumbai Indians",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2011-05-09",
-          "score": 1,
-          "balls": 2,
-          "venue": "Sawai Mansingh Stadium, Jaipur",
-          "opposition": "Chennai Super Kings",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2011-05-09",
-          "score": 1,
-          "balls": 2,
-          "venue": "Sawai Mansingh Stadium, Jaipur",
-          "opposition": "Chennai Super Kings",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2011-04-17",
-          "score": 0,
-          "balls": 2,
-          "venue": "Eden Gardens, Kolkata",
-          "opposition": "Kolkata Knight Riders",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2011-04-17",
-          "score": 0,
-          "balls": 2,
-          "venue": "Eden Gardens, Kolkata",
-          "opposition": "Kolkata Knight Riders",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2009-05-20",
-          "score": 1,
-          "balls": 2,
-          "venue": "Kingsmead, Durban",
-          "opposition": "Kolkata Knight Riders",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2009-05-20",
-          "score": 1,
-          "balls": 2,
-          "venue": "Kingsmead, Durban",
-          "opposition": "Kolkata Knight Riders",
-          "format": "T20",
-          "team_type": "club"
-        }
-      ],
-      "venues": {
-        "Mangaung Oval, Bloemfontein": {
-          "runs": 0,
-          "innings": 2,
-          "outs": 2,
-          "best": 0,
-          "average": 0.0
-        },
-        "Kingsmead, Durban": {
-          "runs": 2,
-          "innings": 2,
-          "outs": 0,
-          "best": 1,
-          "average": 2.0
-        },
-        "Eden Gardens, Kolkata": {
-          "runs": 0,
-          "innings": 2,
-          "outs": 2,
-          "best": 0,
-          "average": 0.0
-        },
-        "Sawai Mansingh Stadium, Jaipur": {
-          "runs": 2,
-          "innings": 2,
-          "outs": 2,
-          "best": 1,
-          "average": 1.0
-        },
-        "Wankhede Stadium, Mumbai": {
-          "runs": 0,
-          "innings": 2,
-          "outs": 2,
-          "best": 0,
-          "average": 0.0
-        }
-      },
-      "matchups": {
-        "Shakib Al Hasan": {
-          "runs": 0,
-          "balls": 4,
-          "outs": 2,
-          "strike_rate": 0.0
-        }
-      },
+      "recent_scores": [],
+      "venues": {},
+      "matchups": {},
       "career": {
-        "runs": 4,
-        "innings": 10,
-        "outs": 8,
-        "balls": 18,
-        "best": 1,
-        "wickets": 62,
-        "matches": 52,
-        "average": 0.5,
-        "strike_rate": 22.22
+        "runs": 0,
+        "innings": 0,
+        "outs": 0,
+        "balls": 0,
+        "best": 0,
+        "wickets": 6,
+        "matches": 6,
+        "average": 0.0,
+        "strike_rate": 0.0
       }
     },
     "Abhishek Sharma": {
@@ -2202,7 +2086,7 @@
           "outs": 0,
           "strike_rate": 183.87
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 122,
           "balls": 88,
           "outs": 2,
@@ -2238,7 +2122,7 @@
           "outs": 0,
           "strike_rate": 286.67
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 48,
           "balls": 30,
           "outs": 0,
@@ -2697,7 +2581,7 @@
           "outs": 2,
           "strike_rate": 155.56
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 12,
           "balls": 12,
           "outs": 0,
@@ -3147,6 +3031,24 @@
     "Adam Zampa": {
       "recent_scores": [
         {
+          "date": "2026-11-24",
+          "score": 1,
+          "balls": 1,
+          "venue": "People First Stadium, Carrara",
+          "opposition": "England",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-15",
+          "score": 18,
+          "balls": 13,
+          "venue": "Adelaide Oval",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-09-30",
           "score": 0,
           "balls": 2,
@@ -3197,24 +3099,6 @@
           "balls": 15,
           "venue": "Kingsmead, Durban",
           "opposition": "South Africa",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-20",
-          "score": 9,
-          "balls": 12,
-          "venue": "Harare Sports Club",
-          "opposition": "Zimbabwe",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-20",
-          "score": 9,
-          "balls": 12,
-          "venue": "Harare Sports Club",
-          "opposition": "Zimbabwe",
           "format": "ODI",
           "team_type": "international"
         }
@@ -3340,11 +3224,11 @@
           "average": 20.0
         },
         "People First Stadium, Carrara": {
-          "runs": 0,
-          "innings": 2,
+          "runs": 1,
+          "innings": 3,
           "outs": 2,
-          "best": 0,
-          "average": 0.0
+          "best": 1,
+          "average": 0.5
         },
         "R Premadasa Stadium, Colombo": {
           "runs": 70,
@@ -3431,11 +3315,11 @@
           "average": 1.33
         },
         "Adelaide Oval": {
-          "runs": 93,
-          "innings": 12,
-          "outs": 9,
+          "runs": 111,
+          "innings": 13,
+          "outs": 10,
           "best": 22,
-          "average": 10.33
+          "average": 11.1
         },
         "Melbourne Cricket Ground": {
           "runs": 74,
@@ -3847,7 +3731,7 @@
           "outs": 4,
           "strike_rate": 62.5
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 62,
           "balls": 52,
           "outs": 4,
@@ -3865,7 +3749,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 4,
           "balls": 4,
           "outs": 0,
@@ -3951,15 +3835,15 @@
         }
       },
       "career": {
-        "runs": 1276,
-        "innings": 263,
-        "outs": 165,
-        "balls": 1825,
+        "runs": 1295,
+        "innings": 265,
+        "outs": 166,
+        "balls": 1839,
         "best": 36,
-        "wickets": 1005,
-        "matches": 720,
-        "average": 7.73,
-        "strike_rate": 69.92
+        "wickets": 1006,
+        "matches": 724,
+        "average": 7.8,
+        "strike_rate": 70.42
       }
     },
     "Adil Rashid": {
@@ -4416,7 +4300,7 @@
           "outs": 0,
           "strike_rate": 42.86
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 38,
           "balls": 32,
           "outs": 0,
@@ -5119,9 +5003,80 @@
           "opposition": "Baroda",
           "format": "T20",
           "team_type": "club"
+        },
+        {
+          "date": "2012-04-11",
+          "score": 0,
+          "balls": 2,
+          "venue": "Wankhede Stadium, Mumbai",
+          "opposition": "Mumbai Indians",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2012-04-11",
+          "score": 0,
+          "balls": 2,
+          "venue": "Wankhede Stadium, Mumbai",
+          "opposition": "Mumbai Indians",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2011-05-09",
+          "score": 1,
+          "balls": 2,
+          "venue": "Sawai Mansingh Stadium, Jaipur",
+          "opposition": "Chennai Super Kings",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2011-05-09",
+          "score": 1,
+          "balls": 2,
+          "venue": "Sawai Mansingh Stadium, Jaipur",
+          "opposition": "Chennai Super Kings",
+          "format": "T20",
+          "team_type": "club"
         }
       ],
       "venues": {
+        "Mangaung Oval, Bloemfontein": {
+          "runs": 0,
+          "innings": 2,
+          "outs": 2,
+          "best": 0,
+          "average": 0.0
+        },
+        "Kingsmead, Durban": {
+          "runs": 2,
+          "innings": 2,
+          "outs": 0,
+          "best": 1,
+          "average": 2.0
+        },
+        "Eden Gardens, Kolkata": {
+          "runs": 0,
+          "innings": 2,
+          "outs": 2,
+          "best": 0,
+          "average": 0.0
+        },
+        "Sawai Mansingh Stadium, Jaipur": {
+          "runs": 2,
+          "innings": 2,
+          "outs": 2,
+          "best": 1,
+          "average": 1.0
+        },
+        "Wankhede Stadium, Mumbai": {
+          "runs": 0,
+          "innings": 2,
+          "outs": 2,
+          "best": 0,
+          "average": 0.0
+        },
         "Holkar Cricket Stadium, Indore": {
           "runs": 25,
           "innings": 4,
@@ -5130,17 +5085,24 @@
           "average": 8.33
         }
       },
-      "matchups": {},
+      "matchups": {
+        "Shakib Al Hasan": {
+          "runs": 0,
+          "balls": 4,
+          "outs": 2,
+          "strike_rate": 0.0
+        }
+      },
       "career": {
-        "runs": 25,
-        "innings": 4,
-        "outs": 3,
-        "balls": 28,
+        "runs": 29,
+        "innings": 14,
+        "outs": 11,
+        "balls": 46,
         "best": 13,
-        "wickets": 30,
-        "matches": 31,
-        "average": 8.33,
-        "strike_rate": 89.29
+        "wickets": 86,
+        "matches": 77,
+        "average": 2.64,
+        "strike_rate": 63.04
       }
     },
     "Akeal Hosein": {
@@ -7107,7 +7069,7 @@
           "outs": 4,
           "strike_rate": 77.42
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 88,
           "balls": 104,
           "outs": 2,
@@ -8548,7 +8510,7 @@
         }
       },
       "matchups": {
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 6,
           "balls": 14,
           "outs": 4,
@@ -8590,7 +8552,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 4,
           "outs": 2,
@@ -8714,6 +8676,15 @@
     "Anshul Kamboj": {
       "recent_scores": [
         {
+          "date": "2026-11-07",
+          "score": 1,
+          "balls": 3,
+          "venue": "Hnry Stadium, Wellington",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-10-03",
           "score": 17,
           "balls": 9,
@@ -8764,15 +8735,6 @@
           "balls": 7,
           "venue": "Rajiv Gandhi International Stadium, Uppal",
           "opposition": "Sunrisers Hyderabad",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-04-05",
-          "score": 19,
-          "balls": 12,
-          "venue": "M Chinnaswamy Stadium, Bengaluru",
-          "opposition": "Royal Challengers Bengaluru",
           "format": "T20",
           "team_type": "club"
         },
@@ -8842,6 +8804,13 @@
           "outs": 2,
           "best": 17,
           "average": 17.0
+        },
+        "Hnry Stadium, Wellington": {
+          "runs": 1,
+          "innings": 1,
+          "outs": 1,
+          "best": 1,
+          "average": 1.0
         },
         "Sawai Mansingh Stadium, Jaipur": {
           "runs": 1,
@@ -8932,15 +8901,15 @@
         }
       },
       "career": {
-        "runs": 191,
-        "innings": 24,
-        "outs": 8,
-        "balls": 129,
+        "runs": 192,
+        "innings": 25,
+        "outs": 9,
+        "balls": 132,
         "best": 19,
-        "wickets": 68,
-        "matches": 56,
-        "average": 23.88,
-        "strike_rate": 148.06
+        "wickets": 72,
+        "matches": 58,
+        "average": 21.33,
+        "strike_rate": 145.45
       }
     },
     "Anuj Rawat": {
@@ -9293,7 +9262,7 @@
           "outs": 0,
           "strike_rate": 120.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 1,
           "balls": 3,
           "outs": 0,
@@ -9592,6 +9561,24 @@
     "Arshdeep Singh": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 14,
+          "balls": 4,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 0,
+          "balls": 3,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-11-01",
           "score": 1,
           "balls": 1,
@@ -9641,24 +9628,6 @@
           "score": 5,
           "balls": 4,
           "venue": "Rajiv Gandhi International Stadium, Uppal",
-          "opposition": "West Indies",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-11",
-          "score": 11,
-          "balls": 8,
-          "venue": "Holkar Cricket Stadium, Indore",
-          "opposition": "West Indies",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-11",
-          "score": 11,
-          "balls": 8,
-          "venue": "Holkar Cricket Stadium, Indore",
           "opposition": "West Indies",
           "format": "T20",
           "team_type": "international"
@@ -9930,10 +9899,17 @@
           "outs": 0,
           "best": 15,
           "average": 30.0
+        },
+        "Bay Oval, Mount Maunganui": {
+          "runs": 14,
+          "innings": 2,
+          "outs": 1,
+          "best": 14,
+          "average": 14.0
         }
       },
       "matchups": {
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 0,
           "balls": 6,
           "outs": 2,
@@ -10085,15 +10061,15 @@
         }
       },
       "career": {
-        "runs": 452,
-        "innings": 121,
-        "outs": 69,
-        "balls": 447,
+        "runs": 466,
+        "innings": 123,
+        "outs": 70,
+        "balls": 454,
         "best": 18,
-        "wickets": 572,
-        "matches": 423,
-        "average": 6.55,
-        "strike_rate": 101.12
+        "wickets": 580,
+        "matches": 427,
+        "average": 6.66,
+        "strike_rate": 102.64
       }
     },
     "Arshin Kulkarni": {
@@ -10533,7 +10509,7 @@
           "outs": 0,
           "strike_rate": 200.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 14,
           "balls": 8,
           "outs": 0,
@@ -10585,89 +10561,14 @@
     "Ashok Sharma": {
       "recent_scores": [
         {
-          "date": "2026-04-20",
-          "score": 1,
-          "balls": 3,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Mumbai Indians",
-          "format": "T20",
-          "team_type": "club"
+          "date": "2026-11-22",
+          "score": 8,
+          "balls": 7,
+          "venue": "University of Doha for Science and Technology",
+          "opposition": "Nepal",
+          "format": "ODI",
+          "team_type": "international"
         },
-        {
-          "date": "2026-04-20",
-          "score": 1,
-          "balls": 3,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Mumbai Indians",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-04-04",
-          "score": 0,
-          "balls": 1,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Rajasthan Royals",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-04-04",
-          "score": 0,
-          "balls": 1,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Rajasthan Royals",
-          "format": "T20",
-          "team_type": "club"
-        }
-      ],
-      "venues": {
-        "Narendra Modi Stadium, Ahmedabad": {
-          "runs": 2,
-          "innings": 4,
-          "outs": 0,
-          "best": 1,
-          "average": 2.0
-        }
-      },
-      "matchups": {
-        "Jasprit Bumrah": {
-          "runs": 2,
-          "balls": 6,
-          "outs": 0,
-          "strike_rate": 33.33
-        }
-      },
-      "career": {
-        "runs": 2,
-        "innings": 4,
-        "outs": 0,
-        "balls": 8,
-        "best": 1,
-        "wickets": 14,
-        "matches": 16,
-        "average": 2.0,
-        "strike_rate": 25.0
-      }
-    },
-    "Ashton Agar": {
-      "recent_scores": [],
-      "venues": {},
-      "matchups": {},
-      "career": {
-        "runs": 0,
-        "innings": 0,
-        "outs": 0,
-        "balls": 0,
-        "best": 0,
-        "wickets": 0,
-        "matches": 0,
-        "average": 0.0,
-        "strike_rate": 0.0
-      }
-    },
-    "Ashutosh Sharma": {
-      "recent_scores": [
         {
           "date": "2026-10-29",
           "score": 49,
@@ -10719,15 +10620,6 @@
           "balls": 14,
           "venue": "Forthill, Dundee",
           "opposition": "Canada",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-08-09",
-          "score": 0,
-          "balls": 5,
-          "venue": "Forthill, Dundee",
-          "opposition": "Scotland",
           "format": "ODI",
           "team_type": "international"
         },
@@ -10743,81 +10635,11 @@
       ],
       "venues": {
         "Narendra Modi Stadium, Ahmedabad": {
-          "runs": 136,
+          "runs": 2,
           "innings": 4,
-          "outs": 4,
-          "best": 37,
-          "average": 34.0
-        },
-        "Maharaja Yadavindra Singh International Cricket Stadium, New Chandigarh": {
-          "runs": 256,
-          "innings": 8,
-          "outs": 6,
-          "best": 61,
-          "average": 42.67
-        },
-        "Himachal Pradesh Cricket Association Stadium, Dharamsala": {
-          "runs": 70,
-          "innings": 6,
-          "outs": 6,
-          "best": 24,
-          "average": 11.67
-        },
-        "Barsapara Cricket Stadium, Guwahati": {
-          "runs": 34,
-          "innings": 2,
           "outs": 0,
-          "best": 17,
-          "average": 34.0
-        },
-        "Rajiv Gandhi International Stadium, Uppal": {
-          "runs": 114,
-          "innings": 6,
-          "outs": 6,
-          "best": 41,
-          "average": 19.0
-        },
-        "Andhra Cricket Association-Visakhapatnam District Cricket Association Stadium, Visakhapatnam": {
-          "runs": 132,
-          "innings": 2,
-          "outs": 0,
-          "best": 66,
-          "average": 132.0
-        },
-        "MA Chidambaram Stadium": {
-          "runs": 56,
-          "innings": 6,
-          "outs": 6,
-          "best": 19,
-          "average": 9.33
-        },
-        "Arun Jaitley Stadium": {
-          "runs": 398,
-          "innings": 18,
-          "outs": 12,
-          "best": 74,
-          "average": 33.17
-        },
-        "Wankhede Stadium, Mumbai": {
-          "runs": 180,
-          "innings": 5,
-          "outs": 5,
-          "best": 84,
-          "average": 36.0
-        },
-        "Sawai Mansingh Stadium, Jaipur": {
-          "runs": 50,
-          "innings": 2,
-          "outs": 0,
-          "best": 25,
-          "average": 50.0
-        },
-        "Eden Gardens, Kolkata": {
-          "runs": 36,
-          "innings": 2,
-          "outs": 0,
-          "best": 18,
-          "average": 36.0
+          "best": 1,
+          "average": 2.0
         },
         "Dubai International Cricket Stadium": {
           "runs": 312,
@@ -10874,6 +10696,20 @@
           "outs": 6,
           "best": 13,
           "average": 6.67
+        },
+        "MA Chidambaram Stadium": {
+          "runs": 16,
+          "innings": 2,
+          "outs": 2,
+          "best": 8,
+          "average": 8.0
+        },
+        "Arun Jaitley Stadium": {
+          "runs": 174,
+          "innings": 4,
+          "outs": 2,
+          "best": 74,
+          "average": 87.0
         },
         "Trent Bridge": {
           "runs": 48,
@@ -11001,6 +10837,263 @@
           "best": 8,
           "average": 4.5
         },
+        "University of Doha for Science and Technology": {
+          "runs": 8,
+          "innings": 1,
+          "outs": 1,
+          "best": 8,
+          "average": 8.0
+        }
+      },
+      "matchups": {
+        "Jasprit Bumrah": {
+          "runs": 2,
+          "balls": 6,
+          "outs": 0,
+          "strike_rate": 33.33
+        },
+        "Rachin Ravindra": {
+          "runs": 12,
+          "balls": 6,
+          "outs": 0,
+          "strike_rate": 200.0
+        },
+        "Rishad Hossain": {
+          "runs": 2,
+          "balls": 2,
+          "outs": 0,
+          "strike_rate": 100.0
+        },
+        "Shubman Gill": {
+          "runs": 16,
+          "balls": 16,
+          "outs": 0,
+          "strike_rate": 100.0
+        },
+        "Kagiso Rabada": {
+          "runs": 14,
+          "balls": 14,
+          "outs": 0,
+          "strike_rate": 100.0
+        },
+        "Anrich Nortje": {
+          "runs": 10,
+          "balls": 10,
+          "outs": 0,
+          "strike_rate": 100.0
+        },
+        "Corbin Bosch": {
+          "runs": 0,
+          "balls": 4,
+          "outs": 2,
+          "strike_rate": 0.0
+        },
+        "Curtis Campher": {
+          "runs": 18,
+          "balls": 12,
+          "outs": 0,
+          "strike_rate": 150.0
+        },
+        "Josh Little": {
+          "runs": 6,
+          "balls": 12,
+          "outs": 0,
+          "strike_rate": 50.0
+        },
+        "Jack Jarvis": {
+          "runs": 12,
+          "balls": 16,
+          "outs": 2,
+          "strike_rate": 75.0
+        },
+        "Rashid Khan": {
+          "runs": 0,
+          "balls": 1,
+          "outs": 1,
+          "strike_rate": 0.0
+        }
+      },
+      "career": {
+        "runs": 2754,
+        "innings": 133,
+        "outs": 121,
+        "balls": 3185,
+        "best": 105,
+        "wickets": 30,
+        "matches": 149,
+        "average": 22.76,
+        "strike_rate": 86.47
+      }
+    },
+    "Ashton Agar": {
+      "recent_scores": [],
+      "venues": {},
+      "matchups": {},
+      "career": {
+        "runs": 0,
+        "innings": 0,
+        "outs": 0,
+        "balls": 0,
+        "best": 0,
+        "wickets": 0,
+        "matches": 0,
+        "average": 0.0,
+        "strike_rate": 0.0
+      }
+    },
+    "Ashutosh Sharma": {
+      "recent_scores": [
+        {
+          "date": "2026-05-24",
+          "score": 18,
+          "balls": 10,
+          "venue": "Eden Gardens, Kolkata",
+          "opposition": "Kolkata Knight Riders",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2026-05-24",
+          "score": 18,
+          "balls": 10,
+          "venue": "Eden Gardens, Kolkata",
+          "opposition": "Kolkata Knight Riders",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2026-05-17",
+          "score": 18,
+          "balls": 5,
+          "venue": "Arun Jaitley Stadium",
+          "opposition": "Rajasthan Royals",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2026-05-17",
+          "score": 18,
+          "balls": 5,
+          "venue": "Arun Jaitley Stadium",
+          "opposition": "Rajasthan Royals",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2026-05-11",
+          "score": 24,
+          "balls": 10,
+          "venue": "Himachal Pradesh Cricket Association Stadium, Dharamsala",
+          "opposition": "Punjab Kings",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2026-05-11",
+          "score": 24,
+          "balls": 10,
+          "venue": "Himachal Pradesh Cricket Association Stadium, Dharamsala",
+          "opposition": "Punjab Kings",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2026-05-08",
+          "score": 39,
+          "balls": 28,
+          "venue": "Arun Jaitley Stadium",
+          "opposition": "Kolkata Knight Riders",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2026-05-08",
+          "score": 39,
+          "balls": 28,
+          "venue": "Arun Jaitley Stadium",
+          "opposition": "Kolkata Knight Riders",
+          "format": "T20",
+          "team_type": "club"
+        }
+      ],
+      "venues": {
+        "Narendra Modi Stadium, Ahmedabad": {
+          "runs": 136,
+          "innings": 4,
+          "outs": 4,
+          "best": 37,
+          "average": 34.0
+        },
+        "Maharaja Yadavindra Singh International Cricket Stadium, New Chandigarh": {
+          "runs": 256,
+          "innings": 8,
+          "outs": 6,
+          "best": 61,
+          "average": 42.67
+        },
+        "Himachal Pradesh Cricket Association Stadium, Dharamsala": {
+          "runs": 70,
+          "innings": 6,
+          "outs": 6,
+          "best": 24,
+          "average": 11.67
+        },
+        "Barsapara Cricket Stadium, Guwahati": {
+          "runs": 34,
+          "innings": 2,
+          "outs": 0,
+          "best": 17,
+          "average": 34.0
+        },
+        "Rajiv Gandhi International Stadium, Uppal": {
+          "runs": 114,
+          "innings": 6,
+          "outs": 6,
+          "best": 41,
+          "average": 19.0
+        },
+        "Andhra Cricket Association-Visakhapatnam District Cricket Association Stadium, Visakhapatnam": {
+          "runs": 132,
+          "innings": 2,
+          "outs": 0,
+          "best": 66,
+          "average": 132.0
+        },
+        "MA Chidambaram Stadium": {
+          "runs": 40,
+          "innings": 4,
+          "outs": 4,
+          "best": 19,
+          "average": 10.0
+        },
+        "Arun Jaitley Stadium": {
+          "runs": 224,
+          "innings": 14,
+          "outs": 10,
+          "best": 39,
+          "average": 22.4
+        },
+        "Wankhede Stadium, Mumbai": {
+          "runs": 180,
+          "innings": 5,
+          "outs": 5,
+          "best": 84,
+          "average": 36.0
+        },
+        "Sawai Mansingh Stadium, Jaipur": {
+          "runs": 50,
+          "innings": 2,
+          "outs": 0,
+          "best": 25,
+          "average": 50.0
+        },
+        "Eden Gardens, Kolkata": {
+          "runs": 36,
+          "innings": 2,
+          "outs": 0,
+          "best": 18,
+          "average": 36.0
+        },
         "Bandra Kurla Complex, Mumbai": {
           "runs": 70,
           "innings": 3,
@@ -11041,7 +11134,7 @@
           "outs": 0,
           "strike_rate": 166.67
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 10,
           "balls": 8,
           "outs": 2,
@@ -11197,60 +11290,6 @@
           "outs": 2,
           "strike_rate": 300.0
         },
-        "Rachin Ravindra": {
-          "runs": 12,
-          "balls": 6,
-          "outs": 0,
-          "strike_rate": 200.0
-        },
-        "Rishad Hossain": {
-          "runs": 2,
-          "balls": 2,
-          "outs": 0,
-          "strike_rate": 100.0
-        },
-        "Shubman Gill": {
-          "runs": 16,
-          "balls": 16,
-          "outs": 0,
-          "strike_rate": 100.0
-        },
-        "Kagiso Rabada": {
-          "runs": 14,
-          "balls": 14,
-          "outs": 0,
-          "strike_rate": 100.0
-        },
-        "Anrich Nortje": {
-          "runs": 10,
-          "balls": 10,
-          "outs": 0,
-          "strike_rate": 100.0
-        },
-        "Corbin Bosch": {
-          "runs": 0,
-          "balls": 4,
-          "outs": 2,
-          "strike_rate": 0.0
-        },
-        "Curtis Campher": {
-          "runs": 18,
-          "balls": 12,
-          "outs": 0,
-          "strike_rate": 150.0
-        },
-        "Josh Little": {
-          "runs": 6,
-          "balls": 12,
-          "outs": 0,
-          "strike_rate": 50.0
-        },
-        "Jack Jarvis": {
-          "runs": 12,
-          "balls": 16,
-          "outs": 2,
-          "strike_rate": 75.0
-        },
         "Akash Deep": {
           "runs": 1,
           "balls": 3,
@@ -11259,15 +11298,15 @@
         }
       },
       "career": {
-        "runs": 4100,
-        "innings": 188,
-        "outs": 166,
-        "balls": 3961,
-        "best": 105,
-        "wickets": 16,
-        "matches": 192,
-        "average": 24.7,
-        "strike_rate": 103.51
+        "runs": 1356,
+        "innings": 60,
+        "outs": 46,
+        "balls": 791,
+        "best": 84,
+        "wickets": 0,
+        "matches": 60,
+        "average": 29.48,
+        "strike_rate": 171.43
       }
     },
     "Ashwani Kumar": {
@@ -11327,19 +11366,69 @@
       }
     },
     "Asitha Fernando": {
-      "recent_scores": [],
-      "venues": {},
+      "recent_scores": [
+        {
+          "date": "2024-05-17",
+          "score": 17,
+          "balls": 14,
+          "venue": "P Saravanamuttu Stadium, Colombo",
+          "opposition": "Badureliya Sports Club",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2024-05-15",
+          "score": 19,
+          "balls": 20,
+          "venue": "Sinhalese Sports Club Ground",
+          "opposition": "Moors Sports Club",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2024-05-13",
+          "score": 53,
+          "balls": 42,
+          "venue": "Army Ground, Panagoda",
+          "opposition": "Burgher Recreation Club",
+          "format": "T20",
+          "team_type": "club"
+        }
+      ],
+      "venues": {
+        "Army Ground, Panagoda": {
+          "runs": 53,
+          "innings": 1,
+          "outs": 0,
+          "best": 53,
+          "average": 53.0
+        },
+        "Sinhalese Sports Club Ground": {
+          "runs": 19,
+          "innings": 1,
+          "outs": 1,
+          "best": 19,
+          "average": 19.0
+        },
+        "P Saravanamuttu Stadium, Colombo": {
+          "runs": 17,
+          "innings": 1,
+          "outs": 1,
+          "best": 17,
+          "average": 17.0
+        }
+      },
       "matchups": {},
       "career": {
-        "runs": 0,
-        "innings": 0,
-        "outs": 0,
-        "balls": 0,
-        "best": 0,
+        "runs": 89,
+        "innings": 3,
+        "outs": 2,
+        "balls": 76,
+        "best": 53,
         "wickets": 0,
-        "matches": 0,
-        "average": 0.0,
-        "strike_rate": 0.0
+        "matches": 3,
+        "average": 44.5,
+        "strike_rate": 117.11
       }
     },
     "Atharva Ankolekar": {
@@ -11797,7 +11886,7 @@
           "outs": 0,
           "strike_rate": 133.33
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -11835,69 +11924,19 @@
       }
     },
     "Avishka Fernando": {
-      "recent_scores": [
-        {
-          "date": "2024-05-17",
-          "score": 17,
-          "balls": 14,
-          "venue": "P Saravanamuttu Stadium, Colombo",
-          "opposition": "Badureliya Sports Club",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2024-05-15",
-          "score": 19,
-          "balls": 20,
-          "venue": "Sinhalese Sports Club Ground",
-          "opposition": "Moors Sports Club",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2024-05-13",
-          "score": 53,
-          "balls": 42,
-          "venue": "Army Ground, Panagoda",
-          "opposition": "Burgher Recreation Club",
-          "format": "T20",
-          "team_type": "club"
-        }
-      ],
-      "venues": {
-        "Army Ground, Panagoda": {
-          "runs": 53,
-          "innings": 1,
-          "outs": 0,
-          "best": 53,
-          "average": 53.0
-        },
-        "Sinhalese Sports Club Ground": {
-          "runs": 19,
-          "innings": 1,
-          "outs": 1,
-          "best": 19,
-          "average": 19.0
-        },
-        "P Saravanamuttu Stadium, Colombo": {
-          "runs": 17,
-          "innings": 1,
-          "outs": 1,
-          "best": 17,
-          "average": 17.0
-        }
-      },
+      "recent_scores": [],
+      "venues": {},
       "matchups": {},
       "career": {
-        "runs": 89,
-        "innings": 3,
-        "outs": 2,
-        "balls": 76,
-        "best": 53,
+        "runs": 0,
+        "innings": 0,
+        "outs": 0,
+        "balls": 0,
+        "best": 0,
         "wickets": 0,
-        "matches": 3,
-        "average": 44.5,
-        "strike_rate": 117.11
+        "matches": 0,
+        "average": 0.0,
+        "strike_rate": 0.0
       }
     },
     "Axar Patel": {
@@ -12202,7 +12241,7 @@
           "outs": 0,
           "strike_rate": 127.27
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 93,
           "balls": 47,
           "outs": 2,
@@ -12661,7 +12700,7 @@
           "outs": 0,
           "strike_rate": 114.29
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 36,
           "balls": 28,
           "outs": 2,
@@ -12703,7 +12742,7 @@
           "outs": 0,
           "strike_rate": 60.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 30,
           "balls": 14,
           "outs": 0,
@@ -13927,7 +13966,7 @@
           "outs": 2,
           "strike_rate": 73.91
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 158,
           "balls": 136,
           "outs": 2,
@@ -15156,7 +15195,7 @@
           "outs": 0,
           "strike_rate": 87.5
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 34,
           "balls": 40,
           "outs": 0,
@@ -16064,6 +16103,24 @@
     "Cameron Green": {
       "recent_scores": [
         {
+          "date": "2026-11-18",
+          "score": 3,
+          "balls": 11,
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-15",
+          "score": 64,
+          "balls": 82,
+          "venue": "Adelaide Oval",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-09-30",
           "score": 23,
           "balls": 18,
@@ -16114,24 +16171,6 @@
           "balls": 10,
           "venue": "Kingsmead, Durban",
           "opposition": "South Africa",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-06-14",
-          "score": 27,
-          "balls": 35,
-          "venue": "Shere Bangla National Stadium, Mirpur",
-          "opposition": "Bangladesh",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-06-14",
-          "score": 27,
-          "balls": 35,
-          "venue": "Shere Bangla National Stadium, Mirpur",
-          "opposition": "Bangladesh",
           "format": "ODI",
           "team_type": "international"
         }
@@ -16355,11 +16394,11 @@
           "average": 3.0
         },
         "Adelaide Oval": {
-          "runs": 49,
-          "innings": 3,
-          "outs": 1,
-          "best": 20,
-          "average": 49.0
+          "runs": 113,
+          "innings": 4,
+          "outs": 2,
+          "best": 64,
+          "average": 56.5
         },
         "Mangaung Oval, Bloemfontein": {
           "runs": 0,
@@ -16432,11 +16471,11 @@
           "average": 0.0
         },
         "Bellerive Oval, Hobart": {
-          "runs": 13,
-          "innings": 1,
-          "outs": 0,
+          "runs": 16,
+          "innings": 2,
+          "outs": 1,
           "best": 13,
-          "average": 13.0
+          "average": 16.0
         }
       },
       "matchups": {
@@ -16458,7 +16497,7 @@
           "outs": 0,
           "strike_rate": 125.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 68,
           "balls": 36,
           "outs": 0,
@@ -16674,7 +16713,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 52,
           "balls": 56,
           "outs": 2,
@@ -16826,15 +16865,15 @@
         }
       },
       "career": {
-        "runs": 5416,
-        "innings": 215,
-        "outs": 157,
-        "balls": 4668,
+        "runs": 5483,
+        "innings": 217,
+        "outs": 159,
+        "balls": 4761,
         "best": 118,
         "wickets": 116,
-        "matches": 230,
-        "average": 34.5,
-        "strike_rate": 116.02
+        "matches": 232,
+        "average": 34.48,
+        "strike_rate": 115.16
       }
     },
     "Chamika Karunaratne": {
@@ -17949,7 +17988,7 @@
           "outs": 0,
           "strike_rate": 55.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 12,
           "balls": 26,
           "outs": 0,
@@ -18035,6 +18074,33 @@
     "Cooper Connolly": {
       "recent_scores": [
         {
+          "date": "2026-11-18",
+          "score": 29,
+          "balls": 25,
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-15",
+          "score": 0,
+          "balls": 2,
+          "venue": "Adelaide Oval",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 27,
+          "balls": 30,
+          "venue": "Perth Stadium",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-09-30",
           "score": 23,
           "balls": 32,
@@ -18076,33 +18142,6 @@
           "balls": 42,
           "venue": "Kingsmead, Durban",
           "opposition": "South Africa",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-24",
-          "score": 38,
-          "balls": 42,
-          "venue": "Kingsmead, Durban",
-          "opposition": "South Africa",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-20",
-          "score": 21,
-          "balls": 39,
-          "venue": "Harare Sports Club",
-          "opposition": "Zimbabwe",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-20",
-          "score": 21,
-          "balls": 39,
-          "venue": "Harare Sports Club",
-          "opposition": "Zimbabwe",
           "format": "ODI",
           "team_type": "international"
         }
@@ -18235,11 +18274,11 @@
           "average": 50.0
         },
         "Perth Stadium": {
-          "runs": 446,
-          "innings": 22,
-          "outs": 15,
+          "runs": 473,
+          "innings": 23,
+          "outs": 16,
           "best": 64,
-          "average": 29.73
+          "average": 29.56
         },
         "Dubai International Cricket Stadium": {
           "runs": 0,
@@ -18250,10 +18289,10 @@
         },
         "Adelaide Oval": {
           "runs": 193,
-          "innings": 5,
-          "outs": 2,
+          "innings": 6,
+          "outs": 3,
           "best": 61,
-          "average": 96.5
+          "average": 64.33
         },
         "Sydney Cricket Ground": {
           "runs": 79,
@@ -18268,6 +18307,13 @@
           "outs": 6,
           "best": 149,
           "average": 61.33
+        },
+        "Bellerive Oval, Hobart": {
+          "runs": 47,
+          "innings": 3,
+          "outs": 3,
+          "best": 29,
+          "average": 15.67
         },
         "GMHBA Stadium, South Geelong, Victoria": {
           "runs": 6,
@@ -18289,13 +18335,6 @@
           "outs": 2,
           "best": 77,
           "average": 43.5
-        },
-        "Bellerive Oval, Hobart": {
-          "runs": 18,
-          "innings": 2,
-          "outs": 2,
-          "best": 14,
-          "average": 9.0
         },
         "Marvel Stadium, Melbourne": {
           "runs": 84,
@@ -18477,7 +18516,7 @@
           "outs": 2,
           "strike_rate": 116.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 26,
           "balls": 12,
           "outs": 0,
@@ -18651,17 +18690,17 @@
           "outs": 2,
           "strike_rate": 94.74
         },
+        "Jamie Overton": {
+          "runs": 34,
+          "balls": 21,
+          "outs": 0,
+          "strike_rate": 161.9
+        },
         "Mujeeb Ur Rahman": {
           "runs": 0,
           "balls": 2,
           "outs": 1,
           "strike_rate": 0.0
-        },
-        "Jamie Overton": {
-          "runs": 25,
-          "balls": 17,
-          "outs": 0,
-          "strike_rate": 147.06
         },
         "Matthew William Short": {
           "runs": 16,
@@ -18701,15 +18740,15 @@
         }
       },
       "career": {
-        "runs": 3010,
-        "innings": 114,
-        "outs": 97,
-        "balls": 2488,
+        "runs": 3066,
+        "innings": 117,
+        "outs": 100,
+        "balls": 2545,
         "best": 149,
-        "wickets": 51,
-        "matches": 126,
-        "average": 31.03,
-        "strike_rate": 120.98
+        "wickets": 53,
+        "matches": 129,
+        "average": 30.66,
+        "strike_rate": 120.47
       }
     },
     "Corbin Bosch": {
@@ -19066,7 +19105,7 @@
           "outs": 0,
           "strike_rate": 200.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -19240,7 +19279,7 @@
           "outs": 0,
           "strike_rate": 125.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 9,
           "balls": 6,
           "outs": 1,
@@ -19886,7 +19925,7 @@
           "outs": 2,
           "strike_rate": 76.92
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 32,
           "balls": 40,
           "outs": 0,
@@ -20686,7 +20725,7 @@
           "outs": 2,
           "strike_rate": 65.96
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 84,
           "balls": 47,
           "outs": 0,
@@ -20926,7 +20965,7 @@
           "outs": 2,
           "strike_rate": 190.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -21524,7 +21563,7 @@
           "outs": 4,
           "strike_rate": 106.9
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 1,
           "balls": 3,
           "outs": 2,
@@ -22183,7 +22222,7 @@
           "outs": 2,
           "strike_rate": 190.91
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 16,
           "balls": 22,
           "outs": 0,
@@ -22333,7 +22372,7 @@
           "outs": 0,
           "strike_rate": 181.82
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 6,
           "balls": 18,
           "outs": 2,
@@ -23206,7 +23245,7 @@
           "outs": 2,
           "strike_rate": 200.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 32,
           "balls": 8,
           "outs": 0,
@@ -23314,7 +23353,7 @@
           "outs": 1,
           "strike_rate": 120.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 6,
           "balls": 8,
           "outs": 1,
@@ -24063,7 +24102,7 @@
           "outs": 0,
           "strike_rate": 83.33
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 7,
           "balls": 6,
           "outs": 1,
@@ -25092,7 +25131,7 @@
           "outs": 4,
           "strike_rate": 140.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 6,
           "outs": 0,
@@ -26012,7 +26051,7 @@
           "outs": 1,
           "strike_rate": 97.22
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 142,
           "balls": 122,
           "outs": 0,
@@ -27146,7 +27185,7 @@
           "outs": 1,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 0,
           "balls": 1,
           "outs": 1,
@@ -27494,7 +27533,7 @@
           "outs": 0,
           "strike_rate": 80.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 6,
           "balls": 6,
           "outs": 0,
@@ -28207,7 +28246,7 @@
           "outs": 2,
           "strike_rate": 40.0
         },
-        "Suyash Sharma": {
+        "Sandeep Sharma": {
           "runs": 6,
           "balls": 8,
           "outs": 0,
@@ -28966,7 +29005,7 @@
           "outs": 0,
           "strike_rate": 60.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 42,
           "balls": 42,
           "outs": 6,
@@ -28990,7 +29029,7 @@
           "outs": 2,
           "strike_rate": 221.21
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 46,
           "balls": 30,
           "outs": 0,
@@ -30418,7 +30457,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 1,
           "balls": 1,
           "outs": 0,
@@ -30990,7 +31029,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 0,
           "balls": 2,
           "outs": 0,
@@ -32240,7 +32279,7 @@
           "outs": 2,
           "strike_rate": 136.84
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 91,
           "balls": 33,
           "outs": 0,
@@ -32300,7 +32339,7 @@
           "outs": 0,
           "strike_rate": 127.27
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 16,
           "balls": 10,
           "outs": 0,
@@ -33011,7 +33050,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 9,
           "balls": 5,
           "outs": 0,
@@ -33936,7 +33975,7 @@
           "outs": 0,
           "strike_rate": 66.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 20,
           "balls": 14,
           "outs": 2,
@@ -34570,7 +34609,7 @@
           "outs": 2,
           "strike_rate": 48.48
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 118,
           "balls": 120,
           "outs": 2,
@@ -35102,6 +35141,24 @@
     "Ishan Kishan": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 46,
+          "balls": 58,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 27,
+          "balls": 53,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-11-01",
           "score": 61,
           "balls": 32,
@@ -35152,24 +35209,6 @@
           "balls": 3,
           "venue": "Hagley Oval, Christchurch",
           "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-17",
-          "score": 30,
-          "balls": 10,
-          "venue": "M Chinnaswamy Stadium, Bengaluru",
-          "opposition": "West Indies",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-17",
-          "score": 30,
-          "balls": 10,
-          "venue": "M Chinnaswamy Stadium, Bengaluru",
-          "opposition": "West Indies",
           "format": "T20",
           "team_type": "international"
         }
@@ -35414,11 +35453,11 @@
           "average": 11.0
         },
         "Bay Oval, Mount Maunganui": {
-          "runs": 72,
-          "innings": 2,
-          "outs": 2,
-          "best": 36,
-          "average": 36.0
+          "runs": 145,
+          "innings": 4,
+          "outs": 4,
+          "best": 46,
+          "average": 36.25
         },
         "McLean Park, Napier": {
           "runs": 20,
@@ -35645,7 +35684,7 @@
           "outs": 8,
           "strike_rate": 164.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 50,
           "balls": 52,
           "outs": 2,
@@ -35951,7 +35990,7 @@
           "outs": 0,
           "strike_rate": 175.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 48,
           "balls": 48,
           "outs": 2,
@@ -36169,15 +36208,15 @@
         }
       },
       "career": {
-        "runs": 13621,
-        "innings": 460,
-        "outs": 429,
-        "balls": 9854,
+        "runs": 13694,
+        "innings": 462,
+        "outs": 431,
+        "balls": 9965,
         "best": 210,
         "wickets": 0,
-        "matches": 459,
-        "average": 31.75,
-        "strike_rate": 138.23
+        "matches": 461,
+        "average": 31.77,
+        "strike_rate": 137.42
       }
     },
     "Ishant Sharma": {
@@ -36526,7 +36565,7 @@
           "outs": 0,
           "strike_rate": 40.0
         },
-        "Abhinandan Singh": {
+        "Akash Singh": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -36548,6 +36587,42 @@
     "Jack Edwards": {
       "recent_scores": [
         {
+          "date": "2026-11-24",
+          "score": 18,
+          "balls": 8,
+          "venue": "People First Stadium, Carrara",
+          "opposition": "England",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-21",
+          "score": 25,
+          "balls": 11,
+          "venue": "Melbourne Cricket Ground",
+          "opposition": "England",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-18",
+          "score": 31,
+          "balls": 36,
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-15",
+          "score": 17,
+          "balls": 23,
+          "venue": "Adelaide Oval",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-09-27",
           "score": 25,
           "balls": 30,
@@ -36582,42 +36657,6 @@
           "opposition": "South Africa",
           "format": "ODI",
           "team_type": "international"
-        },
-        {
-          "date": "2026-07-09",
-          "score": 0,
-          "balls": 1,
-          "venue": "Grand Prairie Stadium, Dallas",
-          "opposition": "Los Angeles Knight Riders",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-07-04",
-          "score": 2,
-          "balls": 4,
-          "venue": "Knight Riders Cricket Ground, Pomona",
-          "opposition": "San Francisco Unicorns",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-06-25",
-          "score": 4,
-          "balls": 3,
-          "venue": "Oakland Coliseum, Oakland",
-          "opposition": "Seattle Orcas",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-06-20",
-          "score": 6,
-          "balls": 9,
-          "venue": "Grand Prairie Stadium, Dallas",
-          "opposition": "MI New York",
-          "format": "T20",
-          "team_type": "club"
         }
       ],
       "venues": {
@@ -36627,6 +36666,20 @@
           "outs": 2,
           "best": 5,
           "average": 5.0
+        },
+        "Melbourne Cricket Ground": {
+          "runs": 34,
+          "innings": 2,
+          "outs": 1,
+          "best": 25,
+          "average": 34.0
+        },
+        "People First Stadium, Carrara": {
+          "runs": 18,
+          "innings": 1,
+          "outs": 1,
+          "best": 18,
+          "average": 18.0
         },
         "Kingsmead, Durban": {
           "runs": 10,
@@ -36641,6 +36694,20 @@
           "outs": 2,
           "best": 25,
           "average": 25.0
+        },
+        "Adelaide Oval": {
+          "runs": 59,
+          "innings": 4,
+          "outs": 4,
+          "best": 34,
+          "average": 14.75
+        },
+        "Bellerive Oval, Hobart": {
+          "runs": 97,
+          "innings": 6,
+          "outs": 6,
+          "best": 47,
+          "average": 16.17
         },
         "Sydney Cricket Ground": {
           "runs": 251,
@@ -36670,26 +36737,12 @@
           "best": 46,
           "average": 22.0
         },
-        "Adelaide Oval": {
-          "runs": 42,
-          "innings": 3,
-          "outs": 3,
-          "best": 34,
-          "average": 14.0
-        },
         "Brisbane Cricket Ground": {
           "runs": 41,
           "innings": 3,
           "outs": 2,
           "best": 25,
           "average": 20.5
-        },
-        "Bellerive Oval, Hobart": {
-          "runs": 66,
-          "innings": 5,
-          "outs": 5,
-          "best": 47,
-          "average": 13.2
         },
         "Metricon Stadium, Carrara": {
           "runs": 46,
@@ -36726,13 +36779,6 @@
           "best": 28,
           "average": 31.0
         },
-        "Melbourne Cricket Ground": {
-          "runs": 9,
-          "innings": 1,
-          "outs": 1,
-          "best": 9,
-          "average": 9.0
-        },
         "Oakland Coliseum, Oakland": {
           "runs": 42,
           "innings": 4,
@@ -36767,6 +36813,12 @@
           "balls": 6,
           "outs": 2,
           "strike_rate": 100.0
+        },
+        "Jamie Overton": {
+          "runs": 17,
+          "balls": 10,
+          "outs": 0,
+          "strike_rate": 170.0
         },
         "Corbin Bosch": {
           "runs": 7,
@@ -36809,12 +36861,6 @@
           "balls": 6,
           "outs": 0,
           "strike_rate": 116.67
-        },
-        "Jamie Overton": {
-          "runs": 6,
-          "balls": 5,
-          "outs": 0,
-          "strike_rate": 120.0
         },
         "Haris Rauf": {
           "runs": 14,
@@ -36860,15 +36906,15 @@
         }
       },
       "career": {
-        "runs": 930,
-        "innings": 66,
-        "outs": 61,
-        "balls": 812,
+        "runs": 1021,
+        "innings": 70,
+        "outs": 64,
+        "balls": 890,
         "best": 47,
-        "wickets": 68,
-        "matches": 80,
-        "average": 15.25,
-        "strike_rate": 114.53
+        "wickets": 74,
+        "matches": 85,
+        "average": 15.95,
+        "strike_rate": 114.72
       }
     },
     "Jack Jarvis": {
@@ -37106,6 +37152,24 @@
     "Jake Fraser-McGurk": {
       "recent_scores": [
         {
+          "date": "2026-11-24",
+          "score": 27,
+          "balls": 13,
+          "venue": "People First Stadium, Carrara",
+          "opposition": "England",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-21",
+          "score": 1,
+          "balls": 3,
+          "venue": "Melbourne Cricket Ground",
+          "opposition": "England",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
           "date": "2026-01-17",
           "score": 0,
           "balls": 1,
@@ -37156,24 +37220,6 @@
           "balls": 9,
           "venue": "Melbourne Cricket Ground",
           "opposition": "Melbourne Stars",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-01-01",
-          "score": 38,
-          "balls": 29,
-          "venue": "Marvel Stadium, Melbourne",
-          "opposition": "Sydney Sixers",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2025-12-29",
-          "score": 14,
-          "balls": 8,
-          "venue": "Bellerive Oval, Hobart",
-          "opposition": "Hobart Hurricanes",
           "format": "T20",
           "team_type": "club"
         }
@@ -37270,19 +37316,26 @@
           "best": 2,
           "average": 2.0
         },
+        "Melbourne Cricket Ground": {
+          "runs": 68,
+          "innings": 8,
+          "outs": 8,
+          "best": 16,
+          "average": 8.5
+        },
+        "People First Stadium, Carrara": {
+          "runs": 27,
+          "innings": 1,
+          "outs": 1,
+          "best": 27,
+          "average": 27.0
+        },
         "Manuka Oval, Canberra": {
           "runs": 127,
           "innings": 4,
           "outs": 4,
           "best": 41,
           "average": 31.75
-        },
-        "Melbourne Cricket Ground": {
-          "runs": 67,
-          "innings": 7,
-          "outs": 7,
-          "best": 16,
-          "average": 9.57
         },
         "Adelaide Oval": {
           "runs": 69,
@@ -37637,15 +37690,15 @@
         }
       },
       "career": {
-        "runs": 2548,
-        "innings": 133,
-        "outs": 130,
-        "balls": 1660,
+        "runs": 2576,
+        "innings": 135,
+        "outs": 132,
+        "balls": 1676,
         "best": 95,
         "wickets": 0,
-        "matches": 133,
-        "average": 19.6,
-        "strike_rate": 153.49
+        "matches": 135,
+        "average": 19.52,
+        "strike_rate": 153.7
       }
     },
     "James Neesham": {
@@ -37667,6 +37720,24 @@
     "Jamie Overton": {
       "recent_scores": [
         {
+          "date": "2026-11-21",
+          "score": 2,
+          "balls": 4,
+          "venue": "Melbourne Cricket Ground",
+          "opposition": "Australia",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 4,
+          "balls": 6,
+          "venue": "Perth Stadium",
+          "opposition": "Australia",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-10-25",
           "score": 10,
           "balls": 16,
@@ -37716,24 +37787,6 @@
           "score": 21,
           "balls": 13,
           "venue": "The Oval",
-          "opposition": "Sri Lanka",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-24",
-          "score": 2,
-          "balls": 3,
-          "venue": "Headingley",
-          "opposition": "Sri Lanka",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-24",
-          "score": 2,
-          "balls": 3,
-          "venue": "Headingley",
           "opposition": "Sri Lanka",
           "format": "ODI",
           "team_type": "international"
@@ -37830,6 +37883,13 @@
           "outs": 4,
           "best": 10,
           "average": 6.0
+        },
+        "Melbourne Cricket Ground": {
+          "runs": 8,
+          "innings": 2,
+          "outs": 2,
+          "best": 6,
+          "average": 4.0
         },
         "Riverside Ground, Chester-le-Street": {
           "runs": 16,
@@ -37929,6 +37989,13 @@
           "best": 34,
           "average": 34.0
         },
+        "Perth Stadium": {
+          "runs": 16,
+          "innings": 3,
+          "outs": 3,
+          "best": 11,
+          "average": 5.33
+        },
         "County Ground, Bristol": {
           "runs": 5,
           "innings": 2,
@@ -38020,13 +38087,6 @@
           "best": 32,
           "average": 20.17
         },
-        "Perth Stadium": {
-          "runs": 12,
-          "innings": 2,
-          "outs": 2,
-          "best": 11,
-          "average": 6.0
-        },
         "Sharjah Cricket Stadium": {
           "runs": 17,
           "innings": 2,
@@ -38068,13 +38128,6 @@
           "outs": 1,
           "best": 27,
           "average": 35.0
-        },
-        "Melbourne Cricket Ground": {
-          "runs": 6,
-          "innings": 1,
-          "outs": 1,
-          "best": 6,
-          "average": 6.0
         }
       },
       "matchups": {
@@ -38234,6 +38287,12 @@
           "outs": 0,
           "strike_rate": 100.0
         },
+        "Jack Edwards": {
+          "runs": 14,
+          "balls": 8,
+          "outs": 1,
+          "strike_rate": 175.0
+        },
         "Haris Rauf": {
           "runs": 15,
           "balls": 14,
@@ -38246,7 +38305,7 @@
           "outs": 2,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 8,
           "balls": 12,
           "outs": 0,
@@ -38293,12 +38352,6 @@
           "balls": 4,
           "outs": 0,
           "strike_rate": 25.0
-        },
-        "Jack Edwards": {
-          "runs": 13,
-          "balls": 6,
-          "outs": 0,
-          "strike_rate": 216.67
         },
         "Fazalhaq Farooqi": {
           "runs": 0,
@@ -38374,15 +38427,15 @@
         }
       },
       "career": {
-        "runs": 2804,
-        "innings": 198,
-        "outs": 143,
-        "balls": 2001,
+        "runs": 2810,
+        "innings": 200,
+        "outs": 145,
+        "balls": 2011,
         "best": 83,
-        "wickets": 255,
-        "matches": 277,
-        "average": 19.61,
-        "strike_rate": 140.13
+        "wickets": 258,
+        "matches": 280,
+        "average": 19.38,
+        "strike_rate": 139.73
       }
     },
     "Janith Liyanage": {
@@ -39380,7 +39433,7 @@
           "outs": 0,
           "strike_rate": 36.36
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 20,
           "balls": 22,
           "outs": 0,
@@ -39622,7 +39675,7 @@
           "outs": 0,
           "strike_rate": 50.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 0,
           "balls": 4,
           "outs": 2,
@@ -40659,7 +40712,7 @@
           "outs": 4,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 12,
           "balls": 10,
           "outs": 2,
@@ -41864,7 +41917,7 @@
           "outs": 10,
           "strike_rate": 110.24
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 82,
           "balls": 70,
           "outs": 0,
@@ -42056,7 +42109,7 @@
           "outs": 2,
           "strike_rate": 142.55
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 223,
           "balls": 190,
           "outs": 12,
@@ -42693,7 +42746,7 @@
         }
       },
       "matchups": {
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 8,
           "balls": 16,
           "outs": 0,
@@ -42753,7 +42806,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 34,
           "balls": 24,
           "outs": 0,
@@ -43182,7 +43235,7 @@
           "outs": 2,
           "strike_rate": 160.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 21,
           "balls": 25,
           "outs": 2,
@@ -43310,6 +43363,24 @@
     "KL Rahul": {
       "recent_scores": [
         {
+          "date": "2026-11-07",
+          "score": 26,
+          "balls": 37,
+          "venue": "Hnry Stadium, Wellington",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-04",
+          "score": 3,
+          "balls": 5,
+          "venue": "Eden Park, Auckland",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-10-03",
           "score": 129,
           "balls": 87,
@@ -43362,24 +43433,6 @@
           "opposition": "England",
           "format": "ODI",
           "team_type": "international"
-        },
-        {
-          "date": "2026-05-24",
-          "score": 60,
-          "balls": 30,
-          "venue": "Eden Gardens, Kolkata",
-          "opposition": "Kolkata Knight Riders",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-05-24",
-          "score": 60,
-          "balls": 30,
-          "venue": "Eden Gardens, Kolkata",
-          "opposition": "Kolkata Knight Riders",
-          "format": "T20",
-          "team_type": "club"
         }
       ],
       "venues": {
@@ -43643,11 +43696,11 @@
           "average": 34.5
         },
         "Eden Park, Auckland": {
-          "runs": 234,
-          "innings": 6,
+          "runs": 237,
+          "innings": 7,
           "outs": 4,
           "best": 57,
-          "average": 58.5
+          "average": 59.25
         },
         "Seddon Park, Hamilton": {
           "runs": 240,
@@ -43824,6 +43877,13 @@
           "best": 112,
           "average": 224.0
         },
+        "Hnry Stadium, Wellington": {
+          "runs": 26,
+          "innings": 1,
+          "outs": 0,
+          "best": 26,
+          "average": 26.0
+        },
         "Dr PVG Raju ACA Sports Complex, Vizianagaram": {
           "runs": 34,
           "innings": 1,
@@ -43925,7 +43985,7 @@
           "outs": 0,
           "strike_rate": 105.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 68,
           "balls": 92,
           "outs": 8,
@@ -43955,7 +44015,7 @@
           "outs": 0,
           "strike_rate": 172.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 38,
           "balls": 55,
           "outs": 2,
@@ -44461,15 +44521,15 @@
         }
       },
       "career": {
-        "runs": 23091,
-        "innings": 624,
+        "runs": 23120,
+        "innings": 626,
         "outs": 512,
-        "balls": 19009,
+        "balls": 19051,
         "best": 152,
         "wickets": 0,
-        "matches": 614,
-        "average": 45.1,
-        "strike_rate": 121.47
+        "matches": 616,
+        "average": 45.16,
+        "strike_rate": 121.36
       }
     },
     "Kagiso Rabada": {
@@ -44957,7 +45017,7 @@
           "outs": 0,
           "strike_rate": 50.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 2,
           "balls": 8,
           "outs": 2,
@@ -45125,7 +45185,7 @@
           "outs": 0,
           "strike_rate": 150.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 7,
           "outs": 1,
@@ -45980,7 +46040,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 24,
           "balls": 14,
           "outs": 0,
@@ -45992,7 +46052,7 @@
           "outs": 0,
           "strike_rate": 160.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 12,
           "balls": 8,
           "outs": 0,
@@ -47244,6 +47304,15 @@
     "Kuldeep Yadav": {
       "recent_scores": [
         {
+          "date": "2026-11-13",
+          "score": 1,
+          "balls": 4,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-04-27",
           "score": 3,
           "balls": 11,
@@ -47294,15 +47363,6 @@
           "balls": 7,
           "venue": "MA Chidambaram Stadium",
           "opposition": "Chennai Super Kings",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-04-08",
-          "score": 1,
-          "balls": 1,
-          "venue": "Arun Jaitley Stadium",
-          "opposition": "Gujarat Titans",
           "format": "T20",
           "team_type": "club"
         },
@@ -47590,6 +47650,13 @@
           "best": 2,
           "average": 2.0
         },
+        "Bay Oval, Mount Maunganui": {
+          "runs": 1,
+          "innings": 1,
+          "outs": 1,
+          "best": 1,
+          "average": 1.0
+        },
         "Shaheed Veer Narayan Singh International Stadium, Raipur": {
           "runs": 18,
           "innings": 2,
@@ -47720,7 +47787,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 0,
           "balls": 2,
           "outs": 2,
@@ -47816,7 +47883,7 @@
           "outs": 6,
           "strike_rate": 38.89
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 6,
           "outs": 2,
@@ -47866,15 +47933,15 @@
         }
       },
       "career": {
-        "runs": 944,
-        "innings": 183,
-        "outs": 91,
-        "balls": 1474,
+        "runs": 945,
+        "innings": 184,
+        "outs": 92,
+        "balls": 1478,
         "best": 35,
         "wickets": 834,
-        "matches": 587,
-        "average": 10.37,
-        "strike_rate": 64.04
+        "matches": 588,
+        "average": 10.27,
+        "strike_rate": 63.94
       }
     },
     "Kumar Kushagra": {
@@ -48698,7 +48765,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 20,
           "balls": 14,
           "outs": 0,
@@ -49406,22 +49473,6 @@
       }
     },
     "Lungi Ngidi": {
-      "recent_scores": [],
-      "venues": {},
-      "matchups": {},
-      "career": {
-        "runs": 0,
-        "innings": 0,
-        "outs": 0,
-        "balls": 0,
-        "best": 0,
-        "wickets": 0,
-        "matches": 0,
-        "average": 0.0,
-        "strike_rate": 0.0
-      }
-    },
-    "Lungisani Ngidi": {
       "recent_scores": [
         {
           "date": "2026-09-04",
@@ -49949,6 +50000,22 @@
         "matches": 392,
         "average": 8.96,
         "strike_rate": 59.55
+      }
+    },
+    "Lungisani Ngidi": {
+      "recent_scores": [],
+      "venues": {},
+      "matchups": {},
+      "career": {
+        "runs": 0,
+        "innings": 0,
+        "outs": 0,
+        "balls": 0,
+        "best": 0,
+        "wickets": 0,
+        "matches": 0,
+        "average": 0.0,
+        "strike_rate": 0.0
       }
     },
     "M. Siddharth": {
@@ -50892,7 +50959,7 @@
           "outs": 0,
           "strike_rate": 135.71
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 52,
           "balls": 32,
           "outs": 4,
@@ -51030,7 +51097,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 30,
           "balls": 34,
           "outs": 2,
@@ -51060,7 +51127,7 @@
           "outs": 0,
           "strike_rate": 133.33
         },
-        "Abhinandan Singh": {
+        "Akash Singh": {
           "runs": 22,
           "balls": 6,
           "outs": 0,
@@ -53391,7 +53458,7 @@
           "outs": 0,
           "strike_rate": 228.57
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 10,
           "balls": 4,
           "outs": 0,
@@ -54324,7 +54391,7 @@
           "outs": 2,
           "strike_rate": 18.18
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 34,
           "balls": 15,
           "outs": 1,
@@ -54900,7 +54967,7 @@
         }
       },
       "matchups": {
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 100,
           "balls": 124,
           "outs": 4,
@@ -54948,7 +55015,7 @@
           "outs": 0,
           "strike_rate": 77.78
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 0,
           "balls": 4,
           "outs": 2,
@@ -55490,19 +55557,96 @@
       }
     },
     "Matt Short": {
-      "recent_scores": [],
-      "venues": {},
+      "recent_scores": [
+        {
+          "date": "2019-05-12",
+          "score": 1,
+          "balls": 6,
+          "venue": "Harare Sports Club",
+          "opposition": "Zimbabwe",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2019-05-12",
+          "score": 1,
+          "balls": 6,
+          "venue": "Harare Sports Club",
+          "opposition": "Zimbabwe",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2019-05-06",
+          "score": 2,
+          "balls": 3,
+          "venue": "Old Hararians, Harare",
+          "opposition": "Uganda",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2019-05-06",
+          "score": 2,
+          "balls": 3,
+          "venue": "Old Hararians, Harare",
+          "opposition": "Uganda",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2019-04-03",
+          "score": 36,
+          "balls": 26,
+          "venue": "United Cricket Club Ground, Windhoek",
+          "opposition": "Botswana",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2019-04-03",
+          "score": 36,
+          "balls": 26,
+          "venue": "United Cricket Club Ground, Windhoek",
+          "opposition": "Botswana",
+          "format": "T20",
+          "team_type": "international"
+        }
+      ],
+      "venues": {
+        "United Cricket Club Ground, Windhoek": {
+          "runs": 72,
+          "innings": 2,
+          "outs": 2,
+          "best": 36,
+          "average": 36.0
+        },
+        "Old Hararians, Harare": {
+          "runs": 4,
+          "innings": 2,
+          "outs": 2,
+          "best": 2,
+          "average": 2.0
+        },
+        "Harare Sports Club": {
+          "runs": 2,
+          "innings": 2,
+          "outs": 2,
+          "best": 1,
+          "average": 1.0
+        }
+      },
       "matchups": {},
       "career": {
-        "runs": 0,
-        "innings": 0,
-        "outs": 0,
-        "balls": 0,
-        "best": 0,
-        "wickets": 0,
-        "matches": 0,
-        "average": 0.0,
-        "strike_rate": 0.0
+        "runs": 78,
+        "innings": 6,
+        "outs": 6,
+        "balls": 70,
+        "best": 36,
+        "wickets": 26,
+        "matches": 16,
+        "average": 13.0,
+        "strike_rate": 111.43
       }
     },
     "Matthew Breetzke": {
@@ -55718,27 +55862,6 @@
           "outs": 2,
           "best": 24,
           "average": 24.0
-        },
-        "United Cricket Club Ground, Windhoek": {
-          "runs": 72,
-          "innings": 2,
-          "outs": 2,
-          "best": 36,
-          "average": 36.0
-        },
-        "Old Hararians, Harare": {
-          "runs": 4,
-          "innings": 2,
-          "outs": 2,
-          "best": 2,
-          "average": 2.0
-        },
-        "Harare Sports Club": {
-          "runs": 2,
-          "innings": 2,
-          "outs": 2,
-          "best": 1,
-          "average": 1.0
         },
         "Kingsmead, Durban": {
           "runs": 172,
@@ -56159,7 +56282,7 @@
           "outs": 0,
           "strike_rate": 245.16
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 51,
           "balls": 19,
           "outs": 0,
@@ -56419,15 +56542,15 @@
         }
       },
       "career": {
-        "runs": 6263,
-        "innings": 252,
-        "outs": 235,
-        "balls": 4761,
+        "runs": 6185,
+        "innings": 246,
+        "outs": 229,
+        "balls": 4691,
         "best": 121,
-        "wickets": 128,
-        "matches": 268,
-        "average": 26.65,
-        "strike_rate": 131.55
+        "wickets": 102,
+        "matches": 252,
+        "average": 27.01,
+        "strike_rate": 131.85
       }
     },
     "Max O'Dowd": {
@@ -56638,7 +56761,7 @@
           "outs": 0,
           "strike_rate": 200.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 10,
           "balls": 13,
           "outs": 0,
@@ -57134,7 +57257,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 10,
           "balls": 8,
           "outs": 0,
@@ -57843,7 +57966,7 @@
         }
       },
       "matchups": {
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 12,
           "balls": 8,
           "outs": 2,
@@ -57897,7 +58020,7 @@
           "outs": 0,
           "strike_rate": 114.29
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 18,
           "balls": 20,
           "outs": 0,
@@ -58919,7 +59042,7 @@
           "outs": 0,
           "strike_rate": 533.33
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -60488,7 +60611,7 @@
           "outs": 4,
           "strike_rate": 131.71
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 56,
           "balls": 31,
           "outs": 1,
@@ -61649,7 +61772,7 @@
           "outs": 2,
           "strike_rate": 65.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 52,
           "balls": 66,
           "outs": 0,
@@ -62455,7 +62578,7 @@
           "outs": 0,
           "strike_rate": 300.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 2,
           "balls": 4,
           "outs": 2,
@@ -62561,6 +62684,15 @@
     "Mohammed Siraj": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 14,
+          "balls": 20,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-05-26",
           "score": 5,
           "balls": 13,
@@ -62610,15 +62742,6 @@
           "score": 0,
           "balls": 1,
           "venue": "Holkar Cricket Stadium, Indore",
-          "opposition": "New Zealand",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-01-14",
-          "score": 2,
-          "balls": 3,
-          "venue": "Niranjan Shah Stadium, Rajkot",
           "opposition": "New Zealand",
           "format": "ODI",
           "team_type": "international"
@@ -62823,6 +62946,13 @@
           "best": 2,
           "average": 4.0
         },
+        "Bay Oval, Mount Maunganui": {
+          "runs": 14,
+          "innings": 1,
+          "outs": 0,
+          "best": 14,
+          "average": 14.0
+        },
         "Palam B Ground, Model Sports Complex, Delhi": {
           "runs": 0,
           "innings": 1,
@@ -62852,7 +62982,7 @@
           "outs": 0,
           "strike_rate": 64.29
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 0,
           "balls": 6,
           "outs": 0,
@@ -62870,7 +63000,7 @@
           "outs": 0,
           "strike_rate": 75.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 22,
           "balls": 18,
           "outs": 0,
@@ -63022,15 +63152,15 @@
         }
       },
       "career": {
-        "runs": 392,
-        "innings": 100,
+        "runs": 406,
+        "innings": 101,
         "outs": 49,
-        "balls": 599,
+        "balls": 619,
         "best": 14,
-        "wickets": 482,
-        "matches": 407,
-        "average": 8.0,
-        "strike_rate": 65.44
+        "wickets": 484,
+        "matches": 408,
+        "average": 8.29,
+        "strike_rate": 65.59
       }
     },
     "Mohd. Arshad Khan": {
@@ -63217,7 +63347,7 @@
           "outs": 0,
           "strike_rate": 175.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 0,
           "balls": 2,
           "outs": 2,
@@ -64840,7 +64970,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 0,
           "balls": 4,
           "outs": 0,
@@ -65710,7 +65840,7 @@
           "outs": 0,
           "strike_rate": 18.18
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 6,
           "balls": 14,
           "outs": 0,
@@ -66475,7 +66605,7 @@
           "outs": 0,
           "strike_rate": 50.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 6,
           "outs": 0,
@@ -67037,6 +67167,42 @@
     "Naman Dhir": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 22,
+          "balls": 31,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 21,
+          "balls": 24,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-07",
+          "score": 12,
+          "balls": 16,
+          "venue": "Hnry Stadium, Wellington",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-04",
+          "score": 5,
+          "balls": 3,
+          "venue": "Eden Park, Auckland",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-11-01",
           "score": 33,
           "balls": 23,
@@ -67068,42 +67234,6 @@
           "score": 28,
           "balls": 13,
           "venue": "Eden Park, Auckland",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-27",
-          "score": 4,
-          "balls": 1,
-          "venue": "Hnry Stadium, Wellington",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-27",
-          "score": 4,
-          "balls": 1,
-          "venue": "Hnry Stadium, Wellington",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-24",
-          "score": 31,
-          "balls": 17,
-          "venue": "Hagley Oval, Christchurch",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-24",
-          "score": 31,
-          "balls": 17,
-          "venue": "Hagley Oval, Christchurch",
           "opposition": "New Zealand",
           "format": "T20",
           "team_type": "international"
@@ -67223,18 +67353,18 @@
           "average": 73.0
         },
         "Hnry Stadium, Wellington": {
-          "runs": 8,
-          "innings": 2,
-          "outs": 0,
-          "best": 4,
-          "average": 8.0
+          "runs": 20,
+          "innings": 3,
+          "outs": 1,
+          "best": 12,
+          "average": 20.0
         },
         "Eden Park, Auckland": {
-          "runs": 56,
-          "innings": 2,
+          "runs": 61,
+          "innings": 3,
           "outs": 2,
           "best": 28,
-          "average": 28.0
+          "average": 30.5
         },
         "Seddon Park, Hamilton": {
           "runs": 66,
@@ -67242,6 +67372,13 @@
           "outs": 2,
           "best": 33,
           "average": 33.0
+        },
+        "Bay Oval, Mount Maunganui": {
+          "runs": 43,
+          "innings": 2,
+          "outs": 2,
+          "best": 22,
+          "average": 21.5
         },
         "Punjab Cricket Association IS Bindra Stadium, Mohali, Chandigarh": {
           "runs": 1,
@@ -67408,13 +67545,13 @@
           "outs": 2,
           "strike_rate": 185.71
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 28,
           "balls": 22,
           "outs": 2,
           "strike_rate": 127.27
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 6,
           "balls": 8,
           "outs": 0,
@@ -67530,15 +67667,15 @@
         }
       },
       "career": {
-        "runs": 1871,
-        "innings": 90,
-        "outs": 68,
-        "balls": 1098,
+        "runs": 1931,
+        "innings": 94,
+        "outs": 71,
+        "balls": 1172,
         "best": 62,
-        "wickets": 12,
-        "matches": 96,
-        "average": 27.51,
-        "strike_rate": 170.4
+        "wickets": 14,
+        "matches": 100,
+        "average": 27.2,
+        "strike_rate": 164.76
       }
     },
     "Naman Tiwari": {
@@ -67878,7 +68015,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 4,
           "outs": 0,
@@ -69772,7 +69909,7 @@
           "outs": 2,
           "strike_rate": 33.33
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 24,
           "balls": 8,
           "outs": 0,
@@ -70482,7 +70619,7 @@
           "outs": 10,
           "strike_rate": 118.75
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 106,
           "balls": 64,
           "outs": 0,
@@ -70500,7 +70637,7 @@
           "outs": 6,
           "strike_rate": 63.33
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 76,
           "balls": 52,
           "outs": 4,
@@ -71593,7 +71730,7 @@
           "outs": 2,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 92,
           "balls": 102,
           "outs": 6,
@@ -72521,13 +72658,13 @@
           "outs": 2,
           "strike_rate": 187.5
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 20,
           "balls": 18,
           "outs": 2,
           "strike_rate": 111.11
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 154,
           "balls": 96,
           "outs": 6,
@@ -74863,7 +75000,7 @@
           "outs": 2,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 56,
           "balls": 44,
           "outs": 2,
@@ -74893,7 +75030,7 @@
           "outs": 6,
           "strike_rate": 78.26
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 6,
           "balls": 4,
           "outs": 0,
@@ -75936,7 +76073,7 @@
           "outs": 2,
           "strike_rate": 25.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 0,
           "balls": 4,
           "outs": 0,
@@ -76086,6 +76223,24 @@
     "Phil Salt": {
       "recent_scores": [
         {
+          "date": "2026-11-24",
+          "score": 58,
+          "balls": 30,
+          "venue": "People First Stadium, Carrara",
+          "opposition": "Australia",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-21",
+          "score": 0,
+          "balls": 1,
+          "venue": "Melbourne Cricket Ground",
+          "opposition": "Australia",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
           "date": "2026-08-12",
           "score": 26,
           "balls": 21,
@@ -76136,24 +76291,6 @@
           "balls": 8,
           "venue": "Sophia Gardens, Cardiff",
           "opposition": "Trent Rockets",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-07-25",
-          "score": 6,
-          "balls": 11,
-          "venue": "Sophia Gardens, Cardiff",
-          "opposition": "MI London",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-07-22",
-          "score": 47,
-          "balls": 36,
-          "venue": "The Rose Bowl, Southampton",
-          "opposition": "Southern Brave",
           "format": "T20",
           "team_type": "club"
         }
@@ -76266,10 +76403,10 @@
         },
         "Melbourne Cricket Ground": {
           "runs": 25,
-          "innings": 3,
-          "outs": 3,
+          "innings": 4,
+          "outs": 4,
           "best": 10,
-          "average": 8.33
+          "average": 6.25
         },
         "National Stadium, Karachi": {
           "runs": 179,
@@ -76417,6 +76554,13 @@
           "outs": 10,
           "best": 64,
           "average": 25.1
+        },
+        "People First Stadium, Carrara": {
+          "runs": 58,
+          "innings": 1,
+          "outs": 1,
+          "best": 58,
+          "average": 58.0
         },
         "Lord's": {
           "runs": 357,
@@ -76698,7 +76842,7 @@
           "outs": 2,
           "strike_rate": 107.14
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 30,
           "balls": 26,
           "outs": 0,
@@ -76956,7 +77100,7 @@
           "outs": 0,
           "strike_rate": 66.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 75,
           "balls": 45,
           "outs": 2,
@@ -77047,10 +77191,10 @@
           "strike_rate": 175.0
         },
         "Adam Zampa": {
-          "runs": 20,
-          "balls": 32,
+          "runs": 24,
+          "balls": 36,
           "outs": 5,
-          "strike_rate": 62.5
+          "strike_rate": 66.67
         },
         "Matthew William Short": {
           "runs": 0,
@@ -77087,6 +77231,12 @@
           "balls": 14,
           "outs": 0,
           "strike_rate": 142.86
+        },
+        "Jack Edwards": {
+          "runs": 6,
+          "balls": 3,
+          "outs": 0,
+          "strike_rate": 200.0
         },
         "Faheem Ashraf": {
           "runs": 36,
@@ -77210,15 +77360,15 @@
         }
       },
       "career": {
-        "runs": 13894,
-        "innings": 499,
-        "outs": 464,
-        "balls": 9257,
+        "runs": 13952,
+        "innings": 501,
+        "outs": 466,
+        "balls": 9288,
         "best": 141,
         "wickets": 0,
-        "matches": 499,
+        "matches": 501,
         "average": 29.94,
-        "strike_rate": 150.09
+        "strike_rate": 150.22
       }
     },
     "Prabhsimran Singh": {
@@ -77494,7 +77644,7 @@
           "outs": 0,
           "strike_rate": 75.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 6,
           "balls": 5,
           "outs": 1,
@@ -78007,7 +78157,7 @@
           "outs": 0,
           "strike_rate": 230.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 19,
           "balls": 22,
           "outs": 2,
@@ -78109,7 +78259,7 @@
           "outs": 0,
           "strike_rate": 350.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 34,
           "balls": 10,
           "outs": 0,
@@ -79008,7 +79158,7 @@
           "outs": 2,
           "strike_rate": 100.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 10,
           "balls": 4,
           "outs": 0,
@@ -79278,7 +79428,7 @@
           "outs": 4,
           "strike_rate": 195.83
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 48,
           "balls": 52,
           "outs": 0,
@@ -79883,7 +80033,7 @@
           "outs": 0,
           "strike_rate": 125.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 14,
           "balls": 16,
           "outs": 2,
@@ -80093,7 +80243,7 @@
           "outs": 1,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 10,
           "balls": 4,
           "outs": 0,
@@ -80433,7 +80583,7 @@
           "outs": 2,
           "strike_rate": 128.57
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 18,
           "balls": 14,
           "outs": 0,
@@ -80475,7 +80625,7 @@
           "outs": 2,
           "strike_rate": 147.37
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 82,
           "balls": 46,
           "outs": 0,
@@ -81374,7 +81524,7 @@
           "outs": 1,
           "strike_rate": 122.22
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 1,
           "balls": 2,
           "outs": 0,
@@ -82048,7 +82198,7 @@
           "outs": 1,
           "strike_rate": 57.14
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 4,
           "balls": 6,
           "outs": 2,
@@ -82252,7 +82402,7 @@
           "outs": 0,
           "strike_rate": 175.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 1,
           "balls": 2,
           "outs": 1,
@@ -82301,8 +82451,8 @@
         "outs": 213,
         "balls": 1861,
         "best": 79,
-        "wickets": 712,
-        "matches": 577,
+        "wickets": 713,
+        "matches": 578,
         "average": 12.78,
         "strike_rate": 146.32
       }
@@ -82647,7 +82797,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -83405,7 +83555,7 @@
           "outs": 2,
           "strike_rate": 122.73
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 16,
           "balls": 26,
           "outs": 3,
@@ -83513,7 +83663,7 @@
           "outs": 0,
           "strike_rate": 75.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 2,
           "balls": 4,
           "outs": 0,
@@ -84422,7 +84572,7 @@
           "outs": 0,
           "strike_rate": 190.91
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 62,
           "balls": 34,
           "outs": 6,
@@ -84506,7 +84656,7 @@
           "outs": 0,
           "strike_rate": 177.78
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 52,
           "balls": 48,
           "outs": 0,
@@ -85663,7 +85813,7 @@
           "outs": 0,
           "strike_rate": 145.45
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 138,
           "balls": 76,
           "outs": 4,
@@ -86179,75 +86329,75 @@
     "Rohit Sharma": {
       "recent_scores": [
         {
-          "date": "2026-10-05",
-          "score": 4,
-          "balls": 4,
-          "venue": "Yeonhui Cricket Ground, Incheon",
-          "opposition": "South Korea",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-05",
-          "score": 9,
-          "balls": 8,
-          "venue": "Yeonhui Cricket Ground, Incheon",
-          "opposition": "South Korea",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-05",
-          "score": 4,
-          "balls": 4,
-          "venue": "Yeonhui Cricket Ground, Incheon",
-          "opposition": "South Korea",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-05",
-          "score": 9,
-          "balls": 8,
-          "venue": "Yeonhui Cricket Ground, Incheon",
-          "opposition": "South Korea",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-04",
-          "score": 5,
+          "date": "2026-11-15",
+          "score": 7,
           "balls": 13,
-          "venue": "Yeonhui Cricket Ground, Incheon",
-          "opposition": "South Korea",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-04",
-          "score": 5,
-          "balls": 13,
-          "venue": "Yeonhui Cricket Ground, Incheon",
-          "opposition": "South Korea",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-03",
-          "score": 17,
-          "balls": 13,
-          "venue": "Yeonhui Cricket Ground, Incheon",
-          "opposition": "South Korea",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-03",
-          "score": 92,
-          "balls": 85,
-          "venue": "Maharaja Yadavindra Singh International Cricket Stadium, New Chandigarh",
-          "opposition": "West Indies",
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
           "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 0,
+          "balls": 1,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-07",
+          "score": 23,
+          "balls": 28,
+          "venue": "Hnry Stadium, Wellington",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-04",
+          "score": 0,
+          "balls": 6,
+          "venue": "Eden Park, Auckland",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-10-05",
+          "score": 4,
+          "balls": 4,
+          "venue": "Yeonhui Cricket Ground, Incheon",
+          "opposition": "South Korea",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-10-05",
+          "score": 9,
+          "balls": 8,
+          "venue": "Yeonhui Cricket Ground, Incheon",
+          "opposition": "South Korea",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-10-05",
+          "score": 4,
+          "balls": 4,
+          "venue": "Yeonhui Cricket Ground, Incheon",
+          "opposition": "South Korea",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-10-05",
+          "score": 9,
+          "balls": 8,
+          "venue": "Yeonhui Cricket Ground, Incheon",
+          "opposition": "South Korea",
+          "format": "T20",
           "team_type": "international"
         }
       ],
@@ -86604,10 +86754,10 @@
         },
         "Eden Park, Auckland": {
           "runs": 326,
-          "innings": 12,
-          "outs": 10,
+          "innings": 13,
+          "outs": 11,
           "best": 50,
-          "average": 32.6
+          "average": 29.64
         },
         "Seddon Park, Hamilton": {
           "runs": 576,
@@ -86617,11 +86767,11 @@
           "average": 48.0
         },
         "Bay Oval, Mount Maunganui": {
-          "runs": 418,
-          "innings": 6,
-          "outs": 6,
+          "runs": 425,
+          "innings": 8,
+          "outs": 8,
           "best": 87,
-          "average": 69.67
+          "average": 53.12
         },
         "The Rose Bowl, Southampton": {
           "runs": 292,
@@ -86930,6 +87080,13 @@
           "outs": 2,
           "best": 41,
           "average": 41.0
+        },
+        "Hnry Stadium, Wellington": {
+          "runs": 23,
+          "innings": 1,
+          "outs": 1,
+          "best": 23,
+          "average": 23.0
         }
       },
       "matchups": {
@@ -87041,7 +87198,7 @@
           "outs": 4,
           "strike_rate": 127.78
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 210,
           "balls": 152,
           "outs": 6,
@@ -87137,7 +87294,7 @@
           "outs": 0,
           "strike_rate": 58.82
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 34,
           "balls": 18,
           "outs": 2,
@@ -87323,7 +87480,7 @@
           "outs": 2,
           "strike_rate": 57.89
         },
-        "Abhinandan Singh": {
+        "Akash Singh": {
           "runs": 58,
           "balls": 34,
           "outs": 0,
@@ -87553,15 +87710,15 @@
         }
       },
       "career": {
-        "runs": 47045,
-        "innings": 1461,
-        "outs": 1281,
-        "balls": 42602,
+        "runs": 47075,
+        "innings": 1465,
+        "outs": 1285,
+        "balls": 42650,
         "best": 264,
         "wickets": 148,
-        "matches": 1505,
-        "average": 36.73,
-        "strike_rate": 110.43
+        "matches": 1509,
+        "average": 36.63,
+        "strike_rate": 110.38
       }
     },
     "Romario Shepherd": {
@@ -88230,7 +88387,7 @@
           "outs": 0,
           "strike_rate": 128.57
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 48,
           "balls": 36,
           "outs": 0,
@@ -89252,7 +89409,7 @@
           "outs": 0,
           "strike_rate": 75.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 0,
           "balls": 4,
           "outs": 2,
@@ -89348,7 +89505,7 @@
           "outs": 0,
           "strike_rate": 200.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 52,
           "balls": 36,
           "outs": 2,
@@ -89712,6 +89869,24 @@
     "Ruturaj Gaikwad": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 18,
+          "balls": 26,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 5,
+          "balls": 13,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-10-03",
           "score": 57,
           "balls": 69,
@@ -89764,24 +89939,6 @@
           "opposition": "West Indies",
           "format": "ODI",
           "team_type": "international"
-        },
-        {
-          "date": "2026-05-21",
-          "score": 16,
-          "balls": 7,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Gujarat Titans",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2026-05-21",
-          "score": 16,
-          "balls": 7,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Gujarat Titans",
-          "format": "T20",
-          "team_type": "club"
         }
       ],
       "venues": {
@@ -90016,6 +90173,13 @@
           "best": 8,
           "average": 8.0
         },
+        "Bay Oval, Mount Maunganui": {
+          "runs": 23,
+          "innings": 2,
+          "outs": 2,
+          "best": 18,
+          "average": 11.5
+        },
         "Palam A Ground, Model Sports Complex, Delhi": {
           "runs": 91,
           "innings": 3,
@@ -90239,7 +90403,7 @@
           "outs": 2,
           "strike_rate": 130.77
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 85,
           "balls": 62,
           "outs": 6,
@@ -90401,7 +90565,7 @@
           "outs": 0,
           "strike_rate": 50.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 54,
           "balls": 74,
           "outs": 6,
@@ -90529,15 +90693,15 @@
         }
       },
       "career": {
-        "runs": 8734,
-        "innings": 264,
-        "outs": 229,
-        "balls": 6616,
+        "runs": 8757,
+        "innings": 266,
+        "outs": 231,
+        "balls": 6655,
         "best": 123,
         "wickets": 0,
-        "matches": 264,
-        "average": 38.14,
-        "strike_rate": 132.01
+        "matches": 266,
+        "average": 37.91,
+        "strike_rate": 131.59
       }
     },
     "Ryan Burl": {
@@ -91784,7 +91948,7 @@
           "outs": 0,
           "strike_rate": 116.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 24,
           "balls": 50,
           "outs": 0,
@@ -92773,76 +92937,76 @@
     "Sandeep Sharma": {
       "recent_scores": [
         {
-          "date": "2025-04-09",
-          "score": 6,
-          "balls": 5,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Gujarat Titans",
+          "date": "2026-04-05",
+          "score": 3,
+          "balls": 7,
+          "venue": "Reforma Athletic Club, Naucalpan",
+          "opposition": "Brazil",
           "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
         },
         {
-          "date": "2025-04-09",
-          "score": 6,
-          "balls": 5,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Gujarat Titans",
+          "date": "2026-04-05",
+          "score": 3,
+          "balls": 7,
+          "venue": "Reforma Athletic Club, Naucalpan",
+          "opposition": "Brazil",
           "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
         },
         {
-          "date": "2023-05-14",
+          "date": "2026-04-03",
+          "score": 21,
+          "balls": 16,
+          "venue": "Reforma Athletic Club, Naucalpan",
+          "opposition": "Brazil",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-04-03",
+          "score": 21,
+          "balls": 16,
+          "venue": "Reforma Athletic Club, Naucalpan",
+          "opposition": "Brazil",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-03-15",
+          "score": 3,
+          "balls": 3,
+          "venue": "Jimmy Powell Oval, Cayman Islands",
+          "opposition": "Suriname",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-03-15",
+          "score": 3,
+          "balls": 3,
+          "venue": "Jimmy Powell Oval, Cayman Islands",
+          "opposition": "Suriname",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-03-14",
           "score": 0,
           "balls": 1,
-          "venue": "Sawai Mansingh Stadium, Jaipur",
-          "opposition": "Royal Challengers Bengaluru",
+          "venue": "Jimmy Powell Oval, Cayman Islands",
+          "opposition": "Argentina",
           "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
         },
         {
-          "date": "2023-05-14",
+          "date": "2026-03-14",
           "score": 0,
           "balls": 1,
-          "venue": "Sawai Mansingh Stadium, Jaipur",
-          "opposition": "Royal Challengers Bengaluru",
+          "venue": "Jimmy Powell Oval, Cayman Islands",
+          "opposition": "Argentina",
           "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2023-05-05",
-          "score": 2,
-          "balls": 5,
-          "venue": "Sawai Mansingh Stadium, Jaipur",
-          "opposition": "Gujarat Titans",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2023-05-05",
-          "score": 2,
-          "balls": 5,
-          "venue": "Sawai Mansingh Stadium, Jaipur",
-          "opposition": "Gujarat Titans",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2021-09-22",
-          "score": 0,
-          "balls": 1,
-          "venue": "Dubai International Cricket Stadium",
-          "opposition": "Delhi Capitals",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2021-09-22",
-          "score": 0,
-          "balls": 1,
-          "venue": "Dubai International Cricket Stadium",
-          "opposition": "Delhi Capitals",
-          "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
         }
       ],
       "venues": {
@@ -92951,12 +93115,54 @@
           "best": 1,
           "average": 2.0
         },
+        "Jimmy Powell Oval, Cayman Islands": {
+          "runs": 6,
+          "innings": 6,
+          "outs": 4,
+          "best": 3,
+          "average": 1.5
+        },
+        "Reforma Athletic Club, Naucalpan": {
+          "runs": 48,
+          "innings": 4,
+          "outs": 4,
+          "best": 21,
+          "average": 12.0
+        },
+        "Galle International Stadium": {
+          "runs": 8,
+          "innings": 2,
+          "outs": 2,
+          "best": 4,
+          "average": 4.0
+        },
+        "Guanggong International Cricket Stadium": {
+          "runs": 2,
+          "innings": 2,
+          "outs": 2,
+          "best": 1,
+          "average": 1.0
+        },
+        "Sylhet International Cricket Stadium": {
+          "runs": 6,
+          "innings": 4,
+          "outs": 4,
+          "best": 2,
+          "average": 1.5
+        },
         "Harare Sports Club": {
           "runs": 2,
           "innings": 2,
           "outs": 0,
           "best": 1,
           "average": 2.0
+        },
+        "Brabourne Stadium, Mumbai": {
+          "runs": 8,
+          "innings": 2,
+          "outs": 2,
+          "best": 4,
+          "average": 4.0
         },
         "Jadavpur University Campus 2nd Ground, Kolkata": {
           "runs": 6,
@@ -93060,7 +93266,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 2,
           "balls": 3,
           "outs": 0,
@@ -93068,15 +93274,15 @@
         }
       },
       "career": {
-        "runs": 142,
-        "innings": 60,
-        "outs": 13,
-        "balls": 176,
-        "best": 9,
-        "wickets": 328,
-        "matches": 314,
-        "average": 10.92,
-        "strike_rate": 80.68
+        "runs": 220,
+        "innings": 80,
+        "outs": 31,
+        "balls": 274,
+        "best": 21,
+        "wickets": 354,
+        "matches": 342,
+        "average": 7.1,
+        "strike_rate": 80.29
       }
     },
     "Sanju Samson": {
@@ -93374,7 +93580,7 @@
           "outs": 0,
           "strike_rate": 50.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 8,
           "balls": 12,
           "outs": 0,
@@ -94018,7 +94224,7 @@
           "outs": 2,
           "strike_rate": 105.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 6,
           "balls": 20,
           "outs": 0,
@@ -95240,7 +95446,7 @@
           "outs": 5,
           "strike_rate": 90.91
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 64,
           "balls": 46,
           "outs": 0,
@@ -96477,7 +96683,7 @@
           "outs": 3,
           "strike_rate": 70.37
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 4,
           "balls": 6,
           "outs": 0,
@@ -96501,7 +96707,7 @@
           "outs": 4,
           "strike_rate": 50.0
         },
-        "Abhinandan Singh": {
+        "Akash Singh": {
           "runs": 12,
           "balls": 6,
           "outs": 2,
@@ -96699,7 +96905,7 @@
           "outs": 0,
           "strike_rate": 172.73
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 28,
           "balls": 28,
           "outs": 2,
@@ -97758,7 +97964,7 @@
           "outs": 0,
           "strike_rate": 241.67
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 48,
           "balls": 28,
           "outs": 0,
@@ -98594,7 +98800,7 @@
           "outs": 0,
           "strike_rate": 60.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 86,
           "balls": 44,
           "outs": 2,
@@ -98846,7 +99052,7 @@
           "outs": 2,
           "strike_rate": 85.71
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 46,
           "balls": 44,
           "outs": 0,
@@ -99833,7 +100039,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 6,
           "outs": 0,
@@ -100283,6 +100489,42 @@
     "Shreyas Iyer": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 22,
+          "balls": 26,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 0,
+          "balls": 1,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-07",
+          "score": 30,
+          "balls": 46,
+          "venue": "Hnry Stadium, Wellington",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-04",
+          "score": 15,
+          "balls": 13,
+          "venue": "Eden Park, Auckland",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-11-01",
           "score": 50,
           "balls": 23,
@@ -100314,42 +100556,6 @@
           "score": 22,
           "balls": 11,
           "venue": "Eden Park, Auckland",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-27",
-          "score": 5,
-          "balls": 10,
-          "venue": "Hnry Stadium, Wellington",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-27",
-          "score": 5,
-          "balls": 10,
-          "venue": "Hnry Stadium, Wellington",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-24",
-          "score": 7,
-          "balls": 11,
-          "venue": "Hagley Oval, Christchurch",
-          "opposition": "New Zealand",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-24",
-          "score": 7,
-          "balls": 11,
-          "venue": "Hagley Oval, Christchurch",
           "opposition": "New Zealand",
           "format": "T20",
           "team_type": "international"
@@ -100546,18 +100752,18 @@
           "average": 32.67
         },
         "Hnry Stadium, Wellington": {
-          "runs": 10,
-          "innings": 2,
-          "outs": 2,
-          "best": 5,
-          "average": 5.0
+          "runs": 40,
+          "innings": 3,
+          "outs": 3,
+          "best": 30,
+          "average": 13.33
         },
         "Eden Park, Auckland": {
-          "runs": 512,
-          "innings": 10,
-          "outs": 8,
+          "runs": 527,
+          "innings": 11,
+          "outs": 9,
           "best": 80,
-          "average": 64.0
+          "average": 58.56
         },
         "Seddon Park, Hamilton": {
           "runs": 340,
@@ -100602,11 +100808,11 @@
           "average": 1.0
         },
         "Bay Oval, Mount Maunganui": {
-          "runs": 216,
-          "innings": 6,
-          "outs": 4,
+          "runs": 238,
+          "innings": 8,
+          "outs": 6,
           "best": 62,
-          "average": 54.0
+          "average": 39.67
         },
         "Sydney Cricket Ground": {
           "runs": 104,
@@ -100886,7 +101092,7 @@
           "outs": 6,
           "strike_rate": 90.2
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 88,
           "balls": 60,
           "outs": 2,
@@ -100946,7 +101152,7 @@
           "outs": 0,
           "strike_rate": 288.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 106,
           "balls": 112,
           "outs": 12,
@@ -101512,15 +101718,15 @@
         }
       },
       "career": {
-        "runs": 19329,
-        "innings": 606,
-        "outs": 514,
-        "balls": 15695,
+        "runs": 19396,
+        "innings": 610,
+        "outs": 518,
+        "balls": 15781,
         "best": 147,
         "wickets": 1,
-        "matches": 604,
-        "average": 37.61,
-        "strike_rate": 123.15
+        "matches": 608,
+        "average": 37.44,
+        "strike_rate": 122.91
       }
     },
     "Shubham Dubey": {
@@ -101542,6 +101748,24 @@
     "Shubman Gill": {
       "recent_scores": [
         {
+          "date": "2026-11-07",
+          "score": 0,
+          "balls": 1,
+          "venue": "Hnry Stadium, Wellington",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-04",
+          "score": 37,
+          "balls": 56,
+          "venue": "Eden Park, Auckland",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-10-03",
           "score": 1,
           "balls": 6,
@@ -101593,24 +101817,6 @@
           "venue": "Greenfield International Stadium, Thiruvananthapuram",
           "opposition": "West Indies",
           "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-19",
-          "score": 22,
-          "balls": 28,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Uganda",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-19",
-          "score": 22,
-          "balls": 28,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Uganda",
-          "format": "T20",
           "team_type": "international"
         }
       ],
@@ -101959,11 +102165,11 @@
           "average": 102.5
         },
         "Eden Park, Auckland": {
-          "runs": 100,
-          "innings": 2,
-          "outs": 2,
+          "runs": 137,
+          "innings": 3,
+          "outs": 3,
           "best": 50,
-          "average": 50.0
+          "average": 45.67
         },
         "Hagley Oval, Christchurch": {
           "runs": 26,
@@ -102063,6 +102269,13 @@
           "best": 77,
           "average": 77.0
         },
+        "Hnry Stadium, Wellington": {
+          "runs": 0,
+          "innings": 1,
+          "outs": 1,
+          "best": 0,
+          "average": 0.0
+        },
         "Emerald High School Ground, Indore": {
           "runs": 34,
           "innings": 3,
@@ -102137,7 +102350,7 @@
           "outs": 2,
           "strike_rate": 147.96
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 64,
           "balls": 76,
           "outs": 8,
@@ -102221,7 +102434,7 @@
           "outs": 2,
           "strike_rate": 210.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 144,
           "balls": 101,
           "outs": 0,
@@ -102727,15 +102940,15 @@
         }
       },
       "career": {
-        "runs": 19357,
-        "innings": 532,
-        "outs": 455,
-        "balls": 15701,
+        "runs": 19394,
+        "innings": 534,
+        "outs": 457,
+        "balls": 15758,
         "best": 223,
         "wickets": 88,
-        "matches": 546,
-        "average": 42.54,
-        "strike_rate": 123.29
+        "matches": 548,
+        "average": 42.44,
+        "strike_rate": 123.07
       }
     },
     "Sijde van Tilburg": {
@@ -103422,7 +103635,7 @@
           "outs": 0,
           "strike_rate": 0.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -103500,7 +103713,7 @@
           "outs": 8,
           "strike_rate": 110.7
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 16,
           "balls": 21,
           "outs": 2,
@@ -103942,86 +104155,79 @@
     "Simi Singh": {
       "recent_scores": [
         {
-          "date": "2026-09-19",
-          "score": 8,
+          "date": "2023-08-03",
+          "score": 2,
+          "balls": 4,
+          "venue": "Pembroke Cricket Club, Sandymount, Dublin",
+          "opposition": "Northern Knights",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2023-08-01",
+          "score": 7,
+          "balls": 6,
+          "venue": "Pembroke Cricket Club, Sandymount, Dublin",
+          "opposition": "Munster Reds",
+          "format": "T20",
+          "team_type": "club"
+        },
+        {
+          "date": "2022-10-23",
+          "score": 7,
           "balls": 8,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Uganda",
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "Sri Lanka",
           "format": "T20",
           "team_type": "international"
         },
         {
-          "date": "2026-09-19",
-          "score": 8,
+          "date": "2022-10-23",
+          "score": 7,
           "balls": 8,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Uganda",
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "Sri Lanka",
           "format": "T20",
           "team_type": "international"
         },
         {
-          "date": "2026-09-18",
-          "score": 4,
-          "balls": 9,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Uganda",
+          "date": "2022-10-17",
+          "score": 0,
+          "balls": 1,
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "Zimbabwe",
           "format": "T20",
           "team_type": "international"
         },
         {
-          "date": "2026-09-18",
-          "score": 4,
-          "balls": 9,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Uganda",
+          "date": "2022-10-17",
+          "score": 0,
+          "balls": 1,
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "Zimbabwe",
           "format": "T20",
           "team_type": "international"
         },
         {
-          "date": "2026-09-17",
-          "score": 16,
-          "balls": 9,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Botswana",
+          "date": "2022-07-29",
+          "score": 9,
+          "balls": 13,
+          "venue": "Pembroke Cricket Club, Sandymount, Dublin",
+          "opposition": "Northern Knights",
           "format": "T20",
-          "team_type": "international"
+          "team_type": "club"
         },
         {
-          "date": "2026-09-17",
-          "score": 16,
-          "balls": 9,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Botswana",
+          "date": "2022-07-28",
+          "score": 9,
+          "balls": 11,
+          "venue": "Pembroke Cricket Club, Sandymount, Dublin",
+          "opposition": "North-West Warriors",
           "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-15",
-          "score": 57,
-          "balls": 26,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Rwanda",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-15",
-          "score": 57,
-          "balls": 26,
-          "venue": "Gahanga International Cricket Stadium",
-          "opposition": "Rwanda",
-          "format": "T20",
-          "team_type": "international"
+          "team_type": "club"
         }
       ],
       "venues": {
-        "Gahanga International Cricket Stadium": {
-          "runs": 206,
-          "innings": 10,
-          "outs": 8,
-          "best": 57,
-          "average": 25.75
-        },
         "Malahide Cricket Ground, Dublin": {
           "runs": 332,
           "innings": 16,
@@ -104051,13 +104257,6 @@
           "average": 3.43
         },
         "Dubai International Cricket Stadium": {
-          "runs": 0,
-          "innings": 2,
-          "outs": 2,
-          "best": 0,
-          "average": 0.0
-        },
-        "La Manga Club Bottom Ground": {
           "runs": 0,
           "innings": 2,
           "outs": 2,
@@ -104113,13 +104312,6 @@
           "best": 45,
           "average": 25.0
         },
-        "Integrated Polytechnic Regional Centre, Kigali": {
-          "runs": 96,
-          "innings": 4,
-          "outs": 4,
-          "best": 31,
-          "average": 24.0
-        },
         "Central Broward Regional Park Stadium Turf Ground, Lauderhill": {
           "runs": 26,
           "innings": 2,
@@ -104141,96 +104333,19 @@
           "best": 9,
           "average": 18.0
         },
-        "Gymkhana Club Ground, Nairobi": {
-          "runs": 248,
-          "innings": 24,
-          "outs": 18,
-          "best": 37,
-          "average": 13.78
-        },
-        "Willowmoore Park, Benoni": {
-          "runs": 146,
-          "innings": 6,
-          "outs": 4,
-          "best": 42,
-          "average": 36.5
-        },
-        "United Cricket Club Ground, Windhoek": {
-          "runs": 46,
-          "innings": 4,
-          "outs": 4,
-          "best": 15,
-          "average": 11.5
-        },
-        "Achimota Senior Secondary School B Field, Accra": {
-          "runs": 40,
-          "innings": 4,
-          "outs": 2,
-          "best": 19,
-          "average": 20.0
-        },
-        "Achimota Senior Secondary School A Field, Accra": {
-          "runs": 52,
-          "innings": 4,
-          "outs": 4,
-          "best": 14,
-          "average": 13.0
-        },
-        "Sikh Union Club Ground, Nairobi": {
-          "runs": 374,
-          "innings": 18,
-          "outs": 16,
-          "best": 54,
-          "average": 23.38
-        },
-        "Entebbe Cricket Oval": {
-          "runs": 102,
-          "innings": 10,
-          "outs": 10,
-          "best": 31,
-          "average": 10.2
-        },
-        "Harare Sports Club": {
-          "runs": 98,
-          "innings": 8,
-          "outs": 8,
-          "best": 34,
-          "average": 12.25
-        },
-        "Takashinga Sports Club, Highfield, Harare": {
-          "runs": 0,
-          "innings": 2,
-          "outs": 2,
-          "best": 0,
-          "average": 0.0
-        },
-        "Botswana Cricket Association Oval 1, Gaborone": {
-          "runs": 0,
-          "innings": 2,
-          "outs": 2,
-          "best": 0,
-          "average": 0.0
-        },
-        "Botswana Cricket Association Oval 2, Gaborone": {
-          "runs": 44,
-          "innings": 4,
-          "outs": 2,
-          "best": 12,
-          "average": 22.0
-        },
-        "Gahanga B Ground": {
-          "runs": 94,
-          "innings": 6,
-          "outs": 4,
-          "best": 45,
-          "average": 23.5
-        },
         "Old Hararians, Harare": {
           "runs": 2,
           "innings": 2,
           "outs": 2,
           "best": 1,
           "average": 1.0
+        },
+        "Harare Sports Club": {
+          "runs": 14,
+          "innings": 2,
+          "outs": 2,
+          "best": 7,
+          "average": 7.0
         },
         "The Rose Bowl, Southampton": {
           "runs": 50,
@@ -104327,7 +104442,7 @@
           "outs": 0,
           "strike_rate": 75.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 6,
           "outs": 0,
@@ -104351,30 +104466,6 @@
           "outs": 0,
           "strike_rate": 50.0
         },
-        "Blessing Muzarabani": {
-          "runs": 22,
-          "balls": 22,
-          "outs": 2,
-          "strike_rate": 100.0
-        },
-        "Trevor Gwandu": {
-          "runs": 2,
-          "balls": 8,
-          "outs": 0,
-          "strike_rate": 25.0
-        },
-        "Sikandar Raza": {
-          "runs": 6,
-          "balls": 8,
-          "outs": 0,
-          "strike_rate": 75.0
-        },
-        "Sean Williams": {
-          "runs": 10,
-          "balls": 12,
-          "outs": 0,
-          "strike_rate": 83.33
-        },
         "Saqib Mahmood": {
           "runs": 24,
           "balls": 16,
@@ -104392,6 +104483,12 @@
           "balls": 14,
           "outs": 0,
           "strike_rate": 171.43
+        },
+        "Blessing Muzarabani": {
+          "runs": 4,
+          "balls": 10,
+          "outs": 2,
+          "strike_rate": 40.0
         },
         "Fionn Hand": {
           "runs": 50,
@@ -104413,15 +104510,15 @@
         }
       },
       "career": {
-        "runs": 3391,
-        "innings": 228,
-        "outs": 186,
-        "balls": 3329,
+        "runs": 1859,
+        "innings": 122,
+        "outs": 98,
+        "balls": 1863,
         "best": 100,
         "wickets": 171,
-        "matches": 263,
-        "average": 18.23,
-        "strike_rate": 101.86
+        "matches": 155,
+        "average": 18.97,
+        "strike_rate": 99.79
       }
     },
     "Smaran Ravichandran": {
@@ -104835,13 +104932,6 @@
           "best": 43,
           "average": 27.0
         },
-        "Bir Sreshtho Flight Lieutenant Matiur Rahman Stadium, Chattogram": {
-          "runs": 100,
-          "innings": 6,
-          "outs": 6,
-          "best": 18,
-          "average": 16.67
-        },
         "Himachal Pradesh Cricket Association Stadium, Dharamsala": {
           "runs": 94,
           "innings": 6,
@@ -104869,6 +104959,13 @@
           "outs": 9,
           "best": 43,
           "average": 19.11
+        },
+        "Bir Sreshtho Flight Lieutenant Matiur Rahman Stadium, Chattogram": {
+          "runs": 100,
+          "innings": 6,
+          "outs": 6,
+          "best": 18,
+          "average": 16.67
         },
         "The Oval": {
           "runs": 196,
@@ -105148,7 +105245,7 @@
           "outs": 2,
           "strike_rate": 91.3
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 52,
           "balls": 24,
           "outs": 0,
@@ -106289,7 +106386,7 @@
           "outs": 1,
           "strike_rate": 136.84
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 52,
           "balls": 46,
           "outs": 0,
@@ -106505,7 +106602,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 134,
           "balls": 80,
           "outs": 6,
@@ -107018,7 +107115,7 @@
           "outs": 0,
           "strike_rate": 400.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 10,
           "balls": 8,
           "outs": 0,
@@ -107096,210 +107193,94 @@
       }
     },
     "Suyash Sharma": {
-      "recent_scores": [
-        {
-          "date": "2026-04-05",
-          "score": 3,
-          "balls": 7,
-          "venue": "Reforma Athletic Club, Naucalpan",
-          "opposition": "Brazil",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-04-05",
-          "score": 3,
-          "balls": 7,
-          "venue": "Reforma Athletic Club, Naucalpan",
-          "opposition": "Brazil",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-04-03",
-          "score": 21,
-          "balls": 16,
-          "venue": "Reforma Athletic Club, Naucalpan",
-          "opposition": "Brazil",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-04-03",
-          "score": 21,
-          "balls": 16,
-          "venue": "Reforma Athletic Club, Naucalpan",
-          "opposition": "Brazil",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-03-15",
-          "score": 3,
-          "balls": 3,
-          "venue": "Jimmy Powell Oval, Cayman Islands",
-          "opposition": "Suriname",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-03-15",
-          "score": 3,
-          "balls": 3,
-          "venue": "Jimmy Powell Oval, Cayman Islands",
-          "opposition": "Suriname",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-03-14",
-          "score": 0,
-          "balls": 1,
-          "venue": "Jimmy Powell Oval, Cayman Islands",
-          "opposition": "Argentina",
-          "format": "T20",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-03-14",
-          "score": 0,
-          "balls": 1,
-          "venue": "Jimmy Powell Oval, Cayman Islands",
-          "opposition": "Argentina",
-          "format": "T20",
-          "team_type": "international"
-        }
-      ],
-      "venues": {
-        "Jimmy Powell Oval, Cayman Islands": {
-          "runs": 6,
-          "innings": 6,
-          "outs": 4,
-          "best": 3,
-          "average": 1.5
-        },
-        "Reforma Athletic Club, Naucalpan": {
-          "runs": 48,
-          "innings": 4,
-          "outs": 4,
-          "best": 21,
-          "average": 12.0
-        },
-        "Galle International Stadium": {
-          "runs": 8,
-          "innings": 2,
-          "outs": 2,
-          "best": 4,
-          "average": 4.0
-        },
-        "Guanggong International Cricket Stadium": {
-          "runs": 2,
-          "innings": 2,
-          "outs": 2,
-          "best": 1,
-          "average": 1.0
-        },
-        "Sylhet International Cricket Stadium": {
-          "runs": 6,
-          "innings": 4,
-          "outs": 4,
-          "best": 2,
-          "average": 1.5
-        },
-        "Brabourne Stadium, Mumbai": {
-          "runs": 8,
-          "innings": 2,
-          "outs": 2,
-          "best": 4,
-          "average": 4.0
-        }
-      },
+      "recent_scores": [],
+      "venues": {},
       "matchups": {},
       "career": {
-        "runs": 78,
-        "innings": 20,
-        "outs": 18,
-        "balls": 98,
-        "best": 21,
-        "wickets": 94,
-        "matches": 112,
-        "average": 4.33,
-        "strike_rate": 79.59
+        "runs": 0,
+        "innings": 0,
+        "outs": 0,
+        "balls": 0,
+        "best": 0,
+        "wickets": 68,
+        "matches": 84,
+        "average": 0.0,
+        "strike_rate": 0.0
       }
     },
     "Swapnil Singh": {
       "recent_scores": [
         {
-          "date": "2024-05-22",
-          "score": 9,
-          "balls": 4,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Rajasthan Royals",
+          "date": "2026-09-19",
+          "score": 8,
+          "balls": 8,
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Uganda",
           "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
         },
         {
-          "date": "2024-05-22",
-          "score": 9,
-          "balls": 4,
-          "venue": "Narendra Modi Stadium, Ahmedabad",
-          "opposition": "Rajasthan Royals",
+          "date": "2026-09-19",
+          "score": 8,
+          "balls": 8,
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Uganda",
           "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
         },
         {
-          "date": "2024-05-12",
-          "score": 0,
-          "balls": 1,
-          "venue": "M Chinnaswamy Stadium, Bengaluru",
-          "opposition": "Delhi Capitals",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2024-05-12",
-          "score": 0,
-          "balls": 1,
-          "venue": "M Chinnaswamy Stadium, Bengaluru",
-          "opposition": "Delhi Capitals",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2024-05-09",
-          "score": 1,
-          "balls": 1,
-          "venue": "Himachal Pradesh Cricket Association Stadium, Dharamsala",
-          "opposition": "Punjab Kings",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2024-05-09",
-          "score": 1,
-          "balls": 1,
-          "venue": "Himachal Pradesh Cricket Association Stadium, Dharamsala",
-          "opposition": "Punjab Kings",
-          "format": "T20",
-          "team_type": "club"
-        },
-        {
-          "date": "2024-05-04",
-          "score": 15,
+          "date": "2026-09-18",
+          "score": 4,
           "balls": 9,
-          "venue": "M Chinnaswamy Stadium, Bengaluru",
-          "opposition": "Gujarat Titans",
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Uganda",
           "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
         },
         {
-          "date": "2024-05-04",
-          "score": 15,
+          "date": "2026-09-18",
+          "score": 4,
           "balls": 9,
-          "venue": "M Chinnaswamy Stadium, Bengaluru",
-          "opposition": "Gujarat Titans",
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Uganda",
           "format": "T20",
-          "team_type": "club"
+          "team_type": "international"
+        },
+        {
+          "date": "2026-09-17",
+          "score": 16,
+          "balls": 9,
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Botswana",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-09-17",
+          "score": 16,
+          "balls": 9,
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Botswana",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-09-15",
+          "score": 57,
+          "balls": 26,
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Rwanda",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-09-15",
+          "score": 57,
+          "balls": 26,
+          "venue": "Gahanga International Cricket Stadium",
+          "opposition": "Rwanda",
+          "format": "T20",
+          "team_type": "international"
         }
       ],
       "venues": {
@@ -107351,6 +107332,111 @@
           "outs": 2,
           "best": 0,
           "average": 0.0
+        },
+        "Gahanga International Cricket Stadium": {
+          "runs": 206,
+          "innings": 10,
+          "outs": 8,
+          "best": 57,
+          "average": 25.75
+        },
+        "La Manga Club Bottom Ground": {
+          "runs": 0,
+          "innings": 2,
+          "outs": 2,
+          "best": 0,
+          "average": 0.0
+        },
+        "Integrated Polytechnic Regional Centre, Kigali": {
+          "runs": 96,
+          "innings": 4,
+          "outs": 4,
+          "best": 31,
+          "average": 24.0
+        },
+        "Gymkhana Club Ground, Nairobi": {
+          "runs": 248,
+          "innings": 24,
+          "outs": 18,
+          "best": 37,
+          "average": 13.78
+        },
+        "Willowmoore Park, Benoni": {
+          "runs": 146,
+          "innings": 6,
+          "outs": 4,
+          "best": 42,
+          "average": 36.5
+        },
+        "United Cricket Club Ground, Windhoek": {
+          "runs": 46,
+          "innings": 4,
+          "outs": 4,
+          "best": 15,
+          "average": 11.5
+        },
+        "Achimota Senior Secondary School B Field, Accra": {
+          "runs": 40,
+          "innings": 4,
+          "outs": 2,
+          "best": 19,
+          "average": 20.0
+        },
+        "Achimota Senior Secondary School A Field, Accra": {
+          "runs": 52,
+          "innings": 4,
+          "outs": 4,
+          "best": 14,
+          "average": 13.0
+        },
+        "Sikh Union Club Ground, Nairobi": {
+          "runs": 374,
+          "innings": 18,
+          "outs": 16,
+          "best": 54,
+          "average": 23.38
+        },
+        "Entebbe Cricket Oval": {
+          "runs": 102,
+          "innings": 10,
+          "outs": 10,
+          "best": 31,
+          "average": 10.2
+        },
+        "Harare Sports Club": {
+          "runs": 84,
+          "innings": 6,
+          "outs": 6,
+          "best": 34,
+          "average": 14.0
+        },
+        "Takashinga Sports Club, Highfield, Harare": {
+          "runs": 0,
+          "innings": 2,
+          "outs": 2,
+          "best": 0,
+          "average": 0.0
+        },
+        "Botswana Cricket Association Oval 1, Gaborone": {
+          "runs": 0,
+          "innings": 2,
+          "outs": 2,
+          "best": 0,
+          "average": 0.0
+        },
+        "Botswana Cricket Association Oval 2, Gaborone": {
+          "runs": 44,
+          "innings": 4,
+          "outs": 2,
+          "best": 12,
+          "average": 22.0
+        },
+        "Gahanga B Ground": {
+          "runs": 94,
+          "innings": 6,
+          "outs": 4,
+          "best": 45,
+          "average": 23.5
         },
         "Saurashtra Cricket Association Stadium, Rajkot": {
           "runs": 119,
@@ -107469,7 +107555,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 22,
           "balls": 10,
           "outs": 2,
@@ -107492,6 +107578,30 @@
           "balls": 6,
           "outs": 0,
           "strike_rate": 266.67
+        },
+        "Blessing Muzarabani": {
+          "runs": 18,
+          "balls": 12,
+          "outs": 0,
+          "strike_rate": 150.0
+        },
+        "Trevor Gwandu": {
+          "runs": 2,
+          "balls": 8,
+          "outs": 0,
+          "strike_rate": 25.0
+        },
+        "Sikandar Raza": {
+          "runs": 6,
+          "balls": 8,
+          "outs": 0,
+          "strike_rate": 75.0
+        },
+        "Sean Williams": {
+          "runs": 10,
+          "balls": 12,
+          "outs": 0,
+          "strike_rate": 83.33
         },
         "Shivam Dube": {
           "runs": 3,
@@ -107549,18 +107659,34 @@
         }
       },
       "career": {
-        "runs": 636,
-        "innings": 48,
-        "outs": 32,
-        "balls": 521,
-        "best": 50,
+        "runs": 2168,
+        "innings": 154,
+        "outs": 120,
+        "balls": 1987,
+        "best": 57,
         "wickets": 46,
-        "matches": 63,
-        "average": 19.88,
-        "strike_rate": 122.07
+        "matches": 171,
+        "average": 18.07,
+        "strike_rate": 109.11
       }
     },
     "T Natarajan": {
+      "recent_scores": [],
+      "venues": {},
+      "matchups": {},
+      "career": {
+        "runs": 0,
+        "innings": 0,
+        "outs": 0,
+        "balls": 0,
+        "best": 0,
+        "wickets": 0,
+        "matches": 0,
+        "average": 0.0,
+        "strike_rate": 0.0
+      }
+    },
+    "T. Natarajan": {
       "recent_scores": [
         {
           "date": "2026-04-11",
@@ -107657,22 +107783,6 @@
         "matches": 175,
         "average": 8.0,
         "strike_rate": 57.14
-      }
-    },
-    "T. Natarajan": {
-      "recent_scores": [],
-      "venues": {},
-      "matchups": {},
-      "career": {
-        "runs": 0,
-        "innings": 0,
-        "outs": 0,
-        "balls": 0,
-        "best": 0,
-        "wickets": 0,
-        "matches": 0,
-        "average": 0.0,
-        "strike_rate": 0.0
       }
     },
     "Tabraiz Shamsi": {
@@ -110073,7 +110183,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 8,
           "balls": 14,
           "outs": 0,
@@ -110458,7 +110568,7 @@
           "outs": 0,
           "strike_rate": 116.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 8,
           "balls": 2,
           "outs": 0,
@@ -111274,7 +111384,7 @@
           "outs": 2,
           "strike_rate": 140.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 33,
           "balls": 23,
           "outs": 1,
@@ -112031,7 +112141,7 @@
           "outs": 0,
           "strike_rate": 182.35
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 22,
           "balls": 18,
           "outs": 0,
@@ -112235,7 +112345,7 @@
           "outs": 2,
           "strike_rate": 0.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 56,
           "balls": 44,
           "outs": 4,
@@ -112493,6 +112603,51 @@
     "Tom Banton": {
       "recent_scores": [
         {
+          "date": "2026-11-24",
+          "score": 26,
+          "balls": 8,
+          "venue": "People First Stadium, Carrara",
+          "opposition": "Australia",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-21",
+          "score": 39,
+          "balls": 22,
+          "venue": "Melbourne Cricket Ground",
+          "opposition": "Australia",
+          "format": "T20",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-18",
+          "score": 44,
+          "balls": 35,
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "Australia",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-15",
+          "score": 121,
+          "balls": 99,
+          "venue": "Adelaide Oval",
+          "opposition": "Australia",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 25,
+          "balls": 27,
+          "venue": "Perth Stadium",
+          "opposition": "Australia",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-10-29",
           "score": 74,
           "balls": 75,
@@ -112515,51 +112670,6 @@
           "score": 4,
           "balls": 5,
           "venue": "Gaddafi Stadium, Lahore",
-          "opposition": "Pakistan",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-25",
-          "score": 4,
-          "balls": 5,
-          "venue": "Gaddafi Stadium, Lahore",
-          "opposition": "Pakistan",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-22",
-          "score": 50,
-          "balls": 51,
-          "venue": "Rawalpindi Cricket Stadium",
-          "opposition": "Sri Lanka",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-22",
-          "score": 50,
-          "balls": 51,
-          "venue": "Rawalpindi Cricket Stadium",
-          "opposition": "Sri Lanka",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-20",
-          "score": 57,
-          "balls": 53,
-          "venue": "Rawalpindi Cricket Stadium",
-          "opposition": "Pakistan",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-10-20",
-          "score": 57,
-          "balls": 53,
-          "venue": "Rawalpindi Cricket Stadium",
           "opposition": "Pakistan",
           "format": "ODI",
           "team_type": "international"
@@ -112692,6 +112802,20 @@
           "best": 33,
           "average": 18.0
         },
+        "Melbourne Cricket Ground": {
+          "runs": 39,
+          "innings": 1,
+          "outs": 1,
+          "best": 39,
+          "average": 39.0
+        },
+        "People First Stadium, Carrara": {
+          "runs": 26,
+          "innings": 1,
+          "outs": 0,
+          "best": 26,
+          "average": 26.0
+        },
         "Headingley": {
           "runs": 310,
           "innings": 8,
@@ -112740,6 +112864,27 @@
           "outs": 2,
           "best": 38,
           "average": 38.0
+        },
+        "Perth Stadium": {
+          "runs": 87,
+          "innings": 3,
+          "outs": 3,
+          "best": 55,
+          "average": 29.0
+        },
+        "Adelaide Oval": {
+          "runs": 121,
+          "innings": 1,
+          "outs": 1,
+          "best": 121,
+          "average": 121.0
+        },
+        "Bellerive Oval, Hobart": {
+          "runs": 52,
+          "innings": 2,
+          "outs": 2,
+          "best": 44,
+          "average": 26.0
         },
         "Uxbridge Cricket Club Ground": {
           "runs": 4,
@@ -112797,26 +112942,12 @@
           "best": 64,
           "average": 35.5
         },
-        "Bellerive Oval, Hobart": {
-          "runs": 8,
-          "innings": 1,
-          "outs": 1,
-          "best": 8,
-          "average": 8.0
-        },
         "Sydney Showground Stadium": {
           "runs": 56,
           "innings": 1,
           "outs": 1,
           "best": 56,
           "average": 56.0
-        },
-        "Perth Stadium": {
-          "runs": 62,
-          "innings": 2,
-          "outs": 2,
-          "best": 55,
-          "average": 31.0
         },
         "National Stadium, Karachi": {
           "runs": 25,
@@ -112890,10 +113021,10 @@
           "strike_rate": 33.33
         },
         "Adam Zampa": {
-          "runs": 70,
-          "balls": 46,
+          "runs": 115,
+          "balls": 76,
           "outs": 1,
-          "strike_rate": 152.17
+          "strike_rate": 151.32
         },
         "Mitchell Starc": {
           "runs": 6,
@@ -113033,6 +113164,12 @@
           "outs": 0,
           "strike_rate": 106.67
         },
+        "Jack Edwards": {
+          "runs": 21,
+          "balls": 23,
+          "outs": 1,
+          "strike_rate": 91.3
+        },
         "Dilshan Madushanka": {
           "runs": 220,
           "balls": 159,
@@ -113080,6 +113217,12 @@
           "balls": 10,
           "outs": 2,
           "strike_rate": 40.0
+        },
+        "Cooper Connolly": {
+          "runs": 3,
+          "balls": 5,
+          "outs": 0,
+          "strike_rate": 60.0
         },
         "Mohammad Nabi": {
           "runs": 39,
@@ -113227,15 +113370,15 @@
         }
       },
       "career": {
-        "runs": 7825,
-        "innings": 299,
-        "outs": 275,
-        "balls": 5721,
+        "runs": 8080,
+        "innings": 304,
+        "outs": 279,
+        "balls": 5912,
         "best": 126,
         "wickets": 0,
-        "matches": 299,
-        "average": 28.45,
-        "strike_rate": 136.78
+        "matches": 304,
+        "average": 28.96,
+        "strike_rate": 136.67
       }
     },
     "Tom Blundell": {
@@ -113590,7 +113733,7 @@
           "outs": 2,
           "strike_rate": 266.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 6,
           "outs": 0,
@@ -114447,6 +114590,33 @@
     "Travis Head": {
       "recent_scores": [
         {
+          "date": "2026-11-18",
+          "score": 4,
+          "balls": 3,
+          "venue": "Bellerive Oval, Hobart",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-15",
+          "score": 7,
+          "balls": 8,
+          "venue": "Adelaide Oval",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 0,
+          "balls": 1,
+          "venue": "Perth Stadium",
+          "opposition": "England",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-09-30",
           "score": 24,
           "balls": 20,
@@ -114488,33 +114658,6 @@
           "balls": 37,
           "venue": "Kingsmead, Durban",
           "opposition": "South Africa",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-24",
-          "score": 36,
-          "balls": 37,
-          "venue": "Kingsmead, Durban",
-          "opposition": "South Africa",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-20",
-          "score": 6,
-          "balls": 6,
-          "venue": "Harare Sports Club",
-          "opposition": "Zimbabwe",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-20",
-          "score": 6,
-          "balls": 6,
-          "venue": "Harare Sports Club",
-          "opposition": "Zimbabwe",
           "format": "ODI",
           "team_type": "international"
         }
@@ -114640,18 +114783,18 @@
           "average": 4.0
         },
         "Adelaide Oval": {
-          "runs": 1508,
-          "innings": 44,
-          "outs": 40,
+          "runs": 1515,
+          "innings": 45,
+          "outs": 41,
           "best": 128,
-          "average": 37.7
+          "average": 36.95
         },
         "Bellerive Oval, Hobart": {
-          "runs": 104,
-          "innings": 8,
-          "outs": 8,
+          "runs": 108,
+          "innings": 9,
+          "outs": 9,
           "best": 44,
-          "average": 13.0
+          "average": 12.0
         },
         "JSCA International Stadium Complex, Ranchi": {
           "runs": 18,
@@ -114844,10 +114987,10 @@
         },
         "Perth Stadium": {
           "runs": 97,
-          "innings": 7,
-          "outs": 7,
+          "innings": 8,
+          "outs": 8,
           "best": 35,
-          "average": 13.86
+          "average": 12.12
         },
         "Holkar Cricket Stadium, Indore": {
           "runs": 8,
@@ -115247,7 +115390,7 @@
           "outs": 2,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 104,
           "balls": 110,
           "outs": 4,
@@ -115513,15 +115656,15 @@
         }
       },
       "career": {
-        "runs": 14281,
-        "innings": 444,
-        "outs": 409,
-        "balls": 11077,
+        "runs": 14292,
+        "innings": 447,
+        "outs": 412,
+        "balls": 11089,
         "best": 154,
-        "wickets": 83,
-        "matches": 449,
-        "average": 34.92,
-        "strike_rate": 128.92
+        "wickets": 84,
+        "matches": 452,
+        "average": 34.69,
+        "strike_rate": 128.88
       }
     },
     "Trent Boult": {
@@ -116136,7 +116279,7 @@
           "outs": 2,
           "strike_rate": 150.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 8,
           "balls": 8,
           "outs": 0,
@@ -116604,7 +116747,7 @@
           "outs": 0,
           "strike_rate": 71.43
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 24,
           "balls": 22,
           "outs": 0,
@@ -117083,7 +117226,7 @@
           "outs": 0,
           "strike_rate": 116.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 30,
           "balls": 10,
           "outs": 0,
@@ -117648,7 +117791,7 @@
           "outs": 0,
           "strike_rate": 100.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 2,
           "balls": 2,
           "outs": 0,
@@ -118310,7 +118453,7 @@
           "outs": 0,
           "strike_rate": 350.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 24,
           "balls": 10,
           "outs": 0,
@@ -118905,7 +119048,7 @@
           "outs": 0,
           "strike_rate": 50.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 20,
           "balls": 36,
           "outs": 0,
@@ -119205,6 +119348,42 @@
     "Virat Kohli": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 5,
+          "balls": 7,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-13",
+          "score": 0,
+          "balls": 4,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-07",
+          "score": 7,
+          "balls": 7,
+          "venue": "Hnry Stadium, Wellington",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
+          "date": "2026-11-04",
+          "score": 74,
+          "balls": 51,
+          "venue": "Eden Park, Auckland",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2026-10-03",
           "score": 0,
           "balls": 1,
@@ -119237,42 +119416,6 @@
           "balls": 19,
           "venue": "Barsapara Cricket Stadium, Guwahati",
           "opposition": "West Indies",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-27",
-          "score": 139,
-          "balls": 88,
-          "venue": "Greenfield International Stadium, Thiruvananthapuram",
-          "opposition": "West Indies",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-09-27",
-          "score": 139,
-          "balls": 88,
-          "venue": "Greenfield International Stadium, Thiruvananthapuram",
-          "opposition": "West Indies",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-07-19",
-          "score": 74,
-          "balls": 60,
-          "venue": "Lord's",
-          "opposition": "England",
-          "format": "ODI",
-          "team_type": "international"
-        },
-        {
-          "date": "2026-07-19",
-          "score": 74,
-          "balls": 60,
-          "venue": "Lord's",
-          "opposition": "England",
           "format": "ODI",
           "team_type": "international"
         }
@@ -119601,11 +119744,11 @@
           "average": 96.57
         },
         "Eden Park, Auckland": {
-          "runs": 230,
-          "innings": 10,
-          "outs": 10,
-          "best": 45,
-          "average": 23.0
+          "runs": 304,
+          "innings": 11,
+          "outs": 11,
+          "best": 74,
+          "average": 27.64
         },
         "Seddon Park, Hamilton": {
           "runs": 426,
@@ -119797,11 +119940,11 @@
           "average": 84.0
         },
         "Bay Oval, Mount Maunganui": {
-          "runs": 224,
-          "innings": 6,
-          "outs": 6,
+          "runs": 229,
+          "innings": 8,
+          "outs": 8,
           "best": 60,
-          "average": 37.33
+          "average": 28.62
         },
         "Boland Park, Paarl": {
           "runs": 102,
@@ -119900,6 +120043,13 @@
           "outs": 4,
           "best": 136,
           "average": 92.0
+        },
+        "Hnry Stadium, Wellington": {
+          "runs": 7,
+          "innings": 1,
+          "outs": 1,
+          "best": 7,
+          "average": 7.0
         }
       },
       "matchups": {
@@ -119927,7 +120077,7 @@
           "outs": 14,
           "strike_rate": 156.67
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 132,
           "balls": 70,
           "outs": 2,
@@ -120005,7 +120155,7 @@
           "outs": 0,
           "strike_rate": 178.57
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 318,
           "balls": 300,
           "outs": 6,
@@ -120144,10 +120294,10 @@
           "strike_rate": 98.46
         },
         "Akash Singh": {
-          "runs": 40,
-          "balls": 26,
+          "runs": 64,
+          "balls": 38,
           "outs": 2,
-          "strike_rate": 153.85
+          "strike_rate": 168.42
         },
         "Suyash Sharma": {
           "runs": 40,
@@ -120310,12 +120460,6 @@
           "balls": 76,
           "outs": 2,
           "strike_rate": 144.74
-        },
-        "Abhinandan Singh": {
-          "runs": 24,
-          "balls": 12,
-          "outs": 0,
-          "strike_rate": 200.0
         },
         "Jayant Yadav": {
           "runs": 16,
@@ -120577,15 +120721,15 @@
         }
       },
       "career": {
-        "runs": 56604,
-        "innings": 1386,
-        "outs": 1138,
-        "balls": 51338,
+        "runs": 56690,
+        "innings": 1390,
+        "outs": 1142,
+        "balls": 51407,
         "best": 183,
         "wickets": 26,
-        "matches": 1386,
-        "average": 49.74,
-        "strike_rate": 110.26
+        "matches": 1390,
+        "average": 49.64,
+        "strike_rate": 110.28
       }
     },
     "Vishal Nishad": {
@@ -120879,7 +121023,7 @@
           "outs": 0,
           "strike_rate": 169.23
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 9,
           "balls": 4,
           "outs": 0,
@@ -121465,7 +121609,7 @@
           "outs": 6,
           "strike_rate": 114.29
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 44,
           "balls": 30,
           "outs": 4,
@@ -121597,7 +121741,7 @@
           "outs": 0,
           "strike_rate": 500.0
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 6,
           "balls": 18,
           "outs": 0,
@@ -122140,7 +122284,7 @@
           "outs": 2,
           "strike_rate": 61.54
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 42,
           "balls": 40,
           "outs": 2,
@@ -123082,6 +123226,15 @@
     "Yash Thakur": {
       "recent_scores": [
         {
+          "date": "2026-11-15",
+          "score": 0,
+          "balls": 4,
+          "venue": "Bay Oval, Mount Maunganui",
+          "opposition": "New Zealand",
+          "format": "ODI",
+          "team_type": "international"
+        },
+        {
           "date": "2021-01-17",
           "score": 1,
           "balls": 2,
@@ -123143,18 +123296,16 @@
           "opposition": "Tamil Nadu",
           "format": "T20",
           "team_type": "club"
-        },
-        {
-          "date": "2019-02-25",
-          "score": 0,
-          "balls": 1,
-          "venue": "CB Patel International Cricket Stadium, Surat",
-          "opposition": "Rajasthan",
-          "format": "T20",
-          "team_type": "club"
         }
       ],
       "venues": {
+        "Bay Oval, Mount Maunganui": {
+          "runs": 0,
+          "innings": 1,
+          "outs": 1,
+          "best": 0,
+          "average": 0.0
+        },
         "CB Patel International Cricket Stadium, Surat": {
           "runs": 0,
           "innings": 1,
@@ -123201,14 +123352,14 @@
       },
       "career": {
         "runs": 23,
-        "innings": 8,
-        "outs": 2,
-        "balls": 36,
+        "innings": 9,
+        "outs": 3,
+        "balls": 40,
         "best": 10,
-        "wickets": 110,
-        "matches": 79,
-        "average": 11.5,
-        "strike_rate": 63.89
+        "wickets": 111,
+        "matches": 80,
+        "average": 7.67,
+        "strike_rate": 57.5
       }
     },
     "Yashasvi Jaiswal": {
@@ -123641,7 +123792,7 @@
           "outs": 0,
           "strike_rate": 200.0
         },
-        "T Natarajan": {
+        "T. Natarajan": {
           "runs": 20,
           "balls": 20,
           "outs": 2,
@@ -123875,7 +124026,7 @@
           "outs": 2,
           "strike_rate": 166.67
         },
-        "Lungisani Ngidi": {
+        "Lungi Ngidi": {
           "runs": 72,
           "balls": 74,
           "outs": 2,
@@ -154601,6 +154752,17 @@
     ],
     "Pakistan||Sri Lanka": [
       {
+        "date": "2026-11-23",
+        "winner": "Sri Lanka",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Sri Lanka",
+          "Pakistan"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
+      {
         "date": "2026-10-31",
         "winner": "Pakistan",
         "format": "ODI",
@@ -159026,6 +159188,17 @@
       }
     ],
     "Bangladesh||Pakistan": [
+      {
+        "date": "2026-11-12",
+        "winner": "Pakistan",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Bangladesh",
+          "Pakistan"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
       {
         "date": "2026-10-01",
         "winner": "Pakistan",
@@ -172702,6 +172875,50 @@
       }
     ],
     "India||New Zealand": [
+      {
+        "date": "2026-11-15",
+        "winner": "India",
+        "format": "ODI",
+        "team_type": "international",
+        "teams": [
+          "India",
+          "New Zealand"
+        ],
+        "venue": "Bay Oval, Mount Maunganui"
+      },
+      {
+        "date": "2026-11-13",
+        "winner": "New Zealand",
+        "format": "ODI",
+        "team_type": "international",
+        "teams": [
+          "New Zealand",
+          "India"
+        ],
+        "venue": "Bay Oval, Mount Maunganui"
+      },
+      {
+        "date": "2026-11-07",
+        "winner": "India",
+        "format": "ODI",
+        "team_type": "international",
+        "teams": [
+          "New Zealand",
+          "India"
+        ],
+        "venue": "Hnry Stadium, Wellington"
+      },
+      {
+        "date": "2026-11-04",
+        "winner": "India",
+        "format": "ODI",
+        "team_type": "international",
+        "teams": [
+          "New Zealand",
+          "India"
+        ],
+        "venue": "Eden Park, Auckland"
+      },
       {
         "date": "2026-11-01",
         "winner": "New Zealand",
@@ -194809,6 +195026,61 @@
     ],
     "Australia||England": [
       {
+        "date": "2026-11-24",
+        "winner": "England",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Australia",
+          "England"
+        ],
+        "venue": "People First Stadium, Carrara"
+      },
+      {
+        "date": "2026-11-21",
+        "winner": "Australia",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "England",
+          "Australia"
+        ],
+        "venue": "Melbourne Cricket Ground"
+      },
+      {
+        "date": "2026-11-18",
+        "winner": "England",
+        "format": "ODI",
+        "team_type": "international",
+        "teams": [
+          "England",
+          "Australia"
+        ],
+        "venue": "Bellerive Oval, Hobart"
+      },
+      {
+        "date": "2026-11-15",
+        "winner": "England",
+        "format": "ODI",
+        "team_type": "international",
+        "teams": [
+          "England",
+          "Australia"
+        ],
+        "venue": "Adelaide Oval"
+      },
+      {
+        "date": "2026-11-13",
+        "winner": "Australia",
+        "format": "ODI",
+        "team_type": "international",
+        "teams": [
+          "England",
+          "Australia"
+        ],
+        "venue": "Perth Stadium"
+      },
+      {
         "date": "2026-07-05",
         "winner": "Australia",
         "format": "T20",
@@ -201567,6 +201839,17 @@
     ],
     "Netherlands||Scotland": [
       {
+        "date": "2026-11-20",
+        "winner": "Netherlands",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Scotland",
+          "Netherlands"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
+      {
         "date": "2026-08-30",
         "winner": "Scotland",
         "format": "ODI",
@@ -202558,6 +202841,17 @@
       }
     ],
     "Ireland||Scotland": [
+      {
+        "date": "2026-11-18",
+        "winner": "Scotland",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Ireland",
+          "Scotland"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
       {
         "date": "2026-06-13",
         "winner": "Scotland",
@@ -215089,6 +215383,17 @@
     ],
     "Pakistan||Scotland": [
       {
+        "date": "2026-11-22",
+        "winner": "Pakistan",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Scotland",
+          "Pakistan"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
+      {
         "date": "2025-04-11",
         "winner": "Pakistan",
         "format": "ODI",
@@ -215664,6 +215969,17 @@
       }
     ],
     "Ireland||Netherlands": [
+      {
+        "date": "2026-11-23",
+        "winner": "Ireland",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Ireland",
+          "Netherlands"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
       {
         "date": "2026-01-30",
         "winner": "Ireland",
@@ -218572,6 +218888,17 @@
       }
     ],
     "Pakistan||Zimbabwe": [
+      {
+        "date": "2026-11-16",
+        "winner": "Pakistan",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Pakistan",
+          "Zimbabwe"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
       {
         "date": "2026-05-15",
         "winner": "Pakistan",
@@ -230821,6 +231148,17 @@
     ],
     "Bangladesh||Netherlands": [
       {
+        "date": "2026-11-16",
+        "winner": "Netherlands",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Bangladesh",
+          "Netherlands"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
+      {
         "date": "2026-06-14",
         "winner": "Bangladesh",
         "format": "T20",
@@ -232478,6 +232816,17 @@
       }
     ],
     "Ireland||Pakistan": [
+      {
+        "date": "2026-11-20",
+        "winner": "Ireland",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Pakistan",
+          "Ireland"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
       {
         "date": "2026-05-31",
         "winner": "Ireland",
@@ -242257,6 +242606,17 @@
     ],
     "Ireland||Zimbabwe": [
       {
+        "date": "2026-11-22",
+        "winner": "Ireland",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Zimbabwe",
+          "Ireland"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
+      {
         "date": "2025-07-28",
         "winner": "Ireland",
         "format": "ODI",
@@ -245607,6 +245967,17 @@
     ],
     "Netherlands||Zimbabwe": [
       {
+        "date": "2026-11-18",
+        "winner": "Zimbabwe",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Zimbabwe",
+          "Netherlands"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
+      {
         "date": "2026-01-18",
         "winner": "Netherlands",
         "format": "T20",
@@ -245916,6 +246287,17 @@
       }
     ],
     "Bangladesh||Zimbabwe": [
+      {
+        "date": "2026-11-13",
+        "winner": "Bangladesh",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Zimbabwe",
+          "Bangladesh"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
       {
         "date": "2026-10-17",
         "winner": "Zimbabwe",
@@ -248649,6 +249031,17 @@
     ],
     "Scotland||Zimbabwe": [
       {
+        "date": "2026-11-23",
+        "winner": "Scotland",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Scotland",
+          "Zimbabwe"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
+      {
         "date": "2026-01-22",
         "winner": "Scotland",
         "format": "T20",
@@ -248870,6 +249263,28 @@
       }
     ],
     "Ireland||Sri Lanka": [
+      {
+        "date": "2026-11-25",
+        "winner": "Sri Lanka",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Ireland",
+          "Sri Lanka"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
+      {
+        "date": "2026-11-12",
+        "winner": "Sri Lanka",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Ireland",
+          "Sri Lanka"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
       {
         "date": "2026-06-23",
         "winner": "Sri Lanka",
@@ -249224,6 +249639,17 @@
       }
     ],
     "Netherlands||Sri Lanka": [
+      {
+        "date": "2026-11-22",
+        "winner": "Sri Lanka",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Netherlands",
+          "Sri Lanka"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
       {
         "date": "2024-06-16",
         "winner": "Sri Lanka",
@@ -249582,6 +250008,17 @@
       }
     ],
     "Scotland||Sri Lanka": [
+      {
+        "date": "2026-11-13",
+        "winner": "Sri Lanka",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Scotland",
+          "Sri Lanka"
+        ],
+        "venue": "Karwan Sports Club Cricket Ground, Ajman"
+      },
       {
         "date": "2026-06-26",
         "winner": "Sri Lanka",
@@ -250669,6 +251106,17 @@
     ],
     "Netherlands||Pakistan": [
       {
+        "date": "2026-11-15",
+        "winner": "Netherlands",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Pakistan",
+          "Netherlands"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
+      {
         "date": "2026-06-27",
         "winner": "Pakistan",
         "format": "T20",
@@ -251290,6 +251738,17 @@
       }
     ],
     "Sri Lanka||Zimbabwe": [
+      {
+        "date": "2026-11-20",
+        "winner": "Sri Lanka",
+        "format": "T20",
+        "team_type": "international",
+        "teams": [
+          "Zimbabwe",
+          "Sri Lanka"
+        ],
+        "venue": "Seven Districts Sports Club, Ajman"
+      },
       {
         "date": "2026-02-19",
         "winner": "Zimbabwe",

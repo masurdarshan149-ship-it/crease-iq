@@ -1402,7 +1402,7 @@
   }
 
   // ------------------------------------------------------------------ glass motion
-  // light follows the pointer over glass cards, and cards tilt a little; off on low-power PCs / reduce motion
+  // Small glass cards react to the pointer. Large reading panels have a steady background.
   function initGlass() {
     const lowPower = NO_MOTION || (navigator.hardwareConcurrency || 8) <= 2 || (navigator.deviceMemory || 8) <= 2
       || !(window.CSS && CSS.supports && (CSS.supports("backdrop-filter", "blur(2px)") || CSS.supports("-webkit-backdrop-filter", "blur(2px)")));
@@ -1427,7 +1427,7 @@
         new IntersectionObserver(([e]) => hero.classList.toggle("paused", !e.isIntersecting)).observe(hero);
       }
     }
-    const SEL = ".team-card, .tech, .feature, .float-card, .fd-card, .sc-card, .mp-order, .mp-turn, .result-panel, .input-panel, .panel.section, .score-card, .page-head, .hist-item";
+    const SEL = ".team-card, .tech, .feature, .float-card, .fd-card, .sc-card, .mp-order, .mp-turn";
     const TILT = ".team-card, .tech, .feature, .mp-order";
     let active = null, frame = 0, last = null;
     const paint = () => {
@@ -4620,7 +4620,7 @@
           <h3 class="sub">Look &amp; motion <button type="button" class="chip-btn" data-tune-reset="look">Reset</button></h3>
           ${sliderRow("lk-blur", "Glass blur", LOOK.blur, 0, 200, 5, "%", "How much the glass panels blur what's behind them")}
           ${sliderRow("lk-tint", "Glass tint", LOOK.tint, 30, 170, 5, "%", "Lower = clearer glass (more photo shows through)")}
-          ${sliderRow("lk-glow", "Background glow", LOOK.glow, 0, 200, 5, "%", "The drifting olive and clay glow behind the page")}
+          ${sliderRow("lk-glow", "Background glow", LOOK.glow, 0, 200, 5, "%", "The soft olive and clay glow behind the page")}
           ${sliderRow("lk-sat", "Photo colour", LOOK.sat, 50, 160, 5, "%", "Saturation of every photo")}
           ${sliderRow("lk-bri", "Photo brightness", LOOK.bri, 70, 130, 5, "%")}
           <div class="tune-row"><span>Motion</span><span class="tune-seg" id="lk-motion">
@@ -4752,16 +4752,7 @@
           <p class="muted small">Rebuilds the training data, retrains every model, re-tests them on unseen matches and updates the <a href="#accuracy">accuracy page</a>. Takes about a minute.</p>
         </article>
       </div>
-      ${liveResultsHTML(s.live)}
-      <section class="panel section">
-        <h2>How it works</h2>
-        <ol class="how" style="margin-top:14px">
-          <li>Cricsheet publishes every ball of every recorded match. The app downloads the IPL, T20 international and ODI files.</li>
-          <li>The training step replays each match in date order and records the situation after every over, using only what was known at that moment.</li>
-          <li>Several models learn from matches before 2024, are tuned on 2024, then sit an exam on everything since. The best-balanced one powers the Predict tab.</li>
-          <li>Venue par scores, team ratings and player records shown in the app come from the same data, so they refresh with every retrain.</li>
-        </ol>
-      </section>`;
+      ${liveResultsHTML(s.live)}`;
     $("#update-btn").addEventListener("click", async () => { await api("/api/update-all", {}).catch((e) => toast(e.message)); toast("Update started"); loadData(); });
     $("#live-check")?.addEventListener("click", async (e) => {
       e.currentTarget.disabled = true; e.currentTarget.textContent = "Checking…";
@@ -5647,11 +5638,9 @@
     }
   })();
 
-  // ================= 3. the 3D cricket ball on Home =================
-  // A real 3D ball (Three.js, loaded only for Home): red leather, a raised cream seam with stitching, a warm gold key
-  // light and a cool rim light. It turns slowly with the seam tumbling, spins when you drag it, and tilts with an
-  // Android phone. Phones that are too slow, "reduce motion" or data saver get a still CSS ball instead. Paused when
-  // it's off screen, on another page or in a background tab.
+  // ================= 3. the 3D cricket ball in Data → How it works =================
+  // Three.js loads when the ball comes into view. Drag to inspect it; otherwise it sits still.
+  // Reduced motion, Save-Data and devices without suitable WebGL use the still CSS ball.
   const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js";
   function ballCapable() {
     if (NO_MOTION || navigator.connection?.saveData) return false;
@@ -5693,16 +5682,19 @@
     return { col, bump };
   }
   function initBall() {
-    const host = $("#view-home .hero2"); if (!host || host.querySelector(".ball3d")) return;
-    const wrap = document.createElement("div"); wrap.className = "ball3d"; wrap.setAttribute("aria-hidden", "true");
-    wrap.innerHTML = `<div class="ball-css"></div><i class="ball-shadow"></i>`;
-    host.append(wrap);
-    const copy = $(".hero2-copy", host);
-    const sizeUp = () => { if (copy) host.style.setProperty("--copy-top", `${copy.offsetTop}px`); };
-    sizeUp(); addEventListener("resize", sizeUp);
-    if ("ResizeObserver" in window && copy) new ResizeObserver(sizeUp).observe(copy);
-    if (!ballCapable()) return;
-    import(THREE_URL).then((T) => buildBall(T, wrap)).catch(() => { /* offline or blocked: the still ball stays */ });
+    const wrap = $("#view-data .how-ball .ball3d");
+    if (!wrap || NO_MOTION) return;
+    const load = () => {
+      if (!ballCapable()) return;
+      import(THREE_URL).then((T) => buildBall(T, wrap)).catch(() => { /* offline or blocked: the still ball stays */ });
+    };
+    if (!("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      load();
+    });
+    observer.observe(wrap);
   }
   function buildBall(T, wrap) {
     const renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" });
@@ -5715,54 +5707,43 @@
     const bumpMap = new T.CanvasTexture(bump);
     const ball = new T.Mesh(new T.SphereGeometry(1, 96, 64),
       new T.MeshStandardMaterial({ map, bumpMap, bumpScale: 2.2, roughness: 0.42, metalness: 0.04 }));
-    const tilt = new T.Group(); tilt.rotation.z = 0.42; tilt.add(ball); scene.add(tilt);  // seam leaning like a swing delivery
+    const spin = new T.Group(); ball.rotation.z = 0.42; spin.add(ball); scene.add(spin);  // start with the seam at an angle
     scene.add(new T.AmbientLight(0xfff2dd, 0.45));
     const key = new T.DirectionalLight(0xffd38a, 2.6); key.position.set(2.6, 2.2, 3); scene.add(key);
     const rim = new T.DirectionalLight(0x9cc2ff, 1.4); rim.position.set(-3, -1.2, -2.2); scene.add(rim);
     const fill = new T.DirectionalLight(0xffffff, 0.35); fill.position.set(-2, 1, 3); scene.add(fill);
     const canvas = renderer.domElement; canvas.className = "ball-canvas";
     wrap.prepend(canvas);
-    const fit = () => { const s = Math.max(40, wrap.clientWidth); renderer.setSize(s, s, false); };
-    fit(); addEventListener("resize", fit);
-    // spin: idle tumble, drag to spin (with a little inertia), tilt with the phone (Android: no permission needed)
-    let vx = 0, vy = 0.006, drag = null, tiltX = 0, tiltY = 0;
-    canvas.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY }; wrap.classList.add("held"); try { canvas.setPointerCapture(e.pointerId); } catch { /* not capturable */ } });
-    canvas.addEventListener("pointermove", (e) => {
-      if (!drag) return;
-      vy = (e.clientX - drag.x) * 0.012; vx = (e.clientY - drag.y) * 0.012; drag = { x: e.clientX, y: e.clientY };
-    });
-    const let_go = () => { drag = null; wrap.classList.remove("held"); };
-    canvas.addEventListener("pointerup", let_go); canvas.addEventListener("pointercancel", let_go);
-    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== "function") {
-      addEventListener("deviceorientation", (e) => {
-        if (e.beta == null) return;
-        tiltX = Math.max(-0.35, Math.min(0.35, ((e.beta || 0) - 45) / 120)); tiltY = Math.max(-0.35, Math.min(0.35, (e.gamma || 0) / 90));
-      });
-    }
-    let visible = true, raf = 0;
-    const frame = () => {
-      raf = 0;
-      if (!visible || document.hidden || wrap.offsetParent === null) return;
-      if (!drag) { vx *= 0.94; vy = vy * 0.97 + 0.006 * 0.03; }  // settle back to the slow tumble
-      ball.rotation.x += vx; ball.rotation.y += vy;
-      tilt.rotation.x += (tiltX - tilt.rotation.x) * 0.05; tilt.rotation.y += (tiltY - tilt.rotation.y) * 0.05;
+    const fit = () => {
+      const size = wrap.clientWidth;
+      if (!size) return;
+      renderer.setSize(size, size, false);
       renderer.render(scene, camera);
-      raf = requestAnimationFrame(frame);
     };
-    const go = () => { if (!raf) raf = requestAnimationFrame(frame); };
-    if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) go(); }).observe(wrap);
-    document.addEventListener("visibilitychange", go); addEventListener("hashchange", () => setTimeout(go, 400));
-    renderer.render(scene, camera);
+    fit();
+    if ("ResizeObserver" in window) new ResizeObserver(fit).observe(wrap);
+    else addEventListener("resize", fit);
+    let drag = null, raf = 0;
+    canvas.addEventListener("pointerdown", (e) => {
+      if (!e.isPrimary || e.button !== 0) return;
+      drag = { x: e.clientX, y: e.clientY, id: e.pointerId };
+      wrap.classList.add("held");
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener("pointermove", (e) => {
+      if (drag?.id !== e.pointerId) return;
+      spin.rotation.y += (e.clientX - drag.x) * 0.012;
+      spin.rotation.x += (e.clientY - drag.y) * 0.012;
+      drag.x = e.clientX;
+      drag.y = e.clientY;
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; renderer.render(scene, camera); });
+    });
+    canvas.addEventListener("lostpointercapture", () => { drag = null; wrap.classList.remove("held"); });
     wrap.classList.add("ready");  // the 3D ball fades in over the still one
-    go();
   }
 
-  // ================= motion layer: charts that grow into view, the stadium light =================
+  // ================= motion layer: charts that grow into view =================
   (function motionLayer() {
-    // ---- 6. stadium mood: under floodlights in dark mode, a day match in light mode (one fixed, see-through layer)
-    const light = document.createElement("div"); light.className = "stadium-light"; light.setAttribute("aria-hidden", "true");
-    light.innerHTML = "<i></i><i></i><i></i><i></i><b></b><b></b>";
-    document.body.append(light);
     initBall();
     if (NO_MOTION || !("IntersectionObserver" in window)) return;
     // ---- 7. bars start empty and grow (once) when they come into view, neighbours one after another; pies too

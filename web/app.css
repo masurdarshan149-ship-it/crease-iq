@@ -1512,6 +1512,7 @@ html[data-theme="dark"] {
   position: absolute; width: 520px; height: 520px; border-radius: 50%; filter: blur(70px); opacity: .9;
   will-change: transform; animation: drift 26s ease-in-out infinite alternate;
 }
+.shell:has(.view:not(.home):not([hidden])) .ambient i { animation: none; }
 .ambient .a1 { background: var(--glow-1); top: 2%; left: -8%; }
 .ambient .a2 { background: var(--glow-2); top: 10%; right: -10%; animation-duration: 32s; animation-delay: -6s; }
 .ambient .a3 { background: var(--glow-3); top: 30%; left: 30%; animation-duration: 38s; animation-delay: -12s; }
@@ -2255,27 +2256,16 @@ html[data-theme="dark"] {
   --g2-chip: rgba(255, 255, 240, .06);
 }
 
-/* the big panels */
+/* steady glass behind text and form fields */
 .result-panel, .input-panel, .panel.section, .score-card, .page-head {
   background:
-    radial-gradient(460px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--g2-light), calc(.38 * var(--lit, 0))), transparent 62%),
     linear-gradient(180deg, var(--g2-refl) 0%, transparent 34%),
     linear-gradient(135deg, var(--g2-a) 0%, var(--g2-b) 55%, var(--g2-c) 100%);
   border: 1px solid var(--g2-edge);
   box-shadow: var(--g2-shadow);
   -webkit-backdrop-filter: blur(calc(16px * var(--blur-k, 1))) saturate(165%); backdrop-filter: blur(calc(16px * var(--blur-k, 1))) saturate(165%);
-  transition: box-shadow .35s ease, border-color .35s ease, --lit .35s ease;
+  transition: border-color .35s ease;
 }
-.result-panel:hover, .input-panel:hover, .panel.section:hover, .score-card:hover, .page-head:hover { --lit: 1; box-shadow: var(--g2-shadow-up); }
-@property --lit { syntax: "<number>"; inherits: true; initial-value: 0; }
-
-/* the page heading: a slow sheen like the Home hero */
-.page-head::after {
-  content: ""; position: absolute; top: -50%; bottom: -50%; left: -60%; width: 34%; pointer-events: none; z-index: 0;
-  background: linear-gradient(100deg, transparent, rgba(var(--g2-light), .32), transparent);
-  transform: skewX(-18deg) translateX(-120%); animation: sheen-sweep 11s ease-in-out 1.5s infinite;
-}
-html[data-theme="dark"] .page-head::after { background: linear-gradient(100deg, transparent, rgba(255, 255, 230, .07), transparent); }
 
 /* smaller pieces inside the panels: frosted chips instead of flat grey */
 .seg-tabs { background: var(--g2-chip); border-color: var(--g2-edge); box-shadow: inset 0 1px 2px rgba(40, 40, 30, .08), 0 1px 0 rgba(255, 255, 255, .5); }
@@ -2298,16 +2288,14 @@ html[data-theme="dark"] .score-tile, html[data-theme="dark"] .score-tile.muted-t
 .score-tile { background: linear-gradient(160deg, color-mix(in srgb, var(--accent-soft) 78%, transparent), color-mix(in srgb, var(--accent-soft) 46%, transparent)); }
 .score-tile.muted-tile { background: var(--g2-chip); }
 
-/* list rows (History): lighter glass, lift and a pointer light on hover; no live blur (there can be many) */
+/* History rows lift on hover and use a steady tint. */
 .hist-item {
-  background:
-    radial-gradient(340px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--g2-light), calc(.42 * var(--lit, 0))), transparent 60%),
-    linear-gradient(135deg, var(--g2-a), var(--g2-c));
+  background: linear-gradient(135deg, var(--g2-a), var(--g2-c));
   border-top-color: var(--g2-edge); border-right-color: var(--g2-edge); border-bottom-color: var(--g2-edge);
   box-shadow: inset 0 1px 0 rgba(var(--g2-light), .7), 0 18px 34px -28px rgba(40, 40, 30, .55);
-  transition: transform .25s cubic-bezier(.2, .7, .2, 1), box-shadow .25s, --lit .3s;
+  transition: transform .25s cubic-bezier(.2, .7, .2, 1), box-shadow .25s;
 }
-.hist-item:hover { --lit: 1; transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(var(--g2-light), .8), 0 28px 44px -28px rgba(40, 40, 30, .6); }
+.hist-item:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(var(--g2-light), .8), 0 28px 44px -28px rgba(40, 40, 30, .6); }
 html[data-theme="dark"] .hist-item { box-shadow: inset 0 1px 0 rgba(255, 255, 240, .08), 0 18px 34px -26px rgba(0, 0, 0, .85); }
 
 /* form fields sit in the glass instead of on it */
@@ -2324,13 +2312,11 @@ html:not([data-theme="dark"]) #predict-form input.sb-value:focus-visible { backg
 /* off: phones (blur is costly and the tab bar is fixed), low-power PCs, reduce motion */
 @media (max-width: 760px) {
   .result-panel, .input-panel, .panel.section, .score-card, .page-head { -webkit-backdrop-filter: none; backdrop-filter: none; --g2-b: var(--g2-a); }
-  .page-head::after { display: none; }
 }
 html.no-glass .result-panel, html.no-glass .input-panel, html.no-glass .panel.section, html.no-glass .score-card, html.no-glass .page-head {
   -webkit-backdrop-filter: none; backdrop-filter: none;
 }
-html.no-glass .page-head::after { display: none; animation: none; }
-@media (prefers-reduced-motion: reduce) { .page-head::after { display: none; animation: none; } .hist-item:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hist-item:hover { transform: none; } }
 
 
 /* match preview (before the first ball, 12 Nov 2026) */
@@ -3208,12 +3194,11 @@ html.sheet-open, html.sheet-open body { overflow: hidden; }
 .hist-pie[data-grow]:not(.grown) .pie-arc { animation-play-state: paused; }
 html.no-motion [data-grow] > i { transform: none; transition: none; }
 
-/* ---- 6. stadium mood. Dark mode: under floodlights (soft beams from the top corners, slowly swaying; the gold
-   scoreboard numbers glow). Light mode: a day match (a faint warm sun wash). A see-through layer: it never blocks a tap. */
-.stadium-light { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; display: none;
+/* ---- 6. A faint stadium light inside the Home photo, behind the content. */
+.stadium-light { position: absolute; inset: 0; pointer-events: none; overflow: hidden; display: none;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .6) 38%, transparent 72%);
   mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .6) 38%, transparent 72%); }
-html[data-theme="dark"] .stadium-light { display: block; mix-blend-mode: screen; opacity: .85; }
+html[data-theme="dark"] .hero2-bg.has-photo .stadium-light { display: block; mix-blend-mode: screen; opacity: .35; }
 .stadium-light i { position: absolute; top: -12vh; width: 26vmax; height: 130vh; transform-origin: 50% 0;
   background: linear-gradient(90deg, transparent, rgba(255, 238, 196, .16) 35%, rgba(255, 244, 214, .3) 50%, rgba(255, 238, 196, .16) 65%, transparent);
   animation: beam-sway 13s ease-in-out infinite alternate; }
@@ -3228,7 +3213,7 @@ html[data-theme="dark"] .stadium-light { display: block; mix-blend-mode: screen;
 .stadium-light b:nth-of-type(1) { left: -10vmax; }
 .stadium-light b:nth-of-type(2) { right: -10vmax; }
 /* day match: one faint warm wash from the top left, no beams */
-html:not([data-theme="dark"]) .stadium-light { display: block; mix-blend-mode: soft-light; opacity: .55; }
+html:not([data-theme="dark"]) .hero2-bg.has-photo .stadium-light { display: block; mix-blend-mode: soft-light; opacity: .3; }
 html:not([data-theme="dark"]) .stadium-light i, html:not([data-theme="dark"]) .stadium-light b:nth-of-type(2) { display: none; }
 html:not([data-theme="dark"]) .stadium-light b:nth-of-type(1) { left: -14vmax; top: -14vmax; width: 60vmax; height: 46vmax;
   background: radial-gradient(closest-side, rgba(255, 214, 130, .9), rgba(255, 214, 130, .25) 55%, transparent); }
@@ -3240,27 +3225,28 @@ html.m-phone[data-theme="dark"] #view-home .float-card b { text-shadow: 0 0 18px
 @media (prefers-reduced-motion: reduce) { .stadium-light i { animation: none; transform: rotate(var(--r0)); } }
 html.no-motion .stadium-light i { animation: none; transform: rotate(var(--r0)); }
 
-/* ---- 3. the 3D cricket ball on Home (a still CSS ball shows until it's ready, or instead of it) */
-.ball3d { position: absolute; z-index: 3; width: clamp(120px, 15vw, 210px); aspect-ratio: 1; right: 15%; top: 18%; pointer-events: none; }
+/* ---- 3. the ball has its own space beside the model explanation */
+.how-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(144px, 22%); align-items: center; gap: 20px clamp(20px, 4vw, 52px); }
+.how-panel .how { margin-top: 14px; }
+.how-ball { display: grid; justify-items: center; align-content: center; gap: 10px; margin: 0; padding: 16px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); }
+.how-ball figcaption { visibility: hidden; color: var(--muted); font-size: .8rem; }
+.how-ball .ball3d.ready + figcaption { visibility: visible; }
+.ball3d { position: relative; width: clamp(84px, 9vw, 116px); aspect-ratio: 1; }
+html.m-phone .how-panel { grid-template-columns: minmax(0, 1fr); }
+html.m-phone .how-ball { justify-self: center; width: min(100%, 168px); }
 .ball3d .ball-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; z-index: 1; opacity: 0;
   transition: opacity .8s var(--ease-out); pointer-events: auto; touch-action: pan-y; cursor: grab; }
 .ball3d.ready .ball-canvas { opacity: 1; }
 .ball3d.held .ball-canvas { cursor: grabbing; }
-.ball3d .ball-css { position: absolute; inset: 6%; border-radius: 50%; transition: opacity .8s var(--ease-out);
+.ball3d .ball-css { position: absolute; inset: 6%; z-index: 1; border-radius: 50%; pointer-events: none; transition: opacity .8s var(--ease-out);
   background: radial-gradient(circle at 32% 28%, #ff9a80 0, #c8352b 16%, #8f1b16 52%, #3d0806 100%);
   box-shadow: inset -14px -16px 30px rgba(0, 0, 0, .45), inset 6px 8px 18px rgba(255, 200, 170, .25); }
 .ball3d .ball-css::before { content: ""; position: absolute; inset: 44% -2% 44% -2%; border-radius: 50%;
-  border-top: 4px solid #ecdfc3; border-bottom: 3px dotted #f4ead2; transform: rotate(-24deg); opacity: .95; }
+  border-top: 2px solid #ecdfc3; border-bottom: 2px dotted #f4ead2; transform: rotate(-24deg); opacity: .95; }
 .ball3d.ready .ball-css { opacity: 0; }
-.ball3d .ball-shadow { position: absolute; left: 18%; right: 18%; bottom: -10%; height: 14%; border-radius: 50%; z-index: 0;
-  background: radial-gradient(closest-side, rgba(0, 0, 0, .5), transparent); filter: blur(2px); }
-.ball3d { animation: ball-in 1s var(--spring) .3s both; }
-@keyframes ball-in { from { opacity: 0; transform: translateY(-30px) scale(.6); } }
-/* phone: at the edge between the photo and the headline card, on the right */
-html.m-phone .ball3d { width: 104px; right: 16px; top: calc(var(--copy-top, 200px) - 70px); bottom: auto; }
-html.m-phone #view-home .hero2-copy { z-index: 2; }
-html.m-phone .ball3d { z-index: 4; }
-@media (prefers-reduced-motion: reduce) { .ball3d { animation: none; } }
+.ball3d .ball-shadow { position: absolute; left: 18%; right: 18%; bottom: 0; height: 10%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, .5), transparent); }
 
 /* phone Home in light mode: the headline card is dark in both themes, so the hero behind the fading photo is dark too,
    and the bold number in the line under the headline is light (it was the light theme's dark text, unreadable here) */

@@ -1,205 +1,205 @@
 {
- "trained_at": "2026-11-15 11:27",
- "data_through": "2026-11-02",
- "test_period": "2025-01-01 to 2026-11-02",
- "test_innings": 1297,
+ "trained_at": "2026-11-26 23:11",
+ "data_through": "2026-11-24",
+ "test_period": "2025-01-01 to 2026-11-24",
+ "test_innings": 1312,
  "slices": {
   "All T20 states": {
    "model": {
     "mae": 18.0,
-    "within_10": 41.6,
+    "within_10": 41.5,
     "within_20": 66.6,
-    "states": 21771,
-    "coverage_80": 80.7,
+    "states": 21931,
+    "coverage_80": 80.8,
     "avg_width": 60.2
    },
    "current_rate": {
     "mae": 24.3,
-    "within_10": 35.9,
-    "within_20": 58.0,
-    "states": 21771
+    "within_10": 35.8,
+    "within_20": 57.9,
+    "states": 21931
    },
    "venue_par": {
-    "mae": 22.8,
-    "within_10": 32.5,
-    "within_20": 56.4,
-    "states": 21771
+    "mae": 22.7,
+    "within_10": 32.6,
+    "within_20": 56.5,
+    "states": 21931
    }
   },
   "All ODI states": {
    "model": {
-    "mae": 31.8,
+    "mae": 32.0,
     "within_10": 25.3,
-    "within_20": 44.6,
-    "states": 9023,
-    "coverage_80": 80.0,
-    "avg_width": 113.5
+    "within_20": 44.4,
+    "states": 9339,
+    "coverage_80": 79.9,
+    "avg_width": 113.8
    },
    "current_rate": {
-    "mae": 49.8,
-    "within_10": 14.0,
-    "within_20": 27.5,
-    "states": 9023
+    "mae": 49.7,
+    "within_10": 14.1,
+    "within_20": 27.6,
+    "states": 9339
    },
    "venue_par": {
-    "mae": 42.2,
-    "within_10": 15.1,
-    "within_20": 30.9,
-    "states": 9023
+    "mae": 42.5,
+    "within_10": 15.0,
+    "within_20": 30.7,
+    "states": 9339
    }
   },
   "T20 \u00b7 before the match": {
    "model": {
-    "mae": 31.7,
+    "mae": 31.6,
     "within_10": 20.3,
-    "within_20": 38.3,
-    "states": 1109,
-    "coverage_80": 77.4,
-    "avg_width": 101.1
+    "within_20": 38.5,
+    "states": 1117,
+    "coverage_80": 77.5,
+    "avg_width": 101.0
    },
    "current_rate": {
-    "mae": 35.8,
-    "within_10": 17.0,
+    "mae": 35.7,
+    "within_10": 17.1,
     "within_20": 34.4,
-    "states": 1109
+    "states": 1117
    },
    "venue_par": {
-    "mae": 35.8,
-    "within_10": 17.0,
+    "mae": 35.7,
+    "within_10": 17.1,
     "within_20": 34.4,
-    "states": 1109
+    "states": 1117
    }
   },
   "T20 \u00b7 overs 1\u20136": {
    "model": {
-    "mae": 25.8,
-    "within_10": 25.6,
+    "mae": 25.7,
+    "within_10": 25.5,
     "within_20": 47.6,
-    "states": 6648,
-    "coverage_80": 79.3,
-    "avg_width": 84.7
+    "states": 6696,
+    "coverage_80": 79.4,
+    "avg_width": 84.6
    },
    "current_rate": {
-    "mae": 41.0,
+    "mae": 40.9,
     "within_10": 17.8,
-    "within_20": 32.9,
-    "states": 6648
+    "within_20": 33.0,
+    "states": 6696
    },
    "venue_par": {
-    "mae": 31.5,
+    "mae": 31.4,
     "within_10": 19.6,
-    "within_20": 39.0,
-    "states": 6648
+    "within_20": 39.1,
+    "states": 6696
    }
   },
   "T20 \u00b7 overs 7\u201315": {
    "model": {
     "mae": 15.7,
-    "within_10": 40.8,
-    "within_20": 70.5,
-    "states": 9858,
-    "coverage_80": 80.9,
+    "within_10": 40.7,
+    "within_20": 70.4,
+    "states": 9930,
+    "coverage_80": 81.0,
     "avg_width": 53.7
    },
    "current_rate": {
     "mae": 18.7,
     "within_10": 35.4,
-    "within_20": 62.6,
-    "states": 9858
+    "within_20": 62.5,
+    "states": 9930
    },
    "venue_par": {
-    "mae": 21.3,
-    "within_10": 29.4,
-    "within_20": 56.4,
-    "states": 9858
+    "mae": 21.2,
+    "within_10": 29.5,
+    "within_20": 56.5,
+    "states": 9930
    }
   },
   "T20 \u00b7 overs 16\u201319": {
    "model": {
     "mae": 7.3,
-    "within_10": 74.7,
+    "within_10": 74.8,
     "within_20": 95.6,
-    "states": 4156,
-    "coverage_80": 83.4,
+    "states": 4188,
+    "coverage_80": 83.5,
     "avg_width": 25.5
    },
    "current_rate": {
     "mae": 7.9,
-    "within_10": 70.8,
+    "within_10": 70.7,
     "within_20": 93.3,
-    "states": 4156
+    "states": 4188
    },
    "venue_par": {
     "mae": 9.0,
     "within_10": 65.0,
     "within_20": 90.3,
-    "states": 4156
+    "states": 4188
    }
   },
   "ODI \u00b7 overs 1\u201310": {
    "model": {
-    "mae": 48.5,
-    "within_10": 12.6,
-    "within_20": 25.1,
-    "states": 1880,
-    "coverage_80": 83.4,
-    "avg_width": 182.0
+    "mae": 49.1,
+    "within_10": 12.4,
+    "within_20": 24.7,
+    "states": 1950,
+    "coverage_80": 82.8,
+    "avg_width": 182.2
    },
    "current_rate": {
     "mae": 86.8,
     "within_10": 8.1,
     "within_20": 14.7,
-    "states": 1880
+    "states": 1950
    },
    "venue_par": {
-    "mae": 52.1,
-    "within_10": 11.0,
-    "within_20": 25.2,
-    "states": 1880
+    "mae": 52.8,
+    "within_10": 10.8,
+    "within_20": 24.8,
+    "states": 1950
    }
   },
   "ODI \u00b7 overs 11\u201340": {
    "model": {
     "mae": 30.7,
     "within_10": 22.3,
-    "within_20": 41.9,
-    "states": 5541,
-    "coverage_80": 78.8,
-    "avg_width": 106.7
+    "within_20": 41.8,
+    "states": 5743,
+    "coverage_80": 78.6,
+    "avg_width": 106.9
    },
    "current_rate": {
-    "mae": 45.1,
-    "within_10": 10.9,
-    "within_20": 23.2,
-    "states": 5541
+    "mae": 44.9,
+    "within_10": 11.1,
+    "within_20": 23.5,
+    "states": 5743
    },
    "venue_par": {
-    "mae": 44.0,
+    "mae": 44.2,
     "within_10": 12.6,
-    "within_20": 26.5,
-    "states": 5541
+    "within_20": 26.3,
+    "states": 5743
    }
   },
   "ODI \u00b7 overs 41\u201349": {
    "model": {
-    "mae": 11.2,
-    "within_10": 56.0,
-    "within_20": 84.0,
-    "states": 1414,
-    "coverage_80": 80.3,
-    "avg_width": 37.4
+    "mae": 11.1,
+    "within_10": 56.7,
+    "within_20": 84.4,
+    "states": 1451,
+    "coverage_80": 80.8,
+    "avg_width": 37.5
    },
    "current_rate": {
-    "mae": 18.5,
-    "within_10": 34.4,
-    "within_20": 61.9,
-    "states": 1414
+    "mae": 18.4,
+    "within_10": 34.7,
+    "within_20": 62.0,
+    "states": 1451
    },
    "venue_par": {
-    "mae": 20.5,
+    "mae": 20.4,
     "within_10": 30.8,
-    "within_20": 57.1,
-    "states": 1414
+    "within_20": 57.3,
+    "states": 1451
    }
   }
  },
@@ -276,6 +276,15 @@
    "t20_mae": 18.0,
    "t20_crr_mae": 24.3,
    "t20_coverage": 80.7
+  },
+  {
+   "trained_at": "2026-11-26 23:11",
+   "label": "Retrained from the app",
+   "data_through": "2026-11-24",
+   "test_innings": 1312,
+   "t20_mae": 18.0,
+   "t20_crr_mae": 24.3,
+   "t20_coverage": 80.8
   }
  ]
 }
