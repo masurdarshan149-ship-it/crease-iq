@@ -192,13 +192,17 @@
   }
   addEventListener("resize", () => placeGlider());
   document.fonts?.ready?.then(() => placeGlider());
-  let routedOnce = false;
+  let routedOnce = false, routeSeq = 0;
   function route() {
     // online copy: no Data page, and no Replay (its match archive isn't uploaded and wouldn't fit the free plan's memory)
     if (PUBLIC && (location.hash === "#data" || location.hash === "#replay")) { location.hash = "#home"; return; }
     const tab = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
     const prev = VIEWS.find((v) => !$(`#view-${v}`).hidden);
+    const seq = ++routeSeq;
     const show = () => {
+      // a page transition waits for the next frame: if another page was opened meanwhile (two quick taps), that one
+      // has already been shown, and this older switch must not cover it
+      if (seq !== routeSeq) return;
       VIEWS.forEach((v) => { $(`#view-${v}`).hidden = v !== tab; });
       $("#insights").hidden = tab !== "predict";
       markTabs();

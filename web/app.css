@@ -3019,6 +3019,11 @@ html.m-phone .page-head { padding: 18px 16px; border-radius: 22px; }
 html.m-phone .page-head h1 { font-size: clamp(1.8rem, 9vw, 2.4rem); line-height: 1; overflow-wrap: anywhere; }
 html.m-phone .page-head .lede { font-size: 0.86rem; }
 html.m-phone main#app { overflow-x: hidden; }
+/* Predict / Live chase opened zoomed out (page pushed left, blank strip on the right): something stuck out past the
+   edge for a moment, the phone zoomed out to fit it, and the fixed tab bar, stretched to the zoomed-out width, kept it
+   there. The page root now clips sideways overflow, and the viewport has minimum-scale=1 (index.html), so the phone
+   never zooms out by itself; pinch-zoom in still works. */
+html.m-phone { overflow-x: clip; }
 
 /* ---- phone: the first choice decides the form (Before the match / Innings break / Live chase) */
 html.m-phone .stage-toggle { display: none; }
